@@ -27,7 +27,7 @@ public void start(final Stage stage) {}
 final StackPane stackPane = new StackPane();
 ```
 
-* Kann auch per `.fxml`-Datei gemacht werden:
+* _Oder:_ Kann auch per `.fxml`-Datei gemacht werden:
 
 ```java
 Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
