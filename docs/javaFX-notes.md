@@ -8,6 +8,12 @@
 public class ClassName extends Application {}
 ```
 
+* `main`-Methode muss `launch()` ausführen:
+
+```java
+launch(args);
+```
+
 * Die Methode `start(Stage stage)` muss überschrieben werden:
 
 ```java
