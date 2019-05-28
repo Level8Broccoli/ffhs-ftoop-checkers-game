@@ -17,7 +17,7 @@
                 <ToggleGroup fx:id="playerType" />
             </fx:define>
             <children>
-                <ToggleButton text="Humans" toggleGroup="$playerType" />
+                <ToggleButton text="Human" toggleGroup="$playerType" />
                 <ToggleButton text="Computer" toggleGroup="$playerType" />
             </children>
         </HBox>
