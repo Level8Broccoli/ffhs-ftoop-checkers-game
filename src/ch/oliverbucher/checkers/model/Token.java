@@ -1,13 +1,15 @@
-package ch.oliverbucher.checkers;
+package ch.oliverbucher.checkers.model;
 
-public class TokenModel implements TokenModelInterface {
+import ch.oliverbucher.checkers.enumarations.PlayerColor;
 
-    PlayerModel playerOwner;
-    int coordinateX;
-    int coordinateY;
-    PlayerColor playerColor;
+public class Token implements TokenInterface {
 
-    public TokenModel(PlayerModel playerOwner, int coordinateX, int coordinateY, PlayerColor playerColor) {
+    private Player playerOwner;
+    private int coordinateX;
+    private int coordinateY;
+    private PlayerColor playerColor;
+
+    public Token(Player playerOwner, int coordinateX, int coordinateY, PlayerColor playerColor) {
         this.playerOwner = playerOwner;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
@@ -15,7 +17,7 @@ public class TokenModel implements TokenModelInterface {
     }
 
     @Override
-    public PlayerModel getPlayerOwner() {
+    public Player getPlayerOwner() {
         return playerOwner;
     }
 
