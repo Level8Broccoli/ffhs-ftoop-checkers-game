@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ch.oliverbucher.checkers.view.JavaFXApplication" alignment="TOP_CENTER">
+    <children>
+        <Label text="Welcome to Checkers" />
+        <Label text="Do you want to play against human or computer opponent?" />
+        <HBox alignment="CENTER">
+            <fx:define>
+                <ToggleGroup fx:id="playerType" />
+            </fx:define>
+            <children>
+                <ToggleButton text="Human" toggleGroup="$playerType" />
+                <ToggleButton text="Computer" toggleGroup="$playerType" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

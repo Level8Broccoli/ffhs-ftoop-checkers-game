@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.model;
 
-import ch.oliverbucher.checkers.enumarations.BoardColor;
+import ch.oliverbucher.checkers.enumaration.BoardColor;
 
 public class BoardSpace {
     private boolean isEmpty;

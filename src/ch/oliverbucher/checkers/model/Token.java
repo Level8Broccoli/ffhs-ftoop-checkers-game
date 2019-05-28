@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.model;
 
-import ch.oliverbucher.checkers.enumarations.PlayerColor;
+import ch.oliverbucher.checkers.enumaration.PlayerColor;
 
 public class Token implements TokenInterface {
 

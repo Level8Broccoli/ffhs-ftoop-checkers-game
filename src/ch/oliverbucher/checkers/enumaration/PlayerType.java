@@ -1,4 +1,4 @@
-package ch.oliverbucher.checkers.enumarations;
+package ch.oliverbucher.checkers.enumaration;
 
 public enum PlayerType {
     HUMAN, COMPUTER
