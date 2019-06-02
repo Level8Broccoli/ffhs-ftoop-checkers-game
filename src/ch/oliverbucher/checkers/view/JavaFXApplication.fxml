@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ch.oliverbucher.checkers.view.JavaFXApplication" alignment="TOP_CENTER">
+<VBox prefHeight="%WINDOW_HEIGHT" prefWidth="%WINDOW_WIDTH" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ch.oliverbucher.checkers.view.JavaFXApplication" alignment="TOP_CENTER">
     <children>
-        <Label text="Welcome to Checkers" />
-        <Label text="Do you want to play against human or computer opponent?" />
+        <Label text="%TXT_WELCOME" />
+        <Label text="%TXT_OPPONENT_QUESTION" />
         <HBox alignment="CENTER">
             <fx:define>
                 <ToggleGroup fx:id="playerType" />
             </fx:define>
             <children>
-                <ToggleButton text="Human" toggleGroup="$playerType" />
-                <ToggleButton text="Computer" toggleGroup="$playerType" />
+                <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" />
+                <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" />
+            </children>
+        </HBox>
+        <Button text="%BTN_START_GAME" />
+        <HBox alignment="BOTTOM_RIGHT">
+            <children>
+              <Label text="%GAME_VERSION" />
             </children>
         </HBox>
     </children>
