@@ -4,16 +4,15 @@
 <?import javafx.scene.layout.*?>
 
 <VBox prefHeight="%WINDOW_HEIGHT" prefWidth="%WINDOW_WIDTH" xmlns="http://javafx.com/javafx"
-xmlns:fx="http://javafx.com/fxml"
-fx:controller="ch.oliverbucher.checkers.controller.Controller" alignment="TOP_CENTER">
+xmlns:fx="http://javafx.com/fxml" alignment="TOP_CENTER" fx:controller="ch.oliverbucher.checkers.controller.Controller">
     <Label text="%TXT_WELCOME" />
     <Label text="%TXT_OPPONENT_QUESTION" />
     <HBox alignment="CENTER">
         <fx:define>
         <ToggleGroup fx:id="playerType" />
         </fx:define>
-        <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" />
-        <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" />
+        <ToggleButton fx:id="HUMAN" text="%BTN_HUMAN" toggleGroup="$playerType" />
+        <ToggleButton fx:id="COMPUTER" text="%BTN_COMPUTER" toggleGroup="$playerType" />
     </HBox>
     <Button text="%BTN_START_GAME" onAction="#onClick" />
     <HBox alignment="BOTTOM_RIGHT">
