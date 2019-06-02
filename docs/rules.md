@@ -1,4 +1,4 @@
-# Regeln des Dame-Spiels
+# Regeln des Dame-Spiels
 
 ## Material
 
