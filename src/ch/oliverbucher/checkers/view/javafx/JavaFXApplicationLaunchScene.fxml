@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+        fx:id="container"
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml">
+    <top>
+        <VBox fx:id="header">
+            <Label text="%TXT_WELCOME" />
+        </VBox>
+    </top>
+
+    <center>
+        <VBox fx:id="main">
+            <Label text="%TXT_OPPONENT_QUESTION" />
+            <HBox alignment="CENTER">
+                <fx:define>
+                    <ToggleGroup fx:id="playerType" />
+                </fx:define>
+                <ToggleButton fx:id="btnHuman" text="%BTN_HUMAN" toggleGroup="$playerType" />
+                <ToggleButton fx:id="btnComputer" text="%BTN_COMPUTER" toggleGroup="$playerType" />
+            </HBox>
+            <Button fx:id="btnStartGame" text="%BTN_START_GAME" />
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox fx:id="footer">
+            <Label text="%GAME_AUTHOR" />
+            <Label text=", " />
+            <Label text="%GAME_VERSION" />
+        </HBox>
+    </bottom>
+</BorderPane>

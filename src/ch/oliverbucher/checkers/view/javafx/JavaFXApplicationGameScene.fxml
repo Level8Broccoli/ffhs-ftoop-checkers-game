@@ -4,11 +4,12 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane
+        fx:id="container"
         xmlns="http://javafx.com/javafx"
         xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox fx:id="header">
-            <Label text="%TXT_WELCOME" />
+            <Label text="Game Scene" />
         </VBox>
     </top>
 
