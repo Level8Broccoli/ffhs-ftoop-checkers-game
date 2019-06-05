@@ -5,14 +5,12 @@ import ch.oliverbucher.checkers.enumaration.PlayerColor;
 public class Token implements TokenInterface {
 
     private Player playerOwner;
-    private int coordinateX;
-    private int coordinateY;
+    private Position position;
     private PlayerColor playerColor;
 
-    public Token(Player playerOwner, int coordinateX, int coordinateY, PlayerColor playerColor) {
+    public Token(Player playerOwner, Position position, PlayerColor playerColor) {
         this.playerOwner = playerOwner;
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
+        this.position = position;
         this.playerColor = playerColor;
     }
 
@@ -22,13 +20,8 @@ public class Token implements TokenInterface {
     }
 
     @Override
-    public int getCoordinateX() {
-        return coordinateX;
-    }
-
-    @Override
-    public int getCoordinateY() {
-        return coordinateY;
+    public Position getPosition() {
+        return position;
     }
 
     @Override

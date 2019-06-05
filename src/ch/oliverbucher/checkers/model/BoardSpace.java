@@ -4,14 +4,12 @@ import ch.oliverbucher.checkers.enumaration.BoardColor;
 
 public class BoardSpace {
     private boolean isEmpty;
-    private int coordinateX;
-    private int coordinateY;
+    private Position position;
     private BoardColor boardColor;
 
-    public BoardSpace(boolean isEmpty, int coordinateX, int coordinateY, BoardColor boardColor) {
+    public BoardSpace(boolean isEmpty, Position position, BoardColor boardColor) {
         this.isEmpty = isEmpty;
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
+        this.position = position;
         this.boardColor = boardColor;
     }
 }
