@@ -21,3 +21,7 @@
 #DARK {
     -fx-background-color: darkgray;
 }
+
+#boardContainer #boardField {
+    -fx-border-color: green;
+}

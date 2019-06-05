@@ -1,16 +1,17 @@
 package ch.oliverbucher.checkers;
 
-import ch.oliverbucher.checkers.controller.MainController;
-import ch.oliverbucher.checkers.view.javafx.JavaFXApplication;
+import ch.oliverbucher.checkers.controller.CheckersGameController;
+import ch.oliverbucher.checkers.model.CheckersGameModel;
+import ch.oliverbucher.checkers.view.CheckersGameView;
 
 public class Checkers {
 
     public static void main(String[] args) {
 
-        JavaFXApplication javaFXApplication = new JavaFXApplication();
-        MainController controller = new MainController(javaFXApplication);
+        CheckersGameModel model = new CheckersGameModel();
+        CheckersGameView view = new CheckersGameView(model);
+        CheckersGameController controller = new CheckersGameController(model, view);
 
-        controller.initializeGame();
-        controller.startInterface();
+        controller.startApplication();
     }
 }
