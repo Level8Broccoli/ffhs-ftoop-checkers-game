@@ -1,0 +1,11 @@
+#header {
+    -fx-alignment: center;
+}
+
+#main {
+    -fx-alignment: center;
+}
+
+#footer {
+    -fx-alignment: bottom-right;
+}

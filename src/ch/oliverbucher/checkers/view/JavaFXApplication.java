@@ -1,7 +1,6 @@
 package ch.oliverbucher.checkers.view;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,6 +25,7 @@ public class JavaFXApplication extends Application implements ApplicationInterfa
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.getScene().getStylesheets().add(this.getClass().getResource("JavaFXApplicationStyles.css").toExternalForm());
         stage.setTitle(resources.getString("GAME_TITLE"));
         stage.show();
     }
