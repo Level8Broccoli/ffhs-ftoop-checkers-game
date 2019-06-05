@@ -24,18 +24,9 @@ public class Board {
                 boardSpaces[counter] = field;
 
                 counter++;
-                boardColorThisRow = colorSwitch(boardColorThisRow);
+                boardColorThisRow = boardColorThisRow.switchColor();
             }
-            boardColor = colorSwitch(boardColor);
-        }
-    }
-
-    private BoardColor colorSwitch(BoardColor boardColor) {
-
-        if (boardColor == BoardColor.DARK) {
-            return BoardColor.LIGHT;
-        } else {
-            return BoardColor.DARK;
+            boardColor = boardColor.switchColor();
         }
     }
 
