@@ -1,7 +1,6 @@
 package ch.oliverbucher.checkers.view.javafx;
 
-import ch.oliverbucher.checkers.controller.javafx.JavaFXGameController;
-import ch.oliverbucher.checkers.controller.javafx.JavaFXLaunchController;
+import ch.oliverbucher.checkers.controller.javafx.JavaFXController;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.ApplicationInterface;
 import javafx.application.Application;
@@ -15,7 +14,7 @@ import java.net.URL;
 public class JavaFXApplication extends Application implements ApplicationInterface {
     
     @Override
-    public void startApplication() {
+    public void startGame() {
         launch();
     }
 
@@ -23,8 +22,7 @@ public class JavaFXApplication extends Application implements ApplicationInterfa
     public void start(Stage stage) throws Exception {
 
         // Load controllers
-        JavaFXLaunchController launchController = new JavaFXLaunchController();
-        JavaFXGameController gameController = new JavaFXGameController();
+        JavaFXController javaFXController = new JavaFXController();
 
         // Load stylesheet
         String stylesheetFile = this.getClass().getResource("JavaFXApplicationStyles.css").toExternalForm();
@@ -32,7 +30,7 @@ public class JavaFXApplication extends Application implements ApplicationInterfa
         // Launch Scene
         URL launchFxmlURL = getClass().getResource("JavaFXApplicationLaunchScene.fxml");
         FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.getResourceBundle());
-        launchFxmlLoader.setController(launchController);
+        launchFxmlLoader.setController(javaFXController);
         Parent launchRoot = launchFxmlLoader.load();
         launchRoot.getStylesheets().add(stylesheetFile);
         Scene launchScene = new Scene(launchRoot);
@@ -40,14 +38,15 @@ public class JavaFXApplication extends Application implements ApplicationInterfa
         // Game Scene
         URL fxmlURLGame = getClass().getResource("JavaFXApplicationGameScene.fxml");
         FXMLLoader fxmlLoaderGame = new FXMLLoader(fxmlURLGame, Config.getResourceBundle());
-        fxmlLoaderGame.setController(gameController);
+        fxmlLoaderGame.setController(javaFXController);
         Parent gameRoot = fxmlLoaderGame.load();
         gameRoot.getStylesheets().add(stylesheetFile);
         Scene gameScene = new Scene(gameRoot);
 
         // give controller control over scene changes
-        launchController.setGameScene(gameScene);
-        gameController.setLaunchScene(launchScene);
+        javaFXController.setGameScene(gameScene);
+        javaFXController.setLaunchScene(launchScene);
+        javaFXController.setStage(stage);
 
         // Set scene and start application
         stage.setScene(launchScene);
@@ -57,4 +56,25 @@ public class JavaFXApplication extends Application implements ApplicationInterfa
 
         stage.show();
     }
+
+//    public void drawBoard(GridPane container) {
+//
+//        int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
+//        int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
+//
+//        Board board = new Board(boardWidth, boardHeight);
+//
+//        for (int i = 0; i < board.getSumOfSpaces(); i++) {
+//            BoardSpace currentSpace = board.getBoardSpaces()[i];
+//
+//            int currentPositionX = currentSpace.getPosition().getPositionX();
+//            int currentPositionY = currentSpace.getPosition().getPositionY();
+//            BoardColor currentBoardColor = currentSpace.getBoardColor();
+//
+//            Label label = new Label("Text");
+//            label.setId(String.valueOf(currentBoardColor));
+//
+//            container.add(label, currentPositionX, currentPositionY);
+//        }
+//    }
 }
