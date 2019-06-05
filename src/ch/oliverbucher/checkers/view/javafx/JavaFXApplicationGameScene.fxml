@@ -15,10 +15,9 @@
 
     <center>
         <VBox fx:id="main">
-            <Label text="%TXT_OPPONENT_QUESTION" />
-            <GridPane>
+            <GridPane fx:id="boardContainer">
             </GridPane>
-            <Button fx:id="btnStartGame" text="%BTN_START_GAME" />
+            <Button fx:id="btnNewGame" text="%BTN_NEW_GAME" />
         </VBox>
     </center>
 

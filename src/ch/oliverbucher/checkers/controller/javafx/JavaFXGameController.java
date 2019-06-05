@@ -1,14 +1,17 @@
 package ch.oliverbucher.checkers.controller.javafx;
 
+import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.model.Board;
+import ch.oliverbucher.checkers.model.BoardSpace;
+import ch.oliverbucher.checkers.resources.Config;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -20,44 +23,50 @@ public class JavaFXGameController implements Initializable {
     private BorderPane container;
 
     @FXML
-    private ToggleButton btnHuman;
+    private Button btnNewGame;
 
     @FXML
-    private ToggleButton btnComputer;
+    private GridPane boardContainer;
 
-    @FXML
-    private Button btnStartGame;
-
-    private Scene gameScene;
     private Scene launchScene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btnStartGame.setOnAction(this::onClick);
+        btnNewGame.setOnAction(this::onClick);
+
+        drawBoard();
+    }
+
+    private void drawBoard() {
+        int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
+        int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
+
+        Board board = new Board(boardWidth, boardHeight);
+
+        for (int i = 0; i < board.getSumOfSpaces(); i++) {
+            BoardSpace currentSpace = board.getBoardSpaces()[i];
+
+            int currentPositionX = currentSpace.getPosition().getPositionX();
+            int currentPositionY = currentSpace.getPosition().getPositionY();
+            BoardColor currentBoardColor = currentSpace.getBoardColor();
+
+            Label label = new Label("Text");
+            label.setId(String.valueOf(currentBoardColor));
+
+            boardContainer.add(label, currentPositionX, currentPositionY);
+        }
     }
 
     private void onClick(ActionEvent event) {
-        System.out.println("click is working!");
-        System.out.println("Human: " + btnHuman.isSelected());
-        System.out.println("Computer: " + btnComputer.isSelected());
-
-        startGame(event);
+        newGame();
     }
 
-    private void startGame(ActionEvent event) {
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(gameScene);
-
-        new Board(12,12);
-
+    private void newGame() {
+        Stage stage = (Stage) container.getScene().getWindow();
+        stage.setScene(launchScene);
     }
 
     public void setLaunchScene(Scene launchScene) {
         this.launchScene = launchScene;
-    }
-
-    public void setGameScene(Scene gameScene) {
-        this.gameScene = gameScene;
     }
 }

@@ -1,10 +1,9 @@
 package ch.oliverbucher.checkers.controller.javafx;
 
-import ch.oliverbucher.checkers.model.Board;
+import ch.oliverbucher.checkers.controller.LaunchControllerInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class JavaFXLaunchController implements Initializable {
+public class JavaFXLaunchController implements Initializable, LaunchControllerInterface {
 
     @FXML
     private BorderPane container;
@@ -29,35 +28,26 @@ public class JavaFXLaunchController implements Initializable {
     private Button btnStartGame;
 
     private Scene gameScene;
-    private Scene launchScene;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         btnStartGame.setOnAction(this::onClick);
     }
 
     private void onClick(ActionEvent event) {
-        System.out.println("click is working!");
-        System.out.println("Human: " + btnHuman.isSelected());
-        System.out.println("Computer: " + btnComputer.isSelected());
 
-        startGame(event);
+        startGame();
     }
 
-    private void startGame(ActionEvent event) {
+    public void startGame() {
 
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) container.getScene().getWindow();
         stage.setScene(gameScene);
-
-        new Board(12,12);
-
-    }
-
-    public void setLaunchScene(Scene launchScene) {
-        this.launchScene = launchScene;
     }
 
     public void setGameScene(Scene gameScene) {
+
         this.gameScene = gameScene;
     }
 }

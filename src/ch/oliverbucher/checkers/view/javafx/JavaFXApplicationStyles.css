@@ -13,3 +13,7 @@
 #footer {
     -fx-alignment: bottom-right;
 }
+
+#LIGHT {
+    -fx-background-color: red;
+}
