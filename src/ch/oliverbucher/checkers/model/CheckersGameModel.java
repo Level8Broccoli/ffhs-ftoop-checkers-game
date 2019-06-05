@@ -23,4 +23,8 @@ public class CheckersGameModel {
     public Board getBoard() {
         return board;
     }
+
+    public void setOpponent(PlayerType playerType) {
+        players[1].setType(playerType);
+    }
 }

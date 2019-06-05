@@ -13,4 +13,8 @@ public class Player {
         this.playerType = playerType;
         this.playerColor = playerColor;
     }
+
+    public void setType(PlayerType playerType) {
+        this.playerType = playerType;
+    }
 }

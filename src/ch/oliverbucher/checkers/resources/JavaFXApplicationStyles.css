@@ -4,10 +4,24 @@
 
 #header {
     -fx-alignment: center;
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
 }
 
 #main {
     -fx-alignment: center;
+}
+
+#main * {
+    -fx-padding: 15px;
+}
+
+#main ToggleButton {
+    -fx-padding: 15px 30px;
+}
+
+Button {
+    -fx-padding: 15px 30px;
 }
 
 #footer {
@@ -24,4 +38,12 @@
 
 #boardContainer #boardField {
     -fx-border-color: green;
+}
+
+#btnNewGame {
+    -fx-alignment: bottom-left;
+}
+
+#lblMessage {
+    -fx-text-fill: red;
 }

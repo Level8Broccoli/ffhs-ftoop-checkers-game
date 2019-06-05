@@ -9,17 +9,21 @@ public class GameViewController {
 
     @FXML
     private Button btnNewGame;
+
     private CheckersGamePresenter presenter;
 
     public void initialize() {
+
         btnNewGame.setOnAction(this::onClickNewGame);
     }
 
     private void onClickNewGame(ActionEvent event) {
-        System.out.println("New Game");
+
+        presenter.newGame();
     }
 
     public void setPresenter(CheckersGamePresenter presenter) {
+
         this.presenter = presenter;
     }
 

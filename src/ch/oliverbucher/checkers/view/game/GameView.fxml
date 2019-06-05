@@ -17,12 +17,13 @@
         <VBox fx:id="main">
             <GridPane fx:id="boardContainer">
             </GridPane>
-            <Button fx:id="btnNewGame" text="%BTN_NEW_GAME" />
+            <Button fx:id="btnNewGame" text="%BTN_NEW_GAME"  />
+            <Label fx:id="lblMessage" />
         </VBox>
     </center>
 
     <bottom>
-        <HBox fx:id="footer">
+        <HBox fx:id="footer" alignment="BOTTOM_RIGHT">
             <Label text="%GAME_AUTHOR" />
             <Label text=", " />
             <Label text="%GAME_VERSION" />

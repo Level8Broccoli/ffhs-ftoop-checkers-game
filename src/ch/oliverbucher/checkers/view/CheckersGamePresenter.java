@@ -1,6 +1,7 @@
 package ch.oliverbucher.checkers.view;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
+import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.Board;
 import ch.oliverbucher.checkers.model.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
@@ -33,6 +34,7 @@ public class CheckersGamePresenter extends Application {
     }
 
     public void startApplication() {
+
         launch();
     }
 
@@ -86,7 +88,14 @@ public class CheckersGamePresenter extends Application {
         drawBoard();
     }
 
+    public void newGame() {
+
+        stage.setScene(launchScene);
+    }
+
     public void drawBoard() {
+
+        GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
 
         Board board = model.getBoard();
         for (int i = 0; i < board.getSumOfSpaces(); i++) {
@@ -99,8 +108,11 @@ public class CheckersGamePresenter extends Application {
             Label label = new Label("Text");
             label.setId(String.valueOf(currentBoardColor));
 
-            GridPane container = (GridPane) gameScene.lookup("#boardContainer");
-            container.add(label, currentPositionX, currentPositionY);
+            gridContainer.add(label, currentPositionX, currentPositionY);
         }
+    }
+
+    public void setOpponent(PlayerType human) {
+        model.setOpponent(human);
     }
 }
