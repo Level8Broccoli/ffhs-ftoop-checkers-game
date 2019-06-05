@@ -15,5 +15,9 @@
 }
 
 #LIGHT {
-    -fx-background-color: red;
+    -fx-background-color: lightblue;
+}
+
+#DARK {
+    -fx-background-color: darkgray;
 }

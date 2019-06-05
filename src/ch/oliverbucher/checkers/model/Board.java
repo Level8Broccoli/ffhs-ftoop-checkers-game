@@ -16,29 +16,27 @@ public class Board {
         BoardColor boardColor = BoardColor.LIGHT;
         int counter = 0;
         for (int i = 1; i <= height; i++) {
+            BoardColor boardColorThisRow = boardColor;
+
             for (int j = 1; j <= width; j++) {
                 Position currentPosition = new Position(j, i);
-                BoardSpace field = new BoardSpace(currentPosition, boardColor);
+                BoardSpace field = new BoardSpace(currentPosition, boardColorThisRow);
                 boardSpaces[counter] = field;
 
                 counter++;
-                boardColor = colorSwitch(boardColor);
-                System.out.println(boardColor);
+                boardColorThisRow = colorSwitch(boardColorThisRow);
             }
-
-            colorSwitch(boardColor);
+            boardColor = colorSwitch(boardColor);
         }
     }
 
     private BoardColor colorSwitch(BoardColor boardColor) {
 
         if (boardColor == BoardColor.DARK) {
-            boardColor = BoardColor.LIGHT;
+            return BoardColor.LIGHT;
         } else {
-            boardColor = BoardColor.DARK;
+            return BoardColor.DARK;
         }
-
-        return boardColor;
     }
 
     public int getSumOfSpaces() {
