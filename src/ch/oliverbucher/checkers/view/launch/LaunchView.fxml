@@ -21,7 +21,7 @@
                     <ToggleGroup fx:id="playerType" />
                 </fx:define>
                 <ToggleButton fx:id="btnHuman" text="%BTN_HUMAN" toggleGroup="$playerType" />
-                <Label text=" "/>
+                <Label fx:id="lblSpace"/>
                 <ToggleButton fx:id="btnComputer" text="%BTN_COMPUTER" toggleGroup="$playerType" />
             </HBox>
             <Button fx:id="btnStartGame" text="%BTN_START_GAME" />

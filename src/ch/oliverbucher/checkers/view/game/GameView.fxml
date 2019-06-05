@@ -9,7 +9,7 @@
         xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox fx:id="header">
-            <Label text="Game Scene" />
+            <Label text="%TXT_LETS_PLAY" />
         </VBox>
     </top>
 
@@ -17,6 +17,7 @@
         <VBox fx:id="main">
             <GridPane fx:id="boardContainer">
             </GridPane>
+            <Label fx:id="lblSpace" />
             <Button fx:id="btnNewGame" text="%BTN_NEW_GAME"  />
             <Label fx:id="lblMessage" />
         </VBox>

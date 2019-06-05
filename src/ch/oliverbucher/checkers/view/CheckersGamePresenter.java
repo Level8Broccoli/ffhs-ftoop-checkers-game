@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -105,10 +106,11 @@ public class CheckersGamePresenter extends Application {
             int currentPositionY = currentSpace.getPosition().getPositionY();
             BoardColor currentBoardColor = currentSpace.getBoardColor();
 
-            Label label = new Label("Text");
-            label.setId(String.valueOf(currentBoardColor));
+            Button button = new Button("Text");
+            button.setId(currentPositionX + "-" + currentPositionY);
+            button.setId(String.valueOf(currentBoardColor));
 
-            gridContainer.add(label, currentPositionX, currentPositionY);
+            gridContainer.add(button, currentPositionX, currentPositionY);
         }
     }
 

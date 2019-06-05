@@ -25,6 +25,7 @@ public class CheckersGameModel {
     }
 
     public void setOpponent(PlayerType playerType) {
+
         players[1].setType(playerType);
     }
 }
