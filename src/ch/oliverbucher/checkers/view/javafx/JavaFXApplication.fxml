@@ -3,8 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="%WINDOW_HEIGHT" prefWidth="%WINDOW_WIDTH" xmlns="http://javafx.com/javafx"
-xmlns:fx="http://javafx.com/fxml" fx:controller="ch.oliverbucher.checkers.controller.Controller">
+<BorderPane
+        xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox fx:id="header">
             <Label text="%TXT_WELCOME" />
@@ -16,12 +17,12 @@ xmlns:fx="http://javafx.com/fxml" fx:controller="ch.oliverbucher.checkers.contro
             <Label text="%TXT_OPPONENT_QUESTION" />
             <HBox alignment="CENTER">
                 <fx:define>
-                <ToggleGroup fx:id="playerType" />
+                    <ToggleGroup fx:id="playerType" />
                 </fx:define>
                 <ToggleButton fx:id="btnHuman" text="%BTN_HUMAN" toggleGroup="$playerType" />
                 <ToggleButton fx:id="btnComputer" text="%BTN_COMPUTER" toggleGroup="$playerType" />
             </HBox>
-            <Button text="%BTN_START_GAME" onAction="#onClick" />
+            <Button fx:id="btnStartGame" text="%BTN_START_GAME" />
         </VBox>
     </center>
 

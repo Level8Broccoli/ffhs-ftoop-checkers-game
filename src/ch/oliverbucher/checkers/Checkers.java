@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers;
 
-import ch.oliverbucher.checkers.view.JavaFXApplication;
+import ch.oliverbucher.checkers.view.javafx.JavaFXApplication;
 
 public class Checkers {
     public static void main(String[] args) {
