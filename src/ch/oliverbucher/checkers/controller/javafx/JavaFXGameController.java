@@ -32,12 +32,14 @@ public class JavaFXGameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         btnNewGame.setOnAction(this::onClick);
 
         drawBoard();
     }
 
     private void drawBoard() {
+
         int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
         int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
 
@@ -58,10 +60,12 @@ public class JavaFXGameController implements Initializable {
     }
 
     private void onClick(ActionEvent event) {
+
         newGame();
     }
 
     private void newGame() {
+
         Stage stage = (Stage) container.getScene().getWindow();
         stage.setScene(launchScene);
     }

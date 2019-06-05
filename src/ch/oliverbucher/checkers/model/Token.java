@@ -9,6 +9,7 @@ public class Token implements TokenInterface {
     private PlayerColor playerColor;
 
     public Token(Player playerOwner, Position position, PlayerColor playerColor) {
+
         this.playerOwner = playerOwner;
         this.position = position;
         this.playerColor = playerColor;
@@ -26,6 +27,7 @@ public class Token implements TokenInterface {
 
     @Override
     public PlayerColor getPlayerColor() {
+
         return playerColor;
     }
 }

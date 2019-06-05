@@ -40,10 +40,12 @@ public class Board {
     }
 
     public int getSumOfSpaces() {
+
         return sumOfSpaces;
     }
 
     public BoardSpace[] getBoardSpaces() {
+
         return boardSpaces;
     }
 }
