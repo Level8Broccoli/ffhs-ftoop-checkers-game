@@ -9,7 +9,7 @@ public class CheckersGameModel {
     private Board board;
     private Player[] players = new Player[2];
 
-    public void initialize() {
+    public CheckersGameModel() {
 
         int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
         int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));

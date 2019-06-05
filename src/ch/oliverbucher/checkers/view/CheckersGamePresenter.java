@@ -2,42 +2,30 @@ package ch.oliverbucher.checkers.view;
 
 import ch.oliverbucher.checkers.model.CheckersGameModel;
 import ch.oliverbucher.checkers.resources.Config;
+import ch.oliverbucher.checkers.view.game.GameViewController;
+import ch.oliverbucher.checkers.view.launch.LaunchViewController;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class CheckersGameView extends Application {
+public class CheckersGamePresenter extends Application {
 
     private CheckersGameModel model;
+
     private Scene gameScene;
     private Scene launchScene;
 
-    @FXML
-    private BorderPane container;
+    public CheckersGamePresenter() { }
 
-    @FXML
-    private Button btnNewGame;
-
-    @FXML
-    private Button btnStartGame;
-
-    public CheckersGameView() {
-
-    }
-
-    public CheckersGameView(CheckersGameModel model) {
-
+    public CheckersGamePresenter(CheckersGameModel model) {
         this.model = model;
     }
 
-    public void startGame() {
+    public void startApplication() {
         launch();
     }
 
@@ -45,18 +33,21 @@ public class CheckersGameView extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         // Load stylesheet
-        String stylesheetFile = this.getClass().getResource("javafx/JavaFXApplicationStyles.css").toExternalForm();
+        String stylesheetFile =
+                this.getClass().getResource("/ch/oliverbucher/checkers/resources/JavaFXApplicationStyles.css").toExternalForm();
 
         // Launch Screen
-        URL launchFxmlURL = getClass().getResource("javafx/JavaFXApplicationLaunchScene.fxml");
+        URL launchFxmlURL = getClass().getResource("launch/LaunchView.fxml");
         FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.getResourceBundle());
+//        launchFxmlLoader.setController(new LaunchViewController());
         Parent launchRoot = launchFxmlLoader.load();
         launchRoot.getStylesheets().add(stylesheetFile);
         launchScene = new Scene(launchRoot);
 
         // Game Screen
-        URL gameFxmlURL = getClass().getResource("javafx/JavaFXApplicationGameScene.fxml");
+        URL gameFxmlURL = getClass().getResource("game/GameView.fxml");
         FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.getResourceBundle());
+//        gameFxmlLoader.setController(new GameViewController());
         Parent gameRoot = gameFxmlLoader.load();
         gameRoot.getStylesheets().add(stylesheetFile);
         gameScene = new Scene(gameRoot);
@@ -87,29 +78,4 @@ public class CheckersGameView extends Application {
 //            container.add(label, currentPositionX, currentPositionY);
 //        }
 //    }
-
-    public Scene getGameScene() {
-
-        return gameScene;
-    }
-
-    public Scene getLaunchScene() {
-
-        return launchScene;
-    }
-
-    public Stage getStage() {
-
-        return (Stage) container.getScene().getWindow();
-    }
-
-    public Button getBtnNewGame() {
-
-        return btnNewGame;
-    }
-
-    public Button getBtnStartGame() {
-
-        return btnStartGame;
-    }
 }
