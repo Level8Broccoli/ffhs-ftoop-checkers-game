@@ -28,25 +28,35 @@ Button {
     -fx-alignment: bottom-right;
 }
 
-#LIGHT {
-    -fx-background-color: lightblue;
-}
-
-#DARK {
-    -fx-background-color: darkgray;
-}
-
 #boardContainer {
     -fx-alignment: center;
 }
 
-#boardContainer Label {
-    -fx-pref-height: 50px;
-    -fx-pref-width: 50px;
+#boardContainer * {
+    -fx-padding: 0;
+    -fx-background-radius: 0;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 100px;
 }
 
-#btnNewGame {
-    -fx-alignment: bottom-left;
+#boardContainer #token {
+    -fx-opacity: 0;
+}
+
+#boardContainer #mark {
+     -fx-opacity: 0;
+}
+
+#boardContainer #hide {
+    -fx-opacity: 0;
+}
+
+#boardContainer #LIGHT {
+    -fx-background-color: lightblue;
+}
+
+#boardContainer #DARK {
+    -fx-background-color: darkgray;
 }
 
 #lblMessage {

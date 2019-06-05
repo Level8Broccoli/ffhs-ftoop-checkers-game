@@ -8,6 +8,7 @@ public class Config {
             ResourceBundle.getBundle("ch.oliverbucher.checkers.resources.config");
 
     public static String getValue(String key) {
+
         return RESOURCE_BUNDLE.getString(key);
     }
 

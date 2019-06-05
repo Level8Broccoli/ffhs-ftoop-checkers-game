@@ -10,11 +10,21 @@ public class GameViewController {
     @FXML
     private Button btnNewGame;
 
+    @FXML
+    private Button btnTest;
+
+    @FXML
+    private Button hide;
+
     private CheckersGamePresenter presenter;
 
     public void initialize() {
 
         btnNewGame.setOnAction(this::onClickNewGame);
+        btnTest.setOnAction(this::onClickTest);
+    }
+
+    private void onClickTest(ActionEvent event) {
     }
 
     private void onClickNewGame(ActionEvent event) {

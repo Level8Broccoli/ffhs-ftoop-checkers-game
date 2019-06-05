@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -106,11 +107,32 @@ public class CheckersGamePresenter extends Application {
             int currentPositionY = currentSpace.getPosition().getPositionY();
             BoardColor currentBoardColor = currentSpace.getBoardColor();
 
-            Button button = new Button("Text");
-            button.setId(currentPositionX + "-" + currentPositionY);
-            button.setId(String.valueOf(currentBoardColor));
+            StackPane stackPane = new StackPane();
+            stackPane.setMaxWidth(
+                    Double.parseDouble(Config.getValue("WINDOW_WIDTH")) /
+                            Double.parseDouble(Config.getValue("BOARD_WIDTH")) / 2);
+            stackPane.setMaxHeight(
+                    Double.parseDouble(Config.getValue("WINDOW_HEIGHT")) /
+                            Double.parseDouble(Config.getValue("BOARD_HEIGHT")) / 2);
 
-            gridContainer.add(button, currentPositionX, currentPositionY);
+            Button btnBackground = new Button();
+            btnBackground.setId(String.valueOf(currentBoardColor));
+            stackPane.getChildren().add(btnBackground);
+
+//            Button btnToken = new Button();
+//            btnToken.setId("token");
+//            stackPane.getChildren().add(btnToken);
+//
+//            Button btnMark = new Button();
+//            btnMark.setId("mark");
+//            stackPane.getChildren().add(btnMark);
+//
+//            Button btnInteraction = new Button();
+//            btnInteraction.setId("hide");
+////            btnInteraction.setId(currentPositionX + "-" + currentPositionY);
+//            stackPane.getChildren().add(btnInteraction);
+
+            gridContainer.add(stackPane, currentPositionX, currentPositionY);
         }
     }
 

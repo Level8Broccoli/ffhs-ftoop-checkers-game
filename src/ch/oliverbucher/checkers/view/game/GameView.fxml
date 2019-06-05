@@ -18,7 +18,11 @@
             <GridPane fx:id="boardContainer">
             </GridPane>
             <Label fx:id="lblSpace" />
-            <Button fx:id="btnNewGame" text="%BTN_NEW_GAME"  />
+            <HBox alignment="CENTER">
+                <Button fx:id="btnNewGame" text="%BTN_NEW_GAME"  />
+                <Label fx:id="lblSpaceTest" />
+                <Button fx:id="btnTest" text="TEST"  />
+            </HBox>
             <Label fx:id="lblMessage" />
         </VBox>
     </center>
