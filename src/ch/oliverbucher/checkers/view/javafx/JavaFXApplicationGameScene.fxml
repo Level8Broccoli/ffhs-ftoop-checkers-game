@@ -16,13 +16,8 @@
     <center>
         <VBox fx:id="main">
             <Label text="%TXT_OPPONENT_QUESTION" />
-            <HBox alignment="CENTER">
-                <fx:define>
-                    <ToggleGroup fx:id="playerType" />
-                </fx:define>
-                <ToggleButton fx:id="btnHuman" text="%BTN_HUMAN" toggleGroup="$playerType" />
-                <ToggleButton fx:id="btnComputer" text="%BTN_COMPUTER" toggleGroup="$playerType" />
-            </HBox>
+            <GridPane>
+            </GridPane>
             <Button fx:id="btnStartGame" text="%BTN_START_GAME" />
         </VBox>
     </center>

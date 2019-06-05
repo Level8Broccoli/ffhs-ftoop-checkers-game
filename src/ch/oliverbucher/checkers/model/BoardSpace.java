@@ -7,8 +7,7 @@ public class BoardSpace {
     private Position position;
     private BoardColor boardColor;
 
-    public BoardSpace(boolean isEmpty, Position position, BoardColor boardColor) {
-        this.isEmpty = isEmpty;
+    public BoardSpace(Position position, BoardColor boardColor) {
         this.position = position;
         this.boardColor = boardColor;
     }

@@ -1,5 +1,7 @@
 package ch.oliverbucher.checkers;
 
+import ch.oliverbucher.checkers.model.Board;
+import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.javafx.JavaFXApplication;
 
 public class Checkers {

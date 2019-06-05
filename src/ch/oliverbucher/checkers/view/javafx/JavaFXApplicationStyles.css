@@ -1,3 +1,7 @@
+#container {
+    -fx-padding: 20px;
+}
+
 #header {
     -fx-alignment: center;
 }

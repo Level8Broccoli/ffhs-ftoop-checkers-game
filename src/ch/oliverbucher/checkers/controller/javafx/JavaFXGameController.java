@@ -1,5 +1,6 @@
 package ch.oliverbucher.checkers.controller.javafx;
 
+import ch.oliverbucher.checkers.model.Board;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class JavaFXController implements Initializable {
+public class JavaFXGameController implements Initializable {
 
     @FXML
     private BorderPane container;
@@ -40,8 +41,16 @@ public class JavaFXController implements Initializable {
         System.out.println("Human: " + btnHuman.isSelected());
         System.out.println("Computer: " + btnComputer.isSelected());
 
+        startGame(event);
+    }
+
+    private void startGame(ActionEvent event) {
+
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(gameScene);
+
+        new Board(12,12);
+
     }
 
     public void setLaunchScene(Scene launchScene) {
