@@ -19,9 +19,15 @@ public class CheckersGamePresenter extends Application {
     private Scene gameScene;
     private Scene launchScene;
 
-    public CheckersGamePresenter() { }
+    private Stage stage;
+
+    public CheckersGamePresenter() {
+
+        // empty constructor is needed for javafx.application.Application to work properly
+    }
 
     public CheckersGamePresenter(CheckersGameModel model) {
+
         this.model = model;
     }
 
@@ -32,6 +38,8 @@ public class CheckersGamePresenter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        stage = primaryStage;
+
         // Load stylesheet
         String stylesheetFile =
                 this.getClass().getResource("/ch/oliverbucher/checkers/resources/JavaFXApplicationStyles.css").toExternalForm();
@@ -39,7 +47,9 @@ public class CheckersGamePresenter extends Application {
         // Launch Screen
         URL launchFxmlURL = getClass().getResource("launch/LaunchView.fxml");
         FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.getResourceBundle());
-//        launchFxmlLoader.setController(new LaunchViewController());
+        LaunchViewController launchViewController = new LaunchViewController();
+        launchViewController.setPresenter(this);
+        launchFxmlLoader.setController(launchViewController);
         Parent launchRoot = launchFxmlLoader.load();
         launchRoot.getStylesheets().add(stylesheetFile);
         launchScene = new Scene(launchRoot);
@@ -47,18 +57,24 @@ public class CheckersGamePresenter extends Application {
         // Game Screen
         URL gameFxmlURL = getClass().getResource("game/GameView.fxml");
         FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.getResourceBundle());
-//        gameFxmlLoader.setController(new GameViewController());
+        GameViewController gameViewController = new GameViewController();
+        gameViewController.setPresenter(this);
+        launchFxmlLoader.setController(launchViewController);
         Parent gameRoot = gameFxmlLoader.load();
         gameRoot.getStylesheets().add(stylesheetFile);
         gameScene = new Scene(gameRoot);
 
         // Set scene and start application
-        primaryStage.setScene(launchScene);
-        primaryStage.setTitle(Config.getValue("GAME_TITLE"));
-        primaryStage.setWidth(Double.parseDouble(Config.getValue("WINDOW_WIDTH")));
-        primaryStage.setHeight(Double.parseDouble(Config.getValue("WINDOW_HEIGHT")));
+        stage.setScene(launchScene);
+        stage.setTitle(Config.getValue("GAME_TITLE"));
+        stage.setWidth(Double.parseDouble(Config.getValue("WINDOW_WIDTH")));
+        stage.setHeight(Double.parseDouble(Config.getValue("WINDOW_HEIGHT")));
 
-        primaryStage.show();
+        stage.show();
+    }
+
+    public void startGame() {
+        stage.setScene(gameScene);
     }
 
 //    public void drawBoard() {

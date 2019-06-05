@@ -6,8 +6,7 @@
 <BorderPane
         fx:id="root"
         xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="ch.oliverbucher.checkers.view.game.GameViewController">
+        xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox fx:id="header">
             <Label text="Game Scene" />

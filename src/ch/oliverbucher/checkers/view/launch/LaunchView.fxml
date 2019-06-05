@@ -6,8 +6,7 @@
 <BorderPane
         fx:id="root"
         xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="ch.oliverbucher.checkers.view.launch.LaunchViewController">
+        xmlns:fx="http://javafx.com/fxml">
     <top>
         <VBox fx:id="header">
             <Label text="%TXT_WELCOME" />

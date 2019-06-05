@@ -18,6 +18,7 @@ public class LaunchViewController {
 
     private void onClickStartGame(ActionEvent event) {
         System.out.println("Start Game");
+        presenter.startGame();
     }
 
     public void setPresenter(CheckersGamePresenter presenter) {
