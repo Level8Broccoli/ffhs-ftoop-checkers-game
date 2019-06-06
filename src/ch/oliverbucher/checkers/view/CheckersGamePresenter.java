@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class CheckersGamePresenter extends Application {
 
@@ -99,29 +100,25 @@ public class CheckersGamePresenter extends Application {
 
         GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
 
-        Board board = model.getBoard();
-        for (int i = 0; i < board.getSumOfSpaces(); i++) {
-            BoardSpace currentSpace = board.getBoardSpaces()[i];
+        ArrayList<ArrayList<BoardSpace>> board = model.getBoard();
+        for (int i = 0; i < board.size(); i++) {
+            ArrayList<BoardSpace> currentRow = board.get(i);
 
-            int currentPositionX = currentSpace.getPosition().getPositionX();
-            int currentPositionY = currentSpace.getPosition().getPositionY();
-            BoardColor currentBoardColor = currentSpace.getBoardColor();
+            for (int j = 0; j < currentRow.size(); j++ ){
+                BoardSpace currentSpace = currentRow.get(j);
 
-            StackPane stackPane = new StackPane();
-            stackPane.setMaxWidth(
-                    Double.parseDouble(Config.getValue("WINDOW_WIDTH")) /
-                            Double.parseDouble(Config.getValue("BOARD_WIDTH")) / 2);
-            stackPane.setMaxHeight(
-                    Double.parseDouble(Config.getValue("WINDOW_HEIGHT")) /
-                            Double.parseDouble(Config.getValue("BOARD_HEIGHT")) / 2);
+                BoardColor currentBoardColor = currentSpace.getBoardColor();
 
-            Button btnBackground = new Button();
-            btnBackground.setId(String.valueOf(currentBoardColor));
-            stackPane.getChildren().add(btnBackground);
+                StackPane stackPane = new StackPane();
+                stackPane.setMaxSize(Config.LENGHT_OF_SPACE,Config.LENGHT_OF_SPACE);
 
-//            Button btnToken = new Button();
-//            btnToken.setId("token");
-//            stackPane.getChildren().add(btnToken);
+                Button btnBackground = new Button();
+                btnBackground.setId(String.valueOf(currentBoardColor));
+                stackPane.getChildren().add(btnBackground);
+
+//                Button btnToken = new Button();
+//                btnToken.setId("token");
+//                stackPane.getChildren().add(btnToken);
 //
 //            Button btnMark = new Button();
 //            btnMark.setId("mark");
@@ -129,10 +126,11 @@ public class CheckersGamePresenter extends Application {
 //
 //            Button btnInteraction = new Button();
 //            btnInteraction.setId("hide");
-////            btnInteraction.setId(currentPositionX + "-" + currentPositionY);
+//            btnInteraction.setId(currentPositionX + "-" + currentPositionY);
 //            stackPane.getChildren().add(btnInteraction);
 
-            gridContainer.add(stackPane, currentPositionX, currentPositionY);
+                gridContainer.add(stackPane, i, j);
+            }
         }
     }
 

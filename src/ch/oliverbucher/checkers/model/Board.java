@@ -2,41 +2,34 @@ package ch.oliverbucher.checkers.model;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 
+import java.util.ArrayList;
+
 public class Board {
 
-    private int sumOfSpaces;
-    private BoardSpace[] boardSpaces;
+    private ArrayList<ArrayList<BoardSpace>> board;
 
     public Board(int width, int height) {
 
-        sumOfSpaces = width * height;
-
-        boardSpaces = new BoardSpace[sumOfSpaces];
+        board = new ArrayList<>();
 
         BoardColor boardColor = BoardColor.LIGHT;
-        int counter = 0;
-        for (int i = 1; i <= height; i++) {
+        for (int i = 0; i < height; i++) {
+            board.add(new ArrayList<>());
             BoardColor boardColorThisRow = boardColor;
 
-            for (int j = 1; j <= width; j++) {
+            for (int j = 0; j < width; j++) {
                 Position currentPosition = new Position(j, i);
                 BoardSpace field = new BoardSpace(currentPosition, boardColorThisRow);
-                boardSpaces[counter] = field;
+                board.get(i).add(field);
 
-                counter++;
                 boardColorThisRow = boardColorThisRow.switchColor();
             }
             boardColor = boardColor.switchColor();
         }
     }
 
-    public int getSumOfSpaces() {
+    public ArrayList<ArrayList<BoardSpace>> getBoard() {
 
-        return sumOfSpaces;
-    }
-
-    public BoardSpace[] getBoardSpaces() {
-
-        return boardSpaces;
+        return board;
     }
 }

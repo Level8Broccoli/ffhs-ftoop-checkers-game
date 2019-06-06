@@ -15,4 +15,8 @@ public class Config {
     public static ResourceBundle getResourceBundle() {
         return RESOURCE_BUNDLE;
     }
+
+    public static double LENGHT_OF_SPACE =
+    Double.parseDouble(Config.getValue("WINDOW_WIDTH")) /
+            Double.parseDouble(Config.getValue("BOARD_WIDTH")) / 2;
 }
