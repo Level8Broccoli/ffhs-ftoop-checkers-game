@@ -102,18 +102,18 @@ public class CheckersGamePresenter extends Application {
         ArrayList<ArrayList<BoardSpace>> boardLayer = model.getBoardLayer();
         ArrayList<ArrayList<Token>> tokenLayer = model.getTokenLayer();
 
-        for (int i = 0; i < boardLayer.size(); i++) {
+        for (int x = 0; x < boardLayer.size(); x++) {
 
-            ArrayList<BoardSpace> currentBoardRow = boardLayer.get(i);
-            ArrayList<Token> currentTokenRow = tokenLayer.get(i);
+            ArrayList<BoardSpace> currentBoardRow = boardLayer.get(x);
+            ArrayList<Token> currentTokenRow = tokenLayer.get(x);
 
-            for (int j = 0; j < currentBoardRow.size(); j++) {
+            for (int y = 0; y < currentBoardRow.size(); y++) {
 
                 StackPane stackPane = new StackPane();
                 stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
 
                 // draw board
-                BoardSpace currentSpace = currentBoardRow.get(j);
+                BoardSpace currentSpace = currentBoardRow.get(y);
                 BoardColor currentBoardColor = currentSpace.getBoardColor();
 
                 Button btnBackground = new Button();
@@ -121,7 +121,7 @@ public class CheckersGamePresenter extends Application {
                 stackPane.getChildren().add(btnBackground);
 
                 // draw token
-                Token currentToken = currentTokenRow.get(j);
+                Token currentToken = currentTokenRow.get(y);
 
                 if (!currentToken.isEmpty()) {
                     Button btnToken = new Button();
@@ -138,7 +138,7 @@ public class CheckersGamePresenter extends Application {
 //            btnInteraction.setId(currentPositionX + "-" + currentPositionY);
 //            stackPane.getChildren().add(btnInteraction);
 
-                gridContainer.add(stackPane, i, j);
+                gridContainer.add(stackPane, x, y);
             }
         }
     }

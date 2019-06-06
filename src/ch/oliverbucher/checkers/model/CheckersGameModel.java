@@ -31,15 +31,15 @@ public class CheckersGameModel {
 
         boardLayer = new ArrayList<>();
 
-        for (int i = 0; i < boardWidth; i++) {
+        for (int x = 0; x < boardWidth; x++) {
 
             boardLayer.add(new ArrayList<>());
 
-            for (int j = 0; j < boardHeight; j++) {
+            for (int y = 0; y < boardHeight; y++) {
 
                 BoardColor currentBoardColor;
                 Boolean isAllowed;
-                if ((i + j) % 2 == 0) {
+                if ((x + y) % 2 == 0) {
                     currentBoardColor = BoardColor.LIGHT;
                     isAllowed = false;
                 } else {
@@ -47,8 +47,8 @@ public class CheckersGameModel {
                     isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(new Position(j, i), currentBoardColor, isAllowed);
-                boardLayer.get(i).add(field);
+                BoardSpace field = new BoardSpace(new Position(y, x), currentBoardColor, isAllowed);
+                boardLayer.get(x).add(field);
             }
         }
     }
@@ -58,34 +58,34 @@ public class CheckersGameModel {
         tokenLayer = new ArrayList<>();
         int startRows = Integer.parseInt(Config.getValue("START_ROWS"));
 
-        for (int i = 0; i < boardWidth; i++) {
+        for (int x = 0; x < boardWidth; x++) {
 
             tokenLayer.add(new ArrayList<>());
 
-            if (i < startRows ) {
+            if (x < startRows ) {
 
-                for (int j = 0; j < boardHeight; j++) {
+                for (int y = 0; y < boardHeight; y++) {
 
-                    if (boardLayer.get(i).get(j).isAllowed()) {
-                        tokenLayer.get(i).add(new Token(new Position(j, i), players[1]));
+                    if (boardLayer.get(x).get(y).isAllowed()) {
+                        tokenLayer.get(x).add(new Token(new Position(y, x), players[1]));
                     } else {
-                        tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                        tokenLayer.get(x).add(new Token(new Position(y, x), true));
                     }
                 }
-            } else if (i >= startRows && i < boardHeight - startRows) {
+            } else if (x >= startRows && x < boardHeight - startRows) {
 
-                for (int j = 0; j < boardHeight; j++) {
+                for (int y = 0; y < boardHeight; y++) {
 
-                    tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                    tokenLayer.get(x).add(new Token(new Position(y, x), true));
                 }
-            } else if (i >= boardHeight - startRows) {
+            } else if (x >= boardHeight - startRows) {
 
-                for (int j = 0; j < boardHeight; j++) {
+                for (int y = 0; y < boardHeight; y++) {
 
-                    if (boardLayer.get(i).get(j).isAllowed()) {
-                        tokenLayer.get(i).add(new Token(new Position(j, i), players[0]));
+                    if (boardLayer.get(x).get(y).isAllowed()) {
+                        tokenLayer.get(x).add(new Token(new Position(y, x), players[0]));
                     } else {
-                        tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                        tokenLayer.get(x).add(new Token(new Position(y, x), true));
                     }
                 }
             }
