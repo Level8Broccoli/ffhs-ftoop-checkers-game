@@ -113,7 +113,7 @@ public class CheckersGamePresenter extends Application {
                 StackPane stackPane = new StackPane();
                 stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
 
-                // draw board
+                // draw board layer
                 BoardSpace currentSpace = currentBoardRow.get(y);
                 BoardColor currentBoardColor = currentSpace.getBoardColor();
 
@@ -121,7 +121,7 @@ public class CheckersGamePresenter extends Application {
                 btnBackground.setId(String.valueOf(currentBoardColor));
                 stackPane.getChildren().add(btnBackground);
 
-                // draw token
+                // draw token layer
                 Token currentPlayerToken = currentPlayerTokenRow.get(y);
 
                 if (currentPlayerToken.isPlayerAssigned()) {
@@ -130,19 +130,19 @@ public class CheckersGamePresenter extends Application {
                     stackPane.getChildren().add(btnToken);
                 }
 
-                // draw marked Layer
+                // draw marked layer
                 if (currentPlayerToken.hasPossibleMoves()) {
                     Button btnMark = new Button();
                     btnMark.setId("btnMarked");
                     stackPane.getChildren().add(btnMark);
                 }
 
-                // draw interaction Layer
+                // draw interaction layer
                 Button btnInteraction = new Button();
-                int finalX = x;
-                int finalY = y;
+                int positionX = x;
+                int positionY = y;
                 btnInteraction.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        (EventHandler<Event>) event -> model.clickEvent(finalX, finalY));
+                        (EventHandler<Event>) event -> model.clickEvent(positionX, positionY));
                 btnInteraction.setId("btnInteraction");
                 stackPane.getChildren().add(btnInteraction);
 
