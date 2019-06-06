@@ -2,7 +2,6 @@ package ch.oliverbucher.checkers.view;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
-import ch.oliverbucher.checkers.model.Board;
 import ch.oliverbucher.checkers.model.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
 import ch.oliverbucher.checkers.resources.Config;
@@ -13,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -100,7 +98,7 @@ public class CheckersGamePresenter extends Application {
 
         GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
 
-        ArrayList<ArrayList<BoardSpace>> board = model.getBoard();
+        ArrayList<ArrayList<BoardSpace>> board = model.getBoardLayer();
         for (int i = 0; i < board.size(); i++) {
             ArrayList<BoardSpace> currentRow = board.get(i);
 
