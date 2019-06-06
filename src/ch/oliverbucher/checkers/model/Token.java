@@ -1,18 +1,22 @@
 package ch.oliverbucher.checkers.model;
 
-import ch.oliverbucher.checkers.enumaration.PlayerColor;
-
 public class Token implements TokenInterface {
 
     private Player playerOwner;
     private Position position;
-    private PlayerColor playerColor;
+    private Boolean isEmpty;
 
-    public Token(Player playerOwner, Position position, PlayerColor playerColor) {
+    public Token(Position position, Player playerOwner) {
 
         this.playerOwner = playerOwner;
         this.position = position;
-        this.playerColor = playerColor;
+        this.isEmpty = false;
+    }
+
+    public Token(Position position, Boolean isEmpty) {
+
+        this.position = position;
+        this.isEmpty = isEmpty;
     }
 
     @Override
@@ -23,11 +27,5 @@ public class Token implements TokenInterface {
     @Override
     public Position getPosition() {
         return position;
-    }
-
-    @Override
-    public PlayerColor getPlayerColor() {
-
-        return playerColor;
     }
 }

@@ -4,24 +4,24 @@ import ch.oliverbucher.checkers.enumaration.BoardColor;
 
 public class BoardSpace {
 
-    private boolean isEmpty;
+    private boolean isAllowed;
     private Position position;
     private BoardColor boardColor;
 
-    public BoardSpace(Position position, BoardColor boardColor) {
+    public BoardSpace(Position position, BoardColor boardColor, Boolean isAllowed) {
 
         this.position = position;
         this.boardColor = boardColor;
-        this.isEmpty = true;
-    }
-
-    public Position getPosition() {
-
-        return position;
+        this.isAllowed = isAllowed;
     }
 
     public BoardColor getBoardColor() {
 
         return boardColor;
+    }
+
+    public Boolean isAllowed() {
+
+        return isAllowed;
     }
 }

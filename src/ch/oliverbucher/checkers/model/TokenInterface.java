@@ -6,5 +6,4 @@ public interface TokenInterface {
 
     Player getPlayerOwner();
     Position getPosition();
-    PlayerColor getPlayerColor();
 }

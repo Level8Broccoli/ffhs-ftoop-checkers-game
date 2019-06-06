@@ -15,40 +15,80 @@ public class CheckersGameModel {
     private ArrayList<ArrayList<BoardSpace>> iLayer;
     private Player[] players = new Player[2];
 
+    private static int BOARD_WIDTH = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
+    private static int BOARD_HEIGHT = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
+
     public CheckersGameModel() {
 
-        int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
-        int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
-
-        generateBoardLayer(boardWidth, boardHeight);
-        // generateTokenLayer(boardWidth, boardHeight);
+        generateBoardLayer(BOARD_WIDTH, BOARD_HEIGHT);
+        generateTokenLayer(BOARD_WIDTH, BOARD_HEIGHT);
 
         players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE);
         players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK);
     }
 
-    private void generateBoardLayer(int width, int height) {
+    private void generateBoardLayer(int boardWidth, int boardHeight) {
 
         boardLayer = new ArrayList<>();
 
 
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < boardHeight; i++) {
 
             boardLayer.add(new ArrayList<>());
 
-            for (int j = 0; j < width; j++) {
-
-                Position currentPosition = new Position(j, i);
+            for (int j = 0; j < boardWidth; j++) {
 
                 BoardColor currentBoardColor;
+                Boolean isAllowed;
                 if ((i + j) % 2 == 0) {
                     currentBoardColor = BoardColor.LIGHT;
+                    isAllowed = false;
                 } else {
                     currentBoardColor = BoardColor.DARK;
+                    isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(currentPosition, currentBoardColor);
+                BoardSpace field = new BoardSpace(new Position(j, i), currentBoardColor, isAllowed);
                 boardLayer.get(i).add(field);
+            }
+        }
+    }
+
+    private void generateTokenLayer(int boardWidth, int boardHeight) {
+
+        tokenLayer = new ArrayList<>();
+        int startRows = Integer.parseInt(Config.getValue("START_ROWS"));
+
+        for (int i = 0; i < boardHeight; i++) {
+
+            tokenLayer.add(new ArrayList<>());
+
+            if (i < startRows ) {
+
+                for (int j = 0; j < boardWidth; j++) {
+
+                    if (boardLayer.get(i).get(j).isAllowed()) {
+                        tokenLayer.get(i).add(new Token(new Position(j, i), players[1]));
+                    } else {
+                        tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                    }
+                }
+            } else if (i >= startRows && i < boardHeight - startRows) {
+
+                for (int j = 0; j < boardWidth; j++) {
+
+                    tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                }
+            } else if (i >= boardHeight - startRows) {
+
+                for (int j = 0; j < boardWidth; j++) {
+
+                    if (boardLayer.get(i).get(j).isAllowed()) {
+                        tokenLayer.get(i).add(new Token(new Position(j, i), players[0]));
+                    } else {
+                        tokenLayer.get(i).add(new Token(new Position(j, i), true));
+                    }
+                }
             }
         }
     }
@@ -58,7 +98,7 @@ public class CheckersGameModel {
         return boardLayer;
     }
 
-    public void setOpponent(PlayerType playerType) {
+        public void setOpponent(PlayerType playerType) {
 
         players[1].setType(playerType);
     }
