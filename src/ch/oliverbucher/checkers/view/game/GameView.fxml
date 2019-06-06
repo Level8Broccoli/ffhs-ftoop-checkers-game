@@ -21,7 +21,7 @@
             <HBox alignment="CENTER">
                 <Button fx:id="btnNewGame" text="%BTN_NEW_GAME"  />
                 <Label fx:id="lblSpaceTest" />
-                <Button fx:id="btnTest" text="TEST"  />
+                <Button fx:id="btnRules" text="%BTN_RULES"  />
             </HBox>
             <Label fx:id="lblMessage" />
         </VBox>
