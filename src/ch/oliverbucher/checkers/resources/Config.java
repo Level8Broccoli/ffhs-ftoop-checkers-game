@@ -7,6 +7,9 @@ public class Config {
     private static final ResourceBundle RESOURCE_BUNDLE =
             ResourceBundle.getBundle("ch.oliverbucher.checkers.resources.config");
 
+    public static int BOARD_WIDTH = Integer.parseInt(getValue("BOARD_WIDTH"));
+    public static int BOARD_HEIGHT = Integer.parseInt(getValue("BOARD_HEIGHT"));
+
     public static String getValue(String key) {
 
         return RESOURCE_BUNDLE.getString(key);

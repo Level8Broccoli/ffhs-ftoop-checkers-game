@@ -15,13 +15,10 @@ public class CheckersGameModel {
     private ArrayList<ArrayList<BoardSpace>> iLayer;
     private Player[] players = new Player[2];
 
-    private static int BOARD_WIDTH = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
-    private static int BOARD_HEIGHT = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
-
     public CheckersGameModel() {
 
-        generateBoardLayer(BOARD_WIDTH, BOARD_HEIGHT);
-        generateTokenLayer(BOARD_WIDTH, BOARD_HEIGHT);
+        generateBoardLayer(Config.BOARD_WIDTH, Config.BOARD_HEIGHT);
+        generateTokenLayer(Config.BOARD_WIDTH, Config.BOARD_HEIGHT);
 
         players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE);
         players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK);
@@ -56,31 +53,27 @@ public class CheckersGameModel {
     private void generateTokenLayer(int boardWidth, int boardHeight) {
 
         tokenLayer = new ArrayList<>();
+
         int startRows = Integer.parseInt(Config.getValue("START_ROWS"));
 
         for (int x = 0; x < boardWidth; x++) {
 
             tokenLayer.add(new ArrayList<>());
 
-            if (x < startRows ) {
-
-                for (int y = 0; y < boardHeight; y++) {
+            for (int y = 0; y < boardHeight; y++) {
+                if (y < startRows) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
                         tokenLayer.get(x).add(new Token(new Position(y, x), players[1]));
                     } else {
                         tokenLayer.get(x).add(new Token(new Position(y, x), true));
                     }
-                }
-            } else if (x >= startRows && x < boardHeight - startRows) {
 
-                for (int y = 0; y < boardHeight; y++) {
+                } else if (y >= startRows && y < boardHeight - startRows) {
 
                     tokenLayer.get(x).add(new Token(new Position(y, x), true));
-                }
-            } else if (x >= boardHeight - startRows) {
 
-                for (int y = 0; y < boardHeight; y++) {
+                } else if (y >= boardHeight - startRows) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
                         tokenLayer.get(x).add(new Token(new Position(y, x), players[0]));
@@ -88,6 +81,7 @@ public class CheckersGameModel {
                         tokenLayer.get(x).add(new Token(new Position(y, x), true));
                     }
                 }
+            System.out.println(x + " / " + y);
             }
         }
     }

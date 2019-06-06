@@ -99,15 +99,12 @@ public class CheckersGamePresenter extends Application {
 
         GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
 
-        ArrayList<ArrayList<BoardSpace>> boardLayer = model.getBoardLayer();
-        ArrayList<ArrayList<Token>> tokenLayer = model.getTokenLayer();
+        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
-        for (int x = 0; x < boardLayer.size(); x++) {
+            ArrayList<BoardSpace> currentBoardRow = model.getBoardLayer().get(x);
+            ArrayList<Token> currentTokenRow = model.getTokenLayer().get(x);
 
-            ArrayList<BoardSpace> currentBoardRow = boardLayer.get(x);
-            ArrayList<Token> currentTokenRow = tokenLayer.get(x);
-
-            for (int y = 0; y < currentBoardRow.size(); y++) {
+            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
                 StackPane stackPane = new StackPane();
                 stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
