@@ -4,6 +4,7 @@ import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
+import ch.oliverbucher.checkers.model.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
 import ch.oliverbucher.checkers.view.launch.LaunchViewController;
@@ -61,7 +62,7 @@ public class CheckersGamePresenter extends Application {
 
     private void setUpLaunchScreen() throws Exception {
 
-        URL launchFxmlURL = getClass().getResource("launch/LaunchView.fxml");
+        URL launchFxmlURL = getClass().getResource("view/launch/LaunchView.fxml");
         FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.getResourceBundle());
         LaunchViewController launchViewController = new LaunchViewController();
         launchViewController.setPresenter(this);
@@ -73,7 +74,7 @@ public class CheckersGamePresenter extends Application {
 
     private void setUpGameScreen() throws Exception {
 
-        URL gameFxmlURL = getClass().getResource("game/GameView.fxml");
+        URL gameFxmlURL = getClass().getResource("view/game/GameView.fxml");
         FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.getResourceBundle());
         GameViewController gameViewController = new GameViewController();
         gameViewController.setPresenter(this);
@@ -98,25 +99,35 @@ public class CheckersGamePresenter extends Application {
 
         GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
 
-        ArrayList<ArrayList<BoardSpace>> board = model.getBoardLayer();
-        for (int i = 0; i < board.size(); i++) {
-            ArrayList<BoardSpace> currentRow = board.get(i);
+        ArrayList<ArrayList<BoardSpace>> boardLayer = model.getBoardLayer();
+        ArrayList<ArrayList<Token>> tokenLayer = model.getTokenLayer();
 
-            for (int j = 0; j < currentRow.size(); j++ ){
-                BoardSpace currentSpace = currentRow.get(j);
+        for (int i = 0; i < boardLayer.size(); i++) {
 
-                BoardColor currentBoardColor = currentSpace.getBoardColor();
+            ArrayList<BoardSpace> currentBoardRow = boardLayer.get(i);
+            ArrayList<Token> currentTokenRow = tokenLayer.get(i);
+
+            for (int j = 0; j < currentBoardRow.size(); j++) {
 
                 StackPane stackPane = new StackPane();
-                stackPane.setMaxSize(Config.LENGHT_OF_SPACE,Config.LENGHT_OF_SPACE);
+                stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
+
+                // draw board
+                BoardSpace currentSpace = currentBoardRow.get(j);
+                BoardColor currentBoardColor = currentSpace.getBoardColor();
 
                 Button btnBackground = new Button();
                 btnBackground.setId(String.valueOf(currentBoardColor));
                 stackPane.getChildren().add(btnBackground);
 
-                Button btnToken = new Button();
-                btnToken.setId("token");
-                stackPane.getChildren().add(btnToken);
+                // draw token
+                Token currentToken = currentTokenRow.get(j);
+
+                if (!currentToken.isEmpty()) {
+                    Button btnToken = new Button();
+                    btnToken.setId(currentToken.toString());
+                    stackPane.getChildren().add(btnToken);
+                }
 //
 //            Button btnMark = new Button();
 //            btnMark.setId("mark");

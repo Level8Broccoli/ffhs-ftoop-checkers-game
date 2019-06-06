@@ -3,9 +3,13 @@ package ch.oliverbucher.checkers.view.game;
 import ch.oliverbucher.checkers.CheckersGamePresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-public class GameViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GameViewController implements Initializable {
 
     @FXML
     private Button btnNewGame;
@@ -18,7 +22,7 @@ public class GameViewController {
 
     private CheckersGamePresenter presenter;
 
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
 
         btnNewGame.setOnAction(this::onClickNewGame);
         btnTest.setOnAction(this::onClickTest);

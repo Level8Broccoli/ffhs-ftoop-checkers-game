@@ -6,4 +6,5 @@ public interface TokenInterface {
 
     Player getPlayerOwner();
     Position getPosition();
+    boolean isEmpty();
 }

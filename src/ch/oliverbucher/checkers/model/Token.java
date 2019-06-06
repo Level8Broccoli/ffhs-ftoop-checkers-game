@@ -28,4 +28,10 @@ public class Token implements TokenInterface {
     public Position getPosition() {
         return position;
     }
+
+    @Override
+    public boolean isEmpty() {
+
+        return isEmpty;
+    }
 }

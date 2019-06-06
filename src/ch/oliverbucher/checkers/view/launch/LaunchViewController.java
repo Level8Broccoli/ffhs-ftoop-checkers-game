@@ -5,11 +5,15 @@ import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.CheckersGamePresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 
-public class LaunchViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LaunchViewController implements Initializable {
 
     private CheckersGamePresenter presenter;
 
@@ -25,7 +29,7 @@ public class LaunchViewController {
     @FXML
     private Label lblMessage;
 
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
 
         btnStartGame.setOnAction(this::onClickStartGame);
         btnHuman.setOnAction(this::onClickOpponentChosen);
@@ -57,5 +61,4 @@ public class LaunchViewController {
 
         this.presenter = presenter;
     }
-
 }

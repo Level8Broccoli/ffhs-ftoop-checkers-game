@@ -31,12 +31,11 @@ public class CheckersGameModel {
 
         boardLayer = new ArrayList<>();
 
-
-        for (int i = 0; i < boardHeight; i++) {
+        for (int i = 0; i < boardWidth; i++) {
 
             boardLayer.add(new ArrayList<>());
 
-            for (int j = 0; j < boardWidth; j++) {
+            for (int j = 0; j < boardHeight; j++) {
 
                 BoardColor currentBoardColor;
                 Boolean isAllowed;
@@ -59,13 +58,13 @@ public class CheckersGameModel {
         tokenLayer = new ArrayList<>();
         int startRows = Integer.parseInt(Config.getValue("START_ROWS"));
 
-        for (int i = 0; i < boardHeight; i++) {
+        for (int i = 0; i < boardWidth; i++) {
 
             tokenLayer.add(new ArrayList<>());
 
             if (i < startRows ) {
 
-                for (int j = 0; j < boardWidth; j++) {
+                for (int j = 0; j < boardHeight; j++) {
 
                     if (boardLayer.get(i).get(j).isAllowed()) {
                         tokenLayer.get(i).add(new Token(new Position(j, i), players[1]));
@@ -75,13 +74,13 @@ public class CheckersGameModel {
                 }
             } else if (i >= startRows && i < boardHeight - startRows) {
 
-                for (int j = 0; j < boardWidth; j++) {
+                for (int j = 0; j < boardHeight; j++) {
 
                     tokenLayer.get(i).add(new Token(new Position(j, i), true));
                 }
             } else if (i >= boardHeight - startRows) {
 
-                for (int j = 0; j < boardWidth; j++) {
+                for (int j = 0; j < boardHeight; j++) {
 
                     if (boardLayer.get(i).get(j).isAllowed()) {
                         tokenLayer.get(i).add(new Token(new Position(j, i), players[0]));
@@ -98,8 +97,14 @@ public class CheckersGameModel {
         return boardLayer;
     }
 
-        public void setOpponent(PlayerType playerType) {
+    public ArrayList<ArrayList<Token>> getTokenLayer() {
+
+        return tokenLayer;
+    }
+
+    public void setOpponent(PlayerType playerType) {
 
         players[1].setType(playerType);
     }
+
 }
