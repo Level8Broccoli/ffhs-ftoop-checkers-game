@@ -2,7 +2,6 @@ package ch.oliverbucher.checkers.view.game;
 
 import ch.oliverbucher.checkers.CheckersGamePresenter;
 import ch.oliverbucher.checkers.resources.Config;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +9,6 @@ import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
