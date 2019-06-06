@@ -51,6 +51,8 @@ public class TokenLayer {
                 }
             }
         }
+
+        calculateAllPossibleMoves();
     }
 
     public void calculateAllPossibleMoves() {

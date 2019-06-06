@@ -44,6 +44,5 @@ public class CheckersGameModel {
     public void generateTokens() {
 
         tokenLayer.generateTokenLayer();
-        tokenLayer.calculateAllPossibleMoves();
     }
 }
