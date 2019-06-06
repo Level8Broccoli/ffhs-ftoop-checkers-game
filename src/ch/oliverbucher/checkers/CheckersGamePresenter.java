@@ -9,10 +9,13 @@ import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
 import ch.oliverbucher.checkers.view.launch.LaunchViewController;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -125,6 +128,17 @@ public class CheckersGamePresenter extends Application {
                     btnToken.setId(currentToken.getPlayerOwner().getPlayerColor().name());
                     stackPane.getChildren().add(btnToken);
                 }
+
+                // draw interaction Layer
+
+                Button btnInteraction = new Button();
+                int finalX = x;
+                int finalY = y;
+                btnInteraction.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                        (EventHandler<Event>) event -> model.clickEvent(finalX, finalY));
+                btnInteraction.setId("btnInteraction");
+                stackPane.getChildren().add(btnInteraction);
+
 //
 //            Button btnMark = new Button();
 //            btnMark.setId("mark");

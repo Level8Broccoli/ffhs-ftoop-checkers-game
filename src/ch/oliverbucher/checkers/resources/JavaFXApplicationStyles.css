@@ -30,6 +30,10 @@ Button {
 
 #boardContainer {
     -fx-alignment: center;
+    -fx-border-width: 5px;
+    -fx-border-color: #333333;
+    -fx-max-width: 410px;
+    -fx-padding: 0;
 }
 
 #boardContainer * {
@@ -55,12 +59,8 @@ Button {
     -fx-background-color: #333333;
 }
 
-#boardContainer #mark {
-     -fx-opacity: 0;
-}
-
-#boardContainer #hide {
-    -fx-opacity: 0;
+#boardContainer #btnInteraction {
+    -fx-opacity: 0.1;
 }
 
 #boardContainer #LIGHT {

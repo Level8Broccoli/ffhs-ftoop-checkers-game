@@ -97,4 +97,9 @@ public class CheckersGameModel {
 
         players[1].setPlayerType(playerType);
     }
+
+    public void clickEvent(int x, int y) {
+
+        System.out.println("" + x + y);
+    }
 }
