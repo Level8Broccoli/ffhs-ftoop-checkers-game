@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.view.game;
 
-import ch.oliverbucher.checkers.view.CheckersGamePresenter;
+import ch.oliverbucher.checkers.CheckersGamePresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

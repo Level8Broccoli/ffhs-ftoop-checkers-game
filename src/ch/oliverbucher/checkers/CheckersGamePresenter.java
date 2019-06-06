@@ -1,4 +1,4 @@
-package ch.oliverbucher.checkers.view;
+package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;

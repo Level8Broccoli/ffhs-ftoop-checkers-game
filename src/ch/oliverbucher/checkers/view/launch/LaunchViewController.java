@@ -2,7 +2,7 @@ package ch.oliverbucher.checkers.view.launch;
 
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.resources.Config;
-import ch.oliverbucher.checkers.view.CheckersGamePresenter;
+import ch.oliverbucher.checkers.CheckersGamePresenter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
