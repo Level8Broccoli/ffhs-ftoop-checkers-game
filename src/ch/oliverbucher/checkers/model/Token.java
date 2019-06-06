@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.model;
 
-public class Token implements TokenInterface {
+public class Token {
 
     private Player playerOwner;
     private Position position;
@@ -17,17 +17,10 @@ public class Token implements TokenInterface {
         this.position = position;
     }
 
-    @Override
     public Player getPlayerOwner() {
         return playerOwner;
     }
 
-    @Override
-    public Position getPosition() {
-        return position;
-    }
-
-    @Override
     public boolean playerIsAssigned() {
 
         return (playerOwner != null);
