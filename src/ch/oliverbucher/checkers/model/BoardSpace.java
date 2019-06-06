@@ -2,14 +2,13 @@ package ch.oliverbucher.checkers.model;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 
-public class BoardSpace extends Space {
+public class BoardSpace {
 
-    private boolean isAllowed;
-    private BoardColor boardColor;
+    private final boolean isAllowed;
+    private final BoardColor boardColor;
 
-    public BoardSpace(Position position, BoardColor boardColor, Boolean isAllowed) {
+    public BoardSpace(BoardColor boardColor, Boolean isAllowed) {
 
-        super(position);
         this.boardColor = boardColor;
         this.isAllowed = isAllowed;
     }
