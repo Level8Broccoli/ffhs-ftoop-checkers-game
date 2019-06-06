@@ -48,8 +48,6 @@ public class PlayerToken extends Token {
         }
 
         Position possibleMoveLeft = new Position(currentPositionX - 1, nextRowY);
-
-        System.out.println(possibleMoveLeft);
         if (possibleMoveLeft.isOnTheBoard() && tokenLayer.isEmpty(possibleMoveLeft)) {
             possibleMoves.add(possibleMoveLeft);
         }
@@ -61,6 +59,7 @@ public class PlayerToken extends Token {
 
         if (possibleMoves != null && possibleMoves.size() > 0) {
 
+//            TODO Delete sout
             System.out.println("Token: " + currentPositionX + currentPositionY + " has " + possibleMoves.size() + " " +
                     "possible moves");
             return true;

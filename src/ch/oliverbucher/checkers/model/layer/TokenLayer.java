@@ -52,6 +52,6 @@ public class TokenLayer {
 
     public boolean isEmpty(Position position) {
 
-        return true;
+        return !tokenLayer.get(position.getPositionX()).get(position.getPositionY()).isPlayerAssigned();
     }
 }

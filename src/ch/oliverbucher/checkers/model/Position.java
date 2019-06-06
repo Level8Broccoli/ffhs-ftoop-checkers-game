@@ -2,8 +2,6 @@ package ch.oliverbucher.checkers.model;
 
 import ch.oliverbucher.checkers.resources.Config;
 
-import java.util.ArrayList;
-
 public class Position {
 
     private int positionX;
@@ -27,13 +25,9 @@ public class Position {
 
     public boolean isOnTheBoard() {
 
-        if (
-                positionX < 0 ||
-                positionY < 0 ||
-                positionX >= Config.BOARD_WIDTH ||
-                positionY >= Config.BOARD_HEIGHT) {
-            return false;
-        }
-        return true;
+        return positionX >= 0 &&
+                positionY >= 0 &&
+                positionX < Config.BOARD_WIDTH &&
+                positionY < Config.BOARD_HEIGHT;
     }
 }

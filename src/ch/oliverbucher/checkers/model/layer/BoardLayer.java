@@ -2,7 +2,6 @@ package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.model.BoardSpace;
-import ch.oliverbucher.checkers.model.Position;
 import ch.oliverbucher.checkers.resources.Config;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class BoardLayer {
                     isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(new Position(x, y), currentBoardColor, isAllowed);
+                BoardSpace field = new BoardSpace(currentBoardColor, isAllowed);
                 boardLayer.get(x).add(field);
             }
         }
