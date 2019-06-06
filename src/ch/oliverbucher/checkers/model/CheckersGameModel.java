@@ -5,7 +5,6 @@ import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
-import ch.oliverbucher.checkers.resources.Config;
 
 public class CheckersGameModel {
 
@@ -20,15 +19,6 @@ public class CheckersGameModel {
 
         boardLayer = new BoardLayer();
         tokenLayer = new TokenLayer(boardLayer, players);
-    }
-
-    public void calcAllPossibleMoves() {
-
-        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
-            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
-                tokenLayer.get(x).get(y).calculatePossibleMoves(tokenLayer);
-            }
-        }
     }
 
     public BoardLayer getBoardLayer() {
@@ -49,7 +39,11 @@ public class CheckersGameModel {
     public void clickEvent(int x, int y) {
 
         System.out.println(x + " " + y);
+    }
 
-        calcAllPossibleMoves();
+    public void generateTokens() {
+
+        tokenLayer.generateTokenLayer();
+        tokenLayer.calculateAllPossibleMoves();
     }
 }

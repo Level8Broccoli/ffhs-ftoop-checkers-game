@@ -29,4 +29,9 @@ public class Token {
     public Player getPlayerOwner() {
         return null;
     }
+
+    public boolean hasPossibleMoves() {
+
+        return possibleMoves != null && possibleMoves.size() > 0;
+    }
 }

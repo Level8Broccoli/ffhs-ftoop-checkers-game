@@ -90,6 +90,7 @@ public class CheckersGamePresenter extends Application {
     public void startGame() {
 
         stage.setScene(gameScene);
+        model.generateTokens();
         drawBoard();
     }
 
@@ -129,8 +130,14 @@ public class CheckersGamePresenter extends Application {
                     stackPane.getChildren().add(btnToken);
                 }
 
-                // draw interaction Layer
+                // draw marked Layer
+                if (currentPlayerToken.hasPossibleMoves()) {
+                    Button btnMark = new Button();
+                    btnMark.setId("btnMarked");
+                    stackPane.getChildren().add(btnMark);
+                }
 
+                // draw interaction Layer
                 Button btnInteraction = new Button();
                 int finalX = x;
                 int finalY = y;
@@ -138,16 +145,6 @@ public class CheckersGamePresenter extends Application {
                         (EventHandler<Event>) event -> model.clickEvent(finalX, finalY));
                 btnInteraction.setId("btnInteraction");
                 stackPane.getChildren().add(btnInteraction);
-
-//
-//            Button btnMark = new Button();
-//            btnMark.setId("mark");
-//            stackPane.getChildren().add(btnMark);
-//
-//            Button btnInteraction = new Button();
-//            btnInteraction.setId("hide");
-//            btnInteraction.setId(currentPositionX + "-" + currentPositionY);
-//            stackPane.getChildren().add(btnInteraction);
 
                 gridContainer.add(stackPane, x, y);
             }

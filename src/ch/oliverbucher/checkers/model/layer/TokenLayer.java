@@ -10,9 +10,17 @@ import java.util.ArrayList;
 
 public class TokenLayer {
 
-    ArrayList<ArrayList<Token>> tokenLayer;
+    private ArrayList<ArrayList<Token>> tokenLayer;
+    private BoardLayer boardLayer;
+    private Player[] players;
 
     public TokenLayer(BoardLayer boardLayer, Player[] players) {
+
+        this.boardLayer = boardLayer;
+        this.players = players;
+    }
+
+    public void generateTokenLayer() {
 
         tokenLayer = new ArrayList<>();
 
@@ -41,6 +49,15 @@ public class TokenLayer {
                         tokenLayer.get(x).add(new Token(new Position(x, y)));
                     }
                 }
+            }
+        }
+    }
+
+    public void calculateAllPossibleMoves() {
+
+        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
+            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+                this.get(x).get(y).calculatePossibleMoves(this);
             }
         }
     }

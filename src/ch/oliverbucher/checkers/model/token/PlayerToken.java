@@ -66,4 +66,10 @@ public class PlayerToken extends Token {
         }
         return false;
     }
+
+    @Override
+    public boolean hasPossibleMoves() {
+
+        return possibleMoves != null && possibleMoves.size() > 0;
+    }
 }
