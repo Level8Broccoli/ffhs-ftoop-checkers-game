@@ -1,6 +1,7 @@
 package ch.oliverbucher.checkers.model;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
+import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.resources.Config;
@@ -16,8 +17,8 @@ public class CheckersGameModel {
 
     public CheckersGameModel() {
 
-        players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE);
-        players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK);
+        players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE, DirectionOfPlay.UP);
+        players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK, DirectionOfPlay.DOWN);
 
         generateBoardLayer();
         generateTokenLayer();

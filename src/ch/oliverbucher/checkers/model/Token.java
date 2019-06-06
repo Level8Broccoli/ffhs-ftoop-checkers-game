@@ -1,9 +1,12 @@
 package ch.oliverbucher.checkers.model;
 
+import java.util.ArrayList;
+
 public class Token {
 
     private Player playerOwner;
     private Position position;
+    private ArrayList<Position> possibleMoves;
 
     public Token(Position position, Player playerOwner) {
 
@@ -21,8 +24,17 @@ public class Token {
         return playerOwner;
     }
 
-    public boolean playerIsAssigned() {
+    public boolean isPlayerAssigned() {
 
         return (playerOwner != null);
+    }
+
+    public void calculateAllPossibleMoves() {
+
+        possibleMoves.clear();
+
+        int currentPositionX = position.getPositionX();
+        int currentPositionY = position.getPositionY();
+
     }
 }

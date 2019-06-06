@@ -123,7 +123,7 @@ public class CheckersGamePresenter extends Application {
                 // draw token
                 Token currentToken = currentTokenRow.get(y);
 
-                if (currentToken.playerIsAssigned()) {
+                if (currentToken.isPlayerAssigned()) {
                     Button btnToken = new Button();
                     btnToken.setId(currentToken.getPlayerOwner().getPlayerColor().name());
                     stackPane.getChildren().add(btnToken);
