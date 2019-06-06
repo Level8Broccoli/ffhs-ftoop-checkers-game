@@ -101,6 +101,7 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        System.out.println("" + x + y);
+        Position click = new Position(x, y);
+        System.out.println(click.isOnTheBoard());
     }
 }

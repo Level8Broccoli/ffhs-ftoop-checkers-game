@@ -1,5 +1,7 @@
 package ch.oliverbucher.checkers.model;
 
+import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
+
 import java.util.ArrayList;
 
 public class Token {
@@ -35,6 +37,10 @@ public class Token {
 
         int currentPositionX = position.getPositionX();
         int currentPositionY = position.getPositionY();
+        DirectionOfPlay directionOfPlay = playerOwner.getDirectionOfPlay();
+
+        Position possibleMoveLeft = new Position(currentPositionX - 1, currentPositionY - 1);
+        System.out.println(possibleMoveLeft.isOnTheBoard());
 
     }
 }

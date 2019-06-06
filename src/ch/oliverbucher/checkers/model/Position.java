@@ -1,5 +1,7 @@
 package ch.oliverbucher.checkers.model;
 
+import ch.oliverbucher.checkers.resources.Config;
+
 public class Position {
 
     private int positionX;
@@ -19,5 +21,17 @@ public class Position {
     public int getPositionY() {
 
         return positionY;
+    }
+
+    public boolean isOnTheBoard() {
+
+        if (
+                positionX < 0 ||
+                positionY < 0 ||
+                positionX > Config.BOARD_WIDTH ||
+                positionY > Config.BOARD_HEIGHT) {
+            return false;
+        }
+        return true;
     }
 }

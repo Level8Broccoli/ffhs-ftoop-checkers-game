@@ -25,4 +25,9 @@ public class Player {
 
         return playerColor;
     }
+
+    public DirectionOfPlay getDirectionOfPlay() {
+
+        return directionOfPlay;
+    }
 }
