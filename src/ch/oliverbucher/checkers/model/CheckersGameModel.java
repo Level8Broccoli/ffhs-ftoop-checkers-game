@@ -12,27 +12,27 @@ public class CheckersGameModel {
     private ArrayList<ArrayList<BoardSpace>> boardLayer;
     private ArrayList<ArrayList<Token>> tokenLayer;
     private ArrayList<ArrayList<Mark>> markLayer;
-    private ArrayList<ArrayList<BoardSpace>> iLayer;
     private Player[] players = new Player[2];
 
     public CheckersGameModel() {
 
-        generateBoardLayer(Config.BOARD_WIDTH, Config.BOARD_HEIGHT);
-        generateTokenLayer(Config.BOARD_WIDTH, Config.BOARD_HEIGHT);
-
         players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE);
         players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK);
+
+        generateBoardLayer();
+        generateTokenLayer();
+//        generateMarkLayer();
     }
 
-    private void generateBoardLayer(int boardWidth, int boardHeight) {
+    private void generateBoardLayer() {
 
         boardLayer = new ArrayList<>();
 
-        for (int x = 0; x < boardWidth; x++) {
+        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
             boardLayer.add(new ArrayList<>());
 
-            for (int y = 0; y < boardHeight; y++) {
+            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
                 BoardColor currentBoardColor;
                 Boolean isAllowed;
@@ -50,38 +50,35 @@ public class CheckersGameModel {
         }
     }
 
-    private void generateTokenLayer(int boardWidth, int boardHeight) {
+    private void generateTokenLayer() {
 
         tokenLayer = new ArrayList<>();
 
-        int startRows = Integer.parseInt(Config.getValue("START_ROWS"));
-
-        for (int x = 0; x < boardWidth; x++) {
+        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
             tokenLayer.add(new ArrayList<>());
 
-            for (int y = 0; y < boardHeight; y++) {
-                if (y < startRows) {
+            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+                if (y < Config.START_ROWS) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
                         tokenLayer.get(x).add(new Token(new Position(y, x), players[1]));
                     } else {
-                        tokenLayer.get(x).add(new Token(new Position(y, x), true));
+                        tokenLayer.get(x).add(new Token(new Position(y, x)));
                     }
 
-                } else if (y >= startRows && y < boardHeight - startRows) {
+                } else if (y >= Config.START_ROWS && y < Config.BOARD_HEIGHT - Config.START_ROWS) {
 
-                    tokenLayer.get(x).add(new Token(new Position(y, x), true));
+                    tokenLayer.get(x).add(new Token(new Position(y, x)));
 
-                } else if (y >= boardHeight - startRows) {
+                } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
                         tokenLayer.get(x).add(new Token(new Position(y, x), players[0]));
                     } else {
-                        tokenLayer.get(x).add(new Token(new Position(y, x), true));
+                        tokenLayer.get(x).add(new Token(new Position(y, x)));
                     }
                 }
-            System.out.println(x + " / " + y);
             }
         }
     }
@@ -98,7 +95,6 @@ public class CheckersGameModel {
 
     public void setOpponent(PlayerType playerType) {
 
-        players[1].setType(playerType);
+        players[1].setPlayerType(playerType);
     }
-
 }

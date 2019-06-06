@@ -43,16 +43,16 @@ Button {
     -fx-opacity: 0.3;
 }
 
-#boardContainer #tokenOne {
+#boardContainer #WHITE {
     -fx-background-radius: 50%;
     -fx-background-insets: 10px;
-    -fx-background-color: red;
+    -fx-background-color: #fff5ee;
 }
 
-#boardContainer #tokenTwo {
+#boardContainer #BLACK {
     -fx-background-radius: 50%;
     -fx-background-insets: 10px;
-    -fx-background-color: blue;
+    -fx-background-color: #333333;
 }
 
 #boardContainer #mark {
@@ -64,13 +64,13 @@ Button {
 }
 
 #boardContainer #LIGHT {
-    -fx-background-color: lightblue;
+    -fx-background-color: #fffaf0;
 }
 
 #boardContainer #DARK {
-    -fx-background-color: darkgray;
+    -fx-background-color: #808080;
 }
 
 #lblMessage {
-    -fx-text-fill: red;
+    -fx-text-fill: #b22222;
 }

@@ -4,19 +4,17 @@ public class Token implements TokenInterface {
 
     private Player playerOwner;
     private Position position;
-    private Boolean isEmpty;
 
     public Token(Position position, Player playerOwner) {
 
         this.playerOwner = playerOwner;
         this.position = position;
-        this.isEmpty = false;
     }
 
-    public Token(Position position, Boolean isEmpty) {
+    public Token(Position position) {
 
+        this.playerOwner = null;
         this.position = position;
-        this.isEmpty = isEmpty;
     }
 
     @Override
@@ -30,8 +28,8 @@ public class Token implements TokenInterface {
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean playerIsAssigned() {
 
-        return isEmpty;
+        return (playerOwner != null);
     }
 }

@@ -9,6 +9,8 @@ public class Config {
 
     public static int BOARD_WIDTH = Integer.parseInt(getValue("BOARD_WIDTH"));
     public static int BOARD_HEIGHT = Integer.parseInt(getValue("BOARD_HEIGHT"));
+    public static int START_ROWS = Integer.parseInt(Config.getValue("START_ROWS"));
+
 
     public static String getValue(String key) {
 

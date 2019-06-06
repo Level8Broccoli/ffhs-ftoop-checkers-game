@@ -14,7 +14,12 @@ public class Player {
         this.playerColor = playerColor;
     }
 
-    public void setType(PlayerType playerType) {
+    public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
+    }
+
+    public PlayerColor getPlayerColor() {
+
+        return playerColor;
     }
 }
