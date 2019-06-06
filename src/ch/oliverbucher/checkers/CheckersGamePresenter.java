@@ -151,7 +151,7 @@ public class CheckersGamePresenter extends Application {
         }
     }
 
-    public void setOpponent(PlayerType human) {
-        model.setOpponent(human);
+    public void setOpponent(PlayerType playerType) {
+        model.setOpponent(playerType);
     }
 }
