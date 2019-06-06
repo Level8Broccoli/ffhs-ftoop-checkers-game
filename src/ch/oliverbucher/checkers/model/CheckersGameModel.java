@@ -45,7 +45,7 @@ public class CheckersGameModel {
                     isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(new Position(y, x), currentBoardColor, isAllowed);
+                BoardSpace field = new BoardSpace(new Position(x, y), currentBoardColor, isAllowed);
                 boardLayer.get(x).add(field);
             }
         }
@@ -63,23 +63,32 @@ public class CheckersGameModel {
                 if (y < Config.START_ROWS) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
-                        tokenLayer.get(x).add(new Token(new Position(y, x), players[1]));
+                        tokenLayer.get(x).add(new PlayerToken(new Position(x, y), players[1]));
                     } else {
-                        tokenLayer.get(x).add(new Token(new Position(y, x)));
+                        tokenLayer.get(x).add(new Token(new Position(x, y)));
                     }
 
                 } else if (y >= Config.START_ROWS && y < Config.BOARD_HEIGHT - Config.START_ROWS) {
 
-                    tokenLayer.get(x).add(new Token(new Position(y, x)));
+                    tokenLayer.get(x).add(new Token(new Position(x, y)));
 
                 } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
 
                     if (boardLayer.get(x).get(y).isAllowed()) {
-                        tokenLayer.get(x).add(new Token(new Position(y, x), players[0]));
+                        tokenLayer.get(x).add(new PlayerToken(new Position(x, y), players[0]));
                     } else {
-                        tokenLayer.get(x).add(new Token(new Position(y, x)));
+                        tokenLayer.get(x).add(new Token(new Position(x, y)));
                     }
                 }
+            }
+        }
+    }
+
+    public void calcAllPossibleMoves() {
+
+        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
+            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+                tokenLayer.get(x).get(y).calculatePossibleMoves();
             }
         }
     }
@@ -103,5 +112,6 @@ public class CheckersGameModel {
 
         Position click = new Position(x, y);
         System.out.println(click.isOnTheBoard());
+        System.out.println(x + " " + y);
     }
 }

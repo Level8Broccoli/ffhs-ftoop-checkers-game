@@ -4,6 +4,7 @@ import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
+import ch.oliverbucher.checkers.model.PlayerToken;
 import ch.oliverbucher.checkers.model.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
@@ -105,7 +106,7 @@ public class CheckersGamePresenter extends Application {
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
             ArrayList<BoardSpace> currentBoardRow = model.getBoardLayer().get(x);
-            ArrayList<Token> currentTokenRow = model.getTokenLayer().get(x);
+            ArrayList<Token> currentPlayerTokenRow = model.getTokenLayer().get(x);
 
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
@@ -121,11 +122,11 @@ public class CheckersGamePresenter extends Application {
                 stackPane.getChildren().add(btnBackground);
 
                 // draw token
-                Token currentToken = currentTokenRow.get(y);
+                Token currentPlayerToken = currentPlayerTokenRow.get(y);
 
-                if (currentToken.isPlayerAssigned()) {
+                if (currentPlayerToken.isPlayerAssigned()) {
                     Button btnToken = new Button();
-                    btnToken.setId(currentToken.getPlayerOwner().getPlayerColor().name());
+                    btnToken.setId(currentPlayerToken.getPlayerOwner().getPlayerColor().name());
                     stackPane.getChildren().add(btnToken);
                 }
 

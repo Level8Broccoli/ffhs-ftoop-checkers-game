@@ -34,4 +34,9 @@ public class Position {
         }
         return true;
     }
+
+    public boolean isEmpty() {
+
+        return true;
+    }
 }
