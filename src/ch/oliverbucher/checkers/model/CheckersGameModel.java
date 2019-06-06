@@ -16,7 +16,6 @@ public class CheckersGameModel {
         int boardWidth = Integer.parseInt(Config.getValue("BOARD_WIDTH"));
         int boardHeight = Integer.parseInt(Config.getValue("BOARD_HEIGHT"));
 
-        // board_old = new Board(boardWidth, boardHeight);
         board = new Board(boardWidth, boardHeight);
 
         players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE);

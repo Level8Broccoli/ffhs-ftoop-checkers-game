@@ -39,8 +39,16 @@ Button {
     -fx-pref-height: 100px;
 }
 
-#boardContainer #token {
-    -fx-opacity: 0;
+#boardContainer #tokenOne {
+    -fx-background-radius: 50%;
+    -fx-background-insets: 10px;
+    -fx-background-color: red;
+}
+
+#boardContainer #tokenTwo {
+    -fx-background-radius: 50%;
+    -fx-background-insets: 10px;
+    -fx-background-color: blue;
 }
 
 #boardContainer #mark {

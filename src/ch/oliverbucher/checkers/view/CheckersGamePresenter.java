@@ -116,9 +116,9 @@ public class CheckersGamePresenter extends Application {
                 btnBackground.setId(String.valueOf(currentBoardColor));
                 stackPane.getChildren().add(btnBackground);
 
-//                Button btnToken = new Button();
-//                btnToken.setId("token");
-//                stackPane.getChildren().add(btnToken);
+                Button btnToken = new Button();
+                btnToken.setId("token");
+                stackPane.getChildren().add(btnToken);
 //
 //            Button btnMark = new Button();
 //            btnMark.setId("mark");
