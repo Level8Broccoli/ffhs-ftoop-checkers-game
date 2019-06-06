@@ -1,10 +1,14 @@
-package ch.oliverbucher.checkers.model;
+package ch.oliverbucher.checkers.model.token;
+
+import ch.oliverbucher.checkers.model.Player;
+import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.layer.TokenLayer;
 
 import java.util.ArrayList;
 
 public class Token {
 
-    private Position position;
+    protected Position position;
     private ArrayList<Position> possibleMoves;
 
     public Token(Position position) {
@@ -12,9 +16,9 @@ public class Token {
         this.position = position;
     }
 
-    public void calculatePossibleMoves() {
+    public boolean calculatePossibleMoves(TokenLayer tokenLayer) {
 
-        possibleMoves.clear();
+        return false;
     }
 
     public boolean isPlayerAssigned() {

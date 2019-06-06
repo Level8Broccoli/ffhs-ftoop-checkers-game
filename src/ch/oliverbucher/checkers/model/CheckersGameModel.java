@@ -1,18 +1,16 @@
 package ch.oliverbucher.checkers.model;
 
-import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
+import ch.oliverbucher.checkers.model.layer.BoardLayer;
+import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.resources.Config;
-
-import java.util.ArrayList;
 
 public class CheckersGameModel {
 
-    private ArrayList<ArrayList<BoardSpace>> boardLayer;
-    private ArrayList<ArrayList<Token>> tokenLayer;
-    private ArrayList<ArrayList<Mark>> markLayer;
+    private BoardLayer boardLayer;
+    private TokenLayer tokenLayer;
     private Player[] players = new Player[2];
 
     public CheckersGameModel() {
@@ -20,85 +18,25 @@ public class CheckersGameModel {
         players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE, DirectionOfPlay.UP);
         players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK, DirectionOfPlay.DOWN);
 
-        generateBoardLayer();
-        generateTokenLayer();
-//        generateMarkLayer();
-    }
-
-    private void generateBoardLayer() {
-
-        boardLayer = new ArrayList<>();
-
-        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
-
-            boardLayer.add(new ArrayList<>());
-
-            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
-
-                BoardColor currentBoardColor;
-                Boolean isAllowed;
-                if ((x + y) % 2 == 0) {
-                    currentBoardColor = BoardColor.LIGHT;
-                    isAllowed = false;
-                } else {
-                    currentBoardColor = BoardColor.DARK;
-                    isAllowed = true;
-                }
-
-                BoardSpace field = new BoardSpace(new Position(x, y), currentBoardColor, isAllowed);
-                boardLayer.get(x).add(field);
-            }
-        }
-    }
-
-    private void generateTokenLayer() {
-
-        tokenLayer = new ArrayList<>();
-
-        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
-
-            tokenLayer.add(new ArrayList<>());
-
-            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
-                if (y < Config.START_ROWS) {
-
-                    if (boardLayer.get(x).get(y).isAllowed()) {
-                        tokenLayer.get(x).add(new PlayerToken(new Position(x, y), players[1]));
-                    } else {
-                        tokenLayer.get(x).add(new Token(new Position(x, y)));
-                    }
-
-                } else if (y >= Config.START_ROWS && y < Config.BOARD_HEIGHT - Config.START_ROWS) {
-
-                    tokenLayer.get(x).add(new Token(new Position(x, y)));
-
-                } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
-
-                    if (boardLayer.get(x).get(y).isAllowed()) {
-                        tokenLayer.get(x).add(new PlayerToken(new Position(x, y), players[0]));
-                    } else {
-                        tokenLayer.get(x).add(new Token(new Position(x, y)));
-                    }
-                }
-            }
-        }
+        boardLayer = new BoardLayer();
+        tokenLayer = new TokenLayer(boardLayer, players);
     }
 
     public void calcAllPossibleMoves() {
 
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
-                tokenLayer.get(x).get(y).calculatePossibleMoves();
+                tokenLayer.get(x).get(y).calculatePossibleMoves(tokenLayer);
             }
         }
     }
 
-    public ArrayList<ArrayList<BoardSpace>> getBoardLayer() {
+    public BoardLayer getBoardLayer() {
 
         return boardLayer;
     }
 
-    public ArrayList<ArrayList<Token>> getTokenLayer() {
+    public TokenLayer getTokenLayer() {
 
         return tokenLayer;
     }
@@ -110,8 +48,8 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        Position click = new Position(x, y);
-        System.out.println(click.isOnTheBoard());
         System.out.println(x + " " + y);
+
+        calcAllPossibleMoves();
     }
 }
