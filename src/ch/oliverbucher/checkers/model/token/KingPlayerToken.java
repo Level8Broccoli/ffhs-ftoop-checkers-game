@@ -5,8 +5,8 @@ import ch.oliverbucher.checkers.model.Position;
 
 public class KingPlayerToken extends PlayerToken {
 
-    public KingPlayerToken(Position position, Player playerOwner) {
+    public KingPlayerToken(Player playerOwner, Position position) {
 
-        super(position, playerOwner);
+        super(playerOwner, position);
     }
 }

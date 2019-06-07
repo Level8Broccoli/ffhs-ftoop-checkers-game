@@ -38,11 +38,8 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
+        System.out.println(boardLayer.getPositionOf(x, y));
+        System.out.println(tokenLayer.get(boardLayer.getPositionOf(x, y)));
         System.out.println(x + " " + y);
-    }
-
-    public void generateTokens() {
-
-        tokenLayer.generateTokenLayer();
     }
 }

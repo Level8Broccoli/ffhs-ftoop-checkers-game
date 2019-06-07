@@ -23,8 +23,6 @@ public class GameViewController implements Initializable {
     @FXML
     private Button hide;
 
-
-
     private CheckersGamePresenter presenter;
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,5 +52,4 @@ public class GameViewController implements Initializable {
 
         this.presenter = presenter;
     }
-
 }

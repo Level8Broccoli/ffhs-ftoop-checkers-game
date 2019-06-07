@@ -2,9 +2,10 @@ package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
-import ch.oliverbucher.checkers.model.BoardSpace;
+import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
-import ch.oliverbucher.checkers.model.token.Token;
+import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
 import ch.oliverbucher.checkers.view.launch.LaunchViewController;
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -90,7 +92,6 @@ public class CheckersGamePresenter extends Application {
     public void startGame() {
 
         stage.setScene(gameScene);
-        model.generateTokens();
         drawBoard();
     }
 
@@ -106,9 +107,9 @@ public class CheckersGamePresenter extends Application {
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
             ArrayList<BoardSpace> currentBoardRow = model.getBoardLayer().get(x);
-            ArrayList<Token> currentPlayerTokenRow = model.getTokenLayer().get(x);
-
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+
+                Position currentPosition = model.getBoardLayer().getPositionOf(x, y);
 
                 StackPane stackPane = new StackPane();
                 stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
@@ -122,20 +123,19 @@ public class CheckersGamePresenter extends Application {
                 stackPane.getChildren().add(btnBackground);
 
                 // draw token layer
-                Token currentPlayerToken = currentPlayerTokenRow.get(y);
-
-                if (currentPlayerToken.isPlayerAssigned()) {
+                if (model.getTokenLayer().get(currentPosition) != null) {
+                    PlayerToken currentPlayerToken = model.getTokenLayer().get(currentPosition);
                     Button btnToken = new Button();
-                    btnToken.setId(currentPlayerToken.getPlayerOwner().getPlayerColor().name());
+                    btnToken.setId(currentPlayerToken.getName());
                     stackPane.getChildren().add(btnToken);
                 }
 
                 // draw marked layer
-                if (currentPlayerToken.hasPossibleMoves()) {
-                    Button btnMark = new Button();
-                    btnMark.setId("btnMarked");
-                    stackPane.getChildren().add(btnMark);
-                }
+//                if (currentPlayerToken.hasPossibleMoves()) {
+//                    Button btnMark = new Button();
+//                    btnMark.setId("btnMarked");
+//                    stackPane.getChildren().add(btnMark);
+//                }
 
                 // draw interaction layer
                 Button btnInteraction = new Button();
