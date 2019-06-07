@@ -1,6 +1,5 @@
 package ch.oliverbucher.checkers.model.token;
 
-import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
@@ -11,15 +10,13 @@ import java.util.HashMap;
 public class PlayerToken {
 
     private final Player playerOwner;
-    private final DirectionOfPlay directionOfPlay;
 
     public PlayerToken(Player playerOwner) {
 
         this.playerOwner = playerOwner;
-        this.directionOfPlay = playerOwner.getDirectionOfPlay();
     }
 
-    public String getName() {
+    public final String getName() {
 
         return playerOwner.getPlayerColor().name();
     }
@@ -28,22 +25,16 @@ public class PlayerToken {
 
         HashMap<PositionXY, HorizontalDirection> possibleMoves = new HashMap<>();
 
-        int currentPositionX = currentPosition.getPositionX();
-        int currentPositionY = currentPosition.getPositionY();
-        int nextRowY;
+        final int currentPositionX = currentPosition.positionX;
+        final int currentPositionY = currentPosition.positionY;
+        final int nextRowY = playerOwner.getDirectionOfPlay().isUp() ? currentPositionY - 1 : currentPositionY + 1;
 
-        if (directionOfPlay.isUp()) {
-            nextRowY = currentPositionY - 1;
-        } else {
-            nextRowY = currentPositionY + 1;
-        }
-
-        PositionXY possibleMoveLeft = Positions.getPosition(currentPositionX - 1, nextRowY);
+        final PositionXY possibleMoveLeft = Positions.getPosition(currentPositionX - 1, nextRowY);
         if (possibleMoveLeft != null) {
             possibleMoves.put(possibleMoveLeft, HorizontalDirection.LEFT);
         }
 
-        PositionXY possibleMoveRight = Positions.getPosition(currentPositionX + 1, nextRowY);
+        final PositionXY possibleMoveRight = Positions.getPosition(currentPositionX + 1, nextRowY);
         if (possibleMoveRight != null) {
             possibleMoves.put(possibleMoveRight, HorizontalDirection.RIGHT);
         }
@@ -58,24 +49,20 @@ public class PlayerToken {
 
     public PositionXY getPositionBehindOpponent(PositionXY jumpOverPosition, HorizontalDirection direction) {
 
-        int targetPositionX = jumpOverPosition.getPositionX();
-        int targetPositionY = jumpOverPosition.getPositionY();
+        int targetPositionX = jumpOverPosition.positionX;
+        int targetPositionY = jumpOverPosition.positionY;
 
-        System.out.println("before: " + targetPositionX);
         if (direction == HorizontalDirection.LEFT) {
             targetPositionX--;
         } else {
             targetPositionX++;
         }
-        System.out.println("after: " + targetPositionX);
 
-        System.out.println("before: " + targetPositionY);
-        if (directionOfPlay.isUp()) {
+        if (playerOwner.getDirectionOfPlay().isUp()) {
             targetPositionY--;
         } else {
             targetPositionY++;
         }
-        System.out.println("after: " + targetPositionY);
 
         return Positions.getPosition(targetPositionX, targetPositionY);
     }

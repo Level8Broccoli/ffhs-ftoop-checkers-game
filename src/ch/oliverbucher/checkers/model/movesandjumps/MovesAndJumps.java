@@ -2,79 +2,51 @@ package ch.oliverbucher.checkers.model.movesandjumps;
 
 import ch.oliverbucher.checkers.model.position.PositionXY;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class MovesAndJumps {
 
-    private static ArrayList<AllowedMoveOrJump> allPossibleMovesOrJumps = new ArrayList<>();
-    private static HashMap<PositionXY, AllowedMoveOrJump> endPositions = new HashMap<>();
+    private static List<AllowedMoveOrJump> allAllowedMovesOrJumps = new ArrayList<>();
+    public static Map<PositionXY, AllowedMoveOrJump> endPositions = new HashMap<>();
 
-    public static ArrayList<AllowedMoveOrJump> getAllPossibleMovesOrJumps() {
+    public static List<AllowedMoveOrJump> getAllAllowedMovesOrJumps() {
 
-        return allPossibleMovesOrJumps;
+        return allAllowedMovesOrJumps;
     }
 
     public static void resetMoves() {
 
-        allPossibleMovesOrJumps.clear();
+        allAllowedMovesOrJumps.clear();
     }
 
     public static void setMovesOrJumps(ArrayList<AllowedMoveOrJump> possibleMovesOrJumps) {
 
-        resetMoves();
-        allPossibleMovesOrJumps.addAll(possibleMovesOrJumps);
-
-        for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps
-             ) {
-            PositionXY start = allowedMoveOrJump.getStartPosition();
-            PositionXY end = allowedMoveOrJump.getEndPosition();
-        }
+        allAllowedMovesOrJumps = possibleMovesOrJumps;
     }
 
-    public static boolean hasAllowedStartMovesOrJumps(PositionXY position) {
-
-        boolean checkValue = false;
-
-        for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps) {
-            if (allowedMoveOrJump.getStartPosition() == position) {
-                checkValue = true;
-            }
-        }
-
-        return checkValue;
-    }
-
-    public static boolean hasAllowedEndMovesOrJumps(PositionXY position) {
-
-        boolean checkValue = false;
-
-        for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps) {
-            if (allowedMoveOrJump.getEndPosition() == position) {
-                checkValue = true;
-            }
-        }
-
-        return checkValue;
-    }
-
-    public static void resetEndPositions() {
+    public static void deselectTokenToMove() {
 
         endPositions.clear();
     }
 
-    public static void setEndPositions(PositionXY currentClick) {
+    public static Map<PositionXY, AllowedMoveOrJump> getEndPositionsFor(PositionXY currentClick) {
 
-        resetEndPositions();
+        Map<PositionXY, AllowedMoveOrJump> result = new HashMap<>();
 
-        for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps) {
+        for (AllowedMoveOrJump allowedMoveOrJump: allAllowedMovesOrJumps) {
             if (allowedMoveOrJump.getStartPosition() == currentClick) {
-                endPositions.put(allowedMoveOrJump.getEndPosition(), allowedMoveOrJump);
+                result.put(allowedMoveOrJump.getEndPosition(), allowedMoveOrJump);
             }
         }
+
+        return result;
     }
 
-    public static boolean areEndPositionsSet() {
+    public static void selectTokenToMove(PositionXY currentClick) {
+        endPositions = getEndPositionsFor(currentClick);
+    }
+
+    public static boolean isTokenSelected() {
 
         return endPositions != null && endPositions.size() > 0;
     }
@@ -82,10 +54,5 @@ public class MovesAndJumps {
     public static AllowedMoveOrJump getMoveOrJump(PositionXY currentClick) {
 
         return endPositions.get(currentClick);
-    }
-
-    public static HashMap<PositionXY, AllowedMoveOrJump> getEndPositions() {
-
-        return endPositions;
     }
 }

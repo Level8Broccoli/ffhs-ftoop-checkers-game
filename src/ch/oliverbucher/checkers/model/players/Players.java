@@ -6,13 +6,14 @@ import ch.oliverbucher.checkers.enumaration.PlayerType;
 
 public class Players {
 
-    private static final Player[] players = new Player[2];
+    private static final Player[] players = new Player[]{
+        new Player(PlayerType.HUMAN, PlayerColor.WHITE, DirectionOfPlay.UP),
+        new Player(PlayerType.HUMAN, PlayerColor.BLACK, DirectionOfPlay.DOWN)
+    };
+
     public static Player CURRENT_PLAYER;
 
     public static void initializePlayers() {
-
-        players[0] = new Player(PlayerType.HUMAN, PlayerColor.WHITE, DirectionOfPlay.UP);
-        players[1] = new Player(PlayerType.HUMAN, PlayerColor.BLACK, DirectionOfPlay.DOWN);
 
         CURRENT_PLAYER = players[0];
     }
@@ -29,7 +30,5 @@ public class Players {
         } else {
             CURRENT_PLAYER = players[0];
         }
-
-        System.out.println("Player change: " + CURRENT_PLAYER.getPlayerColor().name());
     }
 }

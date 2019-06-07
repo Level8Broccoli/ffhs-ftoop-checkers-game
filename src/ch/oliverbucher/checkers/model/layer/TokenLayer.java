@@ -104,18 +104,6 @@ public class TokenLayer {
         return tokens.get(positionXY);
     }
 
-    public void moveTokenFromTo(PositionXY lastClick, PositionXY currentClick) {
-
-        PlayerToken activeToken = tokens.get(lastClick);
-        tokens.remove(lastClick);
-        tokens.put(currentClick, activeToken);
-    }
-
-    public HashMap<PositionXY, PlayerToken> getTokens() {
-
-        return tokens;
-    }
-
     public void executeMove(AllowedMoveOrJump currentMove) {
 
         PositionXY startPosition = currentMove.getStartPosition();

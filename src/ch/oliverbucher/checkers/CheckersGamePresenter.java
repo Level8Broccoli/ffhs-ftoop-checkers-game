@@ -43,6 +43,7 @@ public class CheckersGamePresenter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+//        TODO
         model = new CheckersGameModel();
 
         stage = primaryStage;
@@ -100,6 +101,7 @@ public class CheckersGamePresenter extends Application {
     public void drawBoard() {
 
         GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
+        gridContainer.getChildren().removeAll();
 
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
@@ -111,15 +113,15 @@ public class CheckersGamePresenter extends Application {
                 stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);
 
                 // draw board layer
-                BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
-                BoardColor currentBoardColor = currentSpace.getBoardColor();
+                final BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
+                final BoardColor currentBoardColor = currentSpace.getBoardColor();
 
-                Button btnBackground = new Button();
+                final Button btnBackground = new Button();
                 btnBackground.setId(String.valueOf(currentBoardColor));
                 stackPane.getChildren().add(btnBackground);
 
                 // draw token layer
-                PlayerToken currentPlayerToken = model.getTokenLayer().getTokenAt(currentPosition);
+                final PlayerToken currentPlayerToken = model.getTokenLayer().getTokenAt(currentPosition);
                 if (currentPlayerToken != null) {
                     Button btnToken = new Button();
                     btnToken.setId(currentPlayerToken.getName());
@@ -127,7 +129,7 @@ public class CheckersGamePresenter extends Application {
                 }
 
                 // draw marked layer
-                MarkType currentMarkType = model.getMarkLayer().get(currentPosition);
+                final MarkType currentMarkType = model.getMarkLayer().get(currentPosition);
                 if (currentMarkType != null) {
                     Button btnMark = new Button();
                     btnMark.setId(currentMarkType.getName());
@@ -136,8 +138,8 @@ public class CheckersGamePresenter extends Application {
 
                 // draw interaction layer
                 Button btnInteraction = new Button();
-                int positionX = x;
-                int positionY = y;
+                final int positionX = x;
+                final int positionY = y;
                 btnInteraction.addEventHandler(MouseEvent.MOUSE_CLICKED,
                         (EventHandler<Event>) event -> {
                             model.clickEvent(positionX, positionY);

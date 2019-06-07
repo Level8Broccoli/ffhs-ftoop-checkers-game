@@ -8,9 +8,9 @@ public class Config {
     private static final ResourceBundle RESOURCE_BUNDLE =
             ResourceBundle.getBundle("ch.oliverbucher.checkers.resources.config");
 
-    public static int BOARD_WIDTH = getIntegerValue("BOARD_WIDTH");
-    public static int BOARD_HEIGHT = getIntegerValue("BOARD_HEIGHT");
-    public static int START_ROWS = getIntegerValue("START_ROWS");
+    public static final int BOARD_WIDTH = getIntegerValue("BOARD_WIDTH");
+    public static final int BOARD_HEIGHT = getIntegerValue("BOARD_HEIGHT");
+    public static final int START_ROWS = getIntegerValue("START_ROWS");
 
 
     public static String getValue(String key) {
