@@ -67,7 +67,18 @@ Button {
 }
 
 #boardContainer #POSSIBLE_MOVE {
+    -fx-background-color: #6b996b;
+}
+
+#boardContainer #TOKEN_COULD_MOVE {
     -fx-border-color: #228B22;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-radius: 2px;
+    -fx-border-width: 2px;
+}
+
+#boardContainer #NO_MOVE_POSSIBLE {
+    -fx-border-color: #b22222;
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-radius: 2px;
     -fx-border-width: 2px;

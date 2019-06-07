@@ -62,11 +62,12 @@ public class CheckersGameModel {
             markLayer.showAllowedMoves(activeToken);
         } else if (activeToken != null){
             tokenLayer.moveToken(lastClick, currentClick);
+            activeToken.updatePosition(currentClick);
             activeToken = null;
+            tokenLayer.updateTokenLayer();
             markLayer.showTokensWithAllowedMoves();
         }
 
-        tokenLayer.updateTokenLayer();
         lastClick = currentClick;
     }
 }

@@ -4,12 +4,13 @@ import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.model.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
+import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 
 public class PlayerToken {
 
-    private final PositionXY position;
+    private PositionXY position;
     private final Player playerOwner;
     private final DirectionOfPlay directionOfPlay;
     private ArrayList<PositionXY> allowedMoves;
@@ -19,11 +20,6 @@ public class PlayerToken {
         this.playerOwner = playerOwner;
         this.position = position;
         this.directionOfPlay = playerOwner.getDirectionOfPlay();
-    }
-
-    public Player getPlayerOwner() {
-
-        return playerOwner;
     }
 
     public String getName() {
@@ -71,5 +67,15 @@ public class PlayerToken {
     public ArrayList<PositionXY> getAllowedMoves() {
 
         return allowedMoves;
+    }
+
+    public void updatePosition(PositionXY position) {
+
+        this.position = position;
+    }
+
+    public PositionXY getPosition() {
+
+        return position;
     }
 }

@@ -17,19 +17,20 @@ public class MarkLayer {
     public MarkLayer(TokenLayer tokenLayer) {
 
         this.tokenLayer = tokenLayer;
+        marks = new HashMap<>();
         updateMarkLayer();
     }
 
-    public void updateMarkLayer() {
+    private void updateMarkLayer() {
 
-        marks = new HashMap<>();
+        marks.clear();
 
         for (PositionXY position: tokenLayer.getTokens().keySet()) {
 
             PlayerToken currentToken = tokenLayer.get(position);
 
             if (currentToken.hasAllowedMoves()) {
-                marks.put(position, MarkType.POSSIBLE_MOVE);
+                marks.put(position, MarkType.TOKEN_COULD_MOVE);
             }
         }
     }
@@ -47,14 +48,28 @@ public class MarkLayer {
     }
 
     public void showTokensWithAllowedMoves() {
+
+        updateMarkLayer();
     }
 
     public void showAllowedMoves(PlayerToken activeToken) {
 
+        marks.clear();
+
         if (activeToken.hasAllowedMoves()) {
+
             ArrayList<PositionXY> allowedMoves = activeToken.getAllowedMoves();
+
+            allowedMoves.forEach(positionXY -> marks.put(positionXY, MarkType.POSSIBLE_MOVE));
+
         } else {
+
             Message.giveInfo("TOKEN_HAS_NO_ALLOWED_MOVES");
+
+            updateMarkLayer();
+
+            PositionXY currentPosition = activeToken.getPosition();
+            marks.put(currentPosition, MarkType.NO_MOVE_POSSIBLE);
         }
     }
 }
