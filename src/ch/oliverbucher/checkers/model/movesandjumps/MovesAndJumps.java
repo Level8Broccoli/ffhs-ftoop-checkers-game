@@ -25,15 +25,10 @@ public class MovesAndJumps {
         resetMoves();
         allPossibleMovesOrJumps.addAll(possibleMovesOrJumps);
 
-        System.out.println();
-        System.out.println();
-        System.out.println("Set possible moves:");
-        System.out.println();
         for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps
              ) {
             PositionXY start = allowedMoveOrJump.getStartPosition();
             PositionXY end = allowedMoveOrJump.getEndPosition();
-            System.out.println("from " + start.getPositionX() + " " + start.getPositionY() + " to " + end.getPositionX() + " " + end.getPositionY());
         }
     }
 
@@ -66,7 +61,6 @@ public class MovesAndJumps {
     public static void resetEndPositions() {
 
         endPositions.clear();
-        System.out.println("end positions removed");
     }
 
     public static void setEndPositions(PositionXY currentClick) {
