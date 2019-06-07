@@ -6,6 +6,7 @@ import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TokenLayer {
@@ -53,9 +54,20 @@ public class TokenLayer {
 
     public void calculateAllPossibleMoves() {
 
-        for (PositionXY positionXY : tokens.keySet()) {
-            System.out.println("Token on " + positionXY.getPositionX() + " " + positionXY.getPositionY() + ", belonging " +
-                    "to " + tokens.get(positionXY).getPlayerOwner().getPlayerColor().name());
+        for (PositionXY currentPosition : tokens.keySet()) {
+
+            PlayerToken currentToken = tokens.get(currentPosition);
+            Player currentTokenPlayerOwner = currentToken.getPlayerOwner();
+
+            ArrayList<PositionXY> allowedMoves = new ArrayList<>();
+
+            for (PositionXY possibleMovePosition : currentToken.simpleMove()) {
+
+                if (tokens.get(possibleMovePosition) == null) {
+
+                    allowedMoves.add(possibleMovePosition);
+                }
+            }
         }
 //
 //        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
@@ -105,6 +117,13 @@ public class TokenLayer {
     public PlayerToken get(PositionXY positionXY) {
 
         return tokens.get(positionXY);
+    }
+
+    public void moveToken(PositionXY lastClick, PositionXY currentClick) {
+
+        PlayerToken activeToken = tokens.get(lastClick);
+        tokens.remove(lastClick);
+        tokens.put(currentClick, activeToken);
     }
 
 //    public boolean isEmpty(PositionXY position) {

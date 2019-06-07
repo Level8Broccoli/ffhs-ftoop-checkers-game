@@ -141,7 +141,10 @@ public class CheckersGamePresenter extends Application {
                 int positionX = x;
                 int positionY = y;
                 btnInteraction.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        (EventHandler<Event>) event -> model.clickEvent(positionX, positionY));
+                        (EventHandler<Event>) event -> {
+                            model.clickEvent(positionX, positionY);
+                            drawBoard();
+                        });
                 btnInteraction.setId("btnInteraction");
                 stackPane.getChildren().add(btnInteraction);
 

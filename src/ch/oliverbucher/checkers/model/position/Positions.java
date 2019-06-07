@@ -29,6 +29,14 @@ public class Positions {
             Positions.createPositions();
         }
 
-        return positions.get(x).get(y);
+        if (x >= 0
+                && y >= 0
+                && x < Config.BOARD_WIDTH
+                && y < Config.BOARD_HEIGHT) {
+
+            return positions.get(x).get(y);
+        }
+
+        return null;
     }
 }

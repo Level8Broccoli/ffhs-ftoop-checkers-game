@@ -5,13 +5,18 @@ import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 
 public class CheckersGameModel {
 
-    private BoardLayer boardLayer;
+    private final Player[] players = new Player[2];
+
+    private final BoardLayer boardLayer;
     private TokenLayer tokenLayer;
-    private Player[] players = new Player[2];
+
+    private PositionXY currentClick;
+    private PositionXY lastClick;
 
     public CheckersGameModel() {
 
@@ -39,7 +44,14 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        System.out.println(tokenLayer.get(Positions.getPosition(x, y)));
-        System.out.println(x + " " + y);
+        currentClick = Positions.getPosition(x, y);
+        System.out.println("Clicked: " + x + " " + y);
+
+        if (lastClick != null) {
+            tokenLayer.moveToken(lastClick, currentClick);
+            System.out.println("Move from: " + lastClick.getPositionX() + " " + lastClick.getPositionY() + " to: " + currentClick.getPositionX() + " " + currentClick.getPositionY());
+        }
+
+        lastClick = currentClick;
     }
 }
