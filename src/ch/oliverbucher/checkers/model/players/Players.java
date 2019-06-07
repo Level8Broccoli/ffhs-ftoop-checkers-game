@@ -29,5 +29,7 @@ public class Players {
         } else {
             CURRENT_PLAYER = players[0];
         }
+
+        System.out.println("Player change: " + CURRENT_PLAYER.getPlayerColor().name());
     }
 }

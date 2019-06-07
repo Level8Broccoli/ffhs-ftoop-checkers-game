@@ -61,17 +61,21 @@ public class PlayerToken {
         int targetPositionX = jumpOverPosition.getPositionX();
         int targetPositionY = jumpOverPosition.getPositionY();
 
+        System.out.println("before: " + targetPositionX);
         if (direction == HorizontalDirection.LEFT) {
             targetPositionX--;
         } else {
             targetPositionX++;
         }
+        System.out.println("after: " + targetPositionX);
 
+        System.out.println("before: " + targetPositionY);
         if (directionOfPlay.isUp()) {
             targetPositionY--;
         } else {
             targetPositionY++;
         }
+        System.out.println("after: " + targetPositionY);
 
         return Positions.getPosition(targetPositionX, targetPositionY);
     }

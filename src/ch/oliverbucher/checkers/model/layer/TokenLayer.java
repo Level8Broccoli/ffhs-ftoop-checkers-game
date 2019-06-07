@@ -64,33 +64,39 @@ public class TokenLayer {
         for (PositionXY currentPosition : tokens.keySet()) {
 
             PlayerToken currentToken = tokens.get(currentPosition);
-            HashMap<PositionXY, HorizontalDirection> possibleMoves = currentToken.getPossibleMoves(currentPosition);
 
-            for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
+            if (currentToken.getPlayerOwner() == Players.CURRENT_PLAYER) {
 
-                if (tokens.get(possibleMovePosition) == null) {
-                    AllowedMoveOrJump possibleMove = new AllowedMoveOrJump(currentPosition, possibleMovePosition);
-                    allowedMoves.add(possibleMove);
+                HashMap<PositionXY, HorizontalDirection> possibleMoves = currentToken.getPossibleMoves(currentPosition);
 
-                } else if (tokens.get(possibleMovePosition).getPlayerOwner() != Players.CURRENT_PLAYER) {
+                for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
 
-                    HorizontalDirection direction = possibleMoves.get(possibleMovePosition);
-                    PositionXY positionBehindOpponent = currentToken.getPositionBehindOpponent(currentPosition, direction);
+                    if (tokens.get(possibleMovePosition) == null) {
 
-                    if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
-                        AllowedMoveOrJump possibleJump = new AllowedMoveOrJump(currentPosition,
-                                positionBehindOpponent, possibleMovePosition);
-                        allowedJumps.add(possibleJump);
+                        AllowedMoveOrJump possibleMove = new AllowedMoveOrJump(currentPosition, possibleMovePosition);
+                        allowedMoves.add(possibleMove);
+
+                    } else if (tokens.get(possibleMovePosition).getPlayerOwner() != Players.CURRENT_PLAYER) {
+
+
+                        HorizontalDirection direction = possibleMoves.get(possibleMovePosition);
+
+                        PositionXY positionBehindOpponent = currentToken.getPositionBehindOpponent(possibleMovePosition, direction);
+
+                        if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
+                            AllowedMoveOrJump possibleJump = new AllowedMoveOrJump(currentPosition,
+                                    positionBehindOpponent, possibleMovePosition);
+                            allowedJumps.add(possibleJump);
+                        }
                     }
                 }
             }
+        }
 
-
-            if (allowedJumps.size() == 0) {
-                MovesAndJumps.setMovesOrJumps(allowedMoves);
-            } else {
-                MovesAndJumps.setMovesOrJumps(allowedJumps);
-            }
+        if (allowedJumps.size() == 0) {
+            MovesAndJumps.setMovesOrJumps(allowedMoves);
+        } else {
+            MovesAndJumps.setMovesOrJumps(allowedJumps);
         }
     }
 

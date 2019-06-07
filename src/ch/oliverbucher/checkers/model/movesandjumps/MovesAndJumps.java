@@ -20,14 +20,21 @@ public class MovesAndJumps {
         allPossibleMovesOrJumps.clear();
     }
 
-    public static void setMoveOrJump(AllowedMoveOrJump allowedMoveOrJump) {
-
-        allPossibleMovesOrJumps.add(allowedMoveOrJump);
-    }
-
     public static void setMovesOrJumps(ArrayList<AllowedMoveOrJump> possibleMovesOrJumps) {
 
+        resetMoves();
         allPossibleMovesOrJumps.addAll(possibleMovesOrJumps);
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Set possible moves:");
+        System.out.println();
+        for (AllowedMoveOrJump allowedMoveOrJump: allPossibleMovesOrJumps
+             ) {
+            PositionXY start = allowedMoveOrJump.getStartPosition();
+            PositionXY end = allowedMoveOrJump.getEndPosition();
+            System.out.println("from " + start.getPositionX() + " " + start.getPositionY() + " to " + end.getPositionX() + " " + end.getPositionY());
+        }
     }
 
     public static boolean hasAllowedStartMovesOrJumps(PositionXY position) {
@@ -71,12 +78,11 @@ public class MovesAndJumps {
                 endPositions.put(allowedMoveOrJump.getEndPosition(), allowedMoveOrJump);
             }
         }
-        System.out.println("setting end positions: " + endPositions);
     }
 
     public static boolean areEndPositionsSet() {
 
-        return endPositions != null || endPositions.size() > 0;
+        return endPositions != null && endPositions.size() > 0;
     }
 
     public static AllowedMoveOrJump getMoveOrJump(PositionXY currentClick) {
