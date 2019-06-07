@@ -55,46 +55,7 @@ public class TokenLayer {
 
     public ArrayList<AllowedMoveOrJump> getAllAllowedMovesAndJumps() {
 
-        ArrayList<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
-        ArrayList<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
-
-        for (PositionXY currentPosition : tokens.keySet()) {
-
-            PlayerToken currentToken = tokens.get(currentPosition);
-
-            if (currentToken.getPlayerOwner() == Players.CURRENT_PLAYER) {
-
-                HashMap<PositionXY, HorizontalDirection> possibleMoves = currentToken.getPossibleMoves(currentPosition);
-
-                for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
-
-                    if (tokens.get(possibleMovePosition) == null) {
-
-                        AllowedMoveOrJump possibleMove = new AllowedMoveOrJump(currentPosition, possibleMovePosition);
-                        allowedMoves.add(possibleMove);
-
-                    } else if (tokens.get(possibleMovePosition).getPlayerOwner() != Players.CURRENT_PLAYER) {
-
-
-                        HorizontalDirection direction = possibleMoves.get(possibleMovePosition);
-
-                        PositionXY positionBehindOpponent = currentToken.getPositionBehindOpponent(possibleMovePosition, direction);
-
-                        if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
-                            AllowedMoveOrJump possibleJump = new AllowedMoveOrJump(currentPosition,
-                                    positionBehindOpponent, possibleMovePosition);
-                            allowedJumps.add(possibleJump);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (allowedJumps.size() == 0) {
-            return allowedMoves;
-        } else {
-            return allowedJumps;
-        }
+        return MovesAndJumps.getAllAllowedMovesAndJumps(tokens);
     }
 
     public PlayerToken getTokenAt(PositionXY positionXY) {

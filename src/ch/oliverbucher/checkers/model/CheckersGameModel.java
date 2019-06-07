@@ -27,6 +27,7 @@ public class CheckersGameModel {
         boardLayer = new BoardLayer();
         tokenLayer = new TokenLayer(boardLayer);
         markLayer = new MarkLayer();
+        markLayer.showAllowedTokens(tokenLayer);
     }
 
     public BoardLayer getBoardLayer() {
@@ -67,21 +68,21 @@ public class CheckersGameModel {
             if (currentToken == null) {
                 Message.giveInfo("SPACE_IS_EMPTY");
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens();
+                markLayer.showAllowedTokens(tokenLayer);
 
             // if own token has no allowed moves/jumps
-            } else if (MovesAndJumps.getEndPositionsFor(currentClick).isEmpty()) {
+            } else if (MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), currentClick).isEmpty()) {
                 Message.giveInfo("NOT_ALLOWED_TO_MOVE_OR_JUMP");
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens();
+                markLayer.showAllowedTokens(tokenLayer);
 
             // if own token has allowed moves/jumps
-            } else if (!MovesAndJumps.getEndPositionsFor(currentClick).isEmpty()) {
+            } else if (!MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), currentClick).isEmpty()) {
                 Message.giveInfo("SELECTED_OWN_TOKEN");
                 activeToken = currentClick;
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps(activeToken);
+                markLayer.showAllowedEndMovesOrJumps(tokenLayer, activeToken);
 
             }
 
@@ -93,7 +94,7 @@ public class CheckersGameModel {
                 Message.giveInfo("TOKEN_DEACTIVATED");
                 activeToken = null;
                 markLayer.deactivateMarkOfCurrentClick();
-                markLayer.showAllowedTokens();
+                markLayer.showAllowedTokens(tokenLayer);
 
             // if space is another token of current player
             } else if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
@@ -101,16 +102,17 @@ public class CheckersGameModel {
                 activeToken = currentClick;
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps(activeToken);
+                markLayer.showAllowedEndMovesOrJumps(tokenLayer, activeToken);
 
             // if move/jump is not allowed
-            } else if (!MovesAndJumps.getEndPositionsFor(activeToken).containsKey(currentClick)) {
+            } else if (!MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).containsKey(currentClick)) {
                 Message.giveInfo("MOVE_NOT_ALLOWED");
 
             // if move/jump is allowed
-            } else if (MovesAndJumps.getEndPositionsFor(activeToken).containsKey(currentClick)) {
+            } else if (MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).containsKey(currentClick)) {
                 Message.giveInfo("TOKEN_MOVED");
-                AllowedMoveOrJump currentMove = MovesAndJumps.getEndPositionsFor(activeToken).get(currentClick);
+                AllowedMoveOrJump currentMove =
+                        MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).get(currentClick);
                 tokenLayer.executeMove(currentMove);
 
                 activeToken = null;
@@ -118,7 +120,7 @@ public class CheckersGameModel {
 
                 MovesAndJumps.setMovesOrJumps(tokenLayer.getAllAllowedMovesAndJumps());
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens();
+                markLayer.showAllowedTokens(tokenLayer);
             }
         }
     }
