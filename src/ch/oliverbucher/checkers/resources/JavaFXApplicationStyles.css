@@ -59,7 +59,7 @@ Button {
     -fx-background-color: #333333;
 }
 
-#boardContainer #btnMarked {
+#boardContainer #CURRENT_CLICK {
     -fx-border-color: #f4a460;
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-radius: 2px;

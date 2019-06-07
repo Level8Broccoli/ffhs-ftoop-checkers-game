@@ -1,13 +1,18 @@
 package ch.oliverbucher.checkers.model.layer.space;
 
+import ch.oliverbucher.checkers.enumaration.MarkType;
+
 public class MarkSpace {
 
-    private boolean wasLastClicked;
-    private boolean isPossibleMove;
+    private MarkType markType;
 
-    public MarkSpace() {
+    public MarkSpace(MarkType markType) {
 
-        this.wasLastClicked = false;
-        this.isPossibleMove = false;
+        this.markType = markType;
+    }
+
+    public String getName() {
+
+        return markType.name();
     }
 }

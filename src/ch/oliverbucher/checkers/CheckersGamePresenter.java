@@ -2,6 +2,7 @@ package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
+import ch.oliverbucher.checkers.model.layer.space.MarkSpace;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
@@ -122,14 +123,20 @@ public class CheckersGamePresenter extends Application {
                 stackPane.getChildren().add(btnBackground);
 
                 // draw token layer
-                if (model.getTokenLayer().get(currentPosition) != null) {
-                    PlayerToken currentPlayerToken = model.getTokenLayer().get(currentPosition);
+                PlayerToken currentPlayerToken = model.getTokenLayer().get(currentPosition);
+                if (currentPlayerToken != null) {
                     Button btnToken = new Button();
                     btnToken.setId(currentPlayerToken.getName());
                     stackPane.getChildren().add(btnToken);
                 }
 
                 // draw marked layer
+                MarkSpace currentMarkSpace = model.getMarkLayer().get(currentPosition);
+                if (currentMarkSpace != null) {
+                    Button btnMark = new Button();
+                    btnMark.setId(currentMarkSpace.getName());
+                    stackPane.getChildren().add(btnMark);
+                }
 //                if (currentPlayerToken.hasPossibleMoves()) {
 //                    Button btnMark = new Button();
 //                    btnMark.setId("btnMarked");
