@@ -9,12 +9,10 @@ import java.util.*;
 
 public class MovesAndJumps {
 
-    private static List<AllowedMoveOrJump> allAllowedMovesOrJumps = new ArrayList<>();
+    public static List<AllowedMoveOrJump> getAllAllowedMovesAndJumps(Map<PositionXY, PlayerToken> tokens) {
 
-    public static ArrayList<AllowedMoveOrJump> getAllAllowedMovesAndJumps(Map<PositionXY, PlayerToken> tokens) {
-
-        ArrayList<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
-        ArrayList<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
+        List<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
+        List<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
 
         for (PositionXY currentPosition : tokens.keySet()) {
 
@@ -54,12 +52,6 @@ public class MovesAndJumps {
             return allowedJumps;
         }
     }
-
-    public static void setMovesOrJumps(ArrayList<AllowedMoveOrJump> possibleMovesOrJumps) {
-
-        allAllowedMovesOrJumps = possibleMovesOrJumps;
-    }
-
 
     public static Map<PositionXY, AllowedMoveOrJump> getEndPositionsFor(List<AllowedMoveOrJump> allAllowedMovesOrJumps, PositionXY currentClick) {
 

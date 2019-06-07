@@ -11,6 +11,7 @@ import ch.oliverbucher.checkers.resources.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TokenLayer {
 
@@ -49,11 +50,9 @@ public class TokenLayer {
                 }
             }
         }
-
-        MovesAndJumps.setMovesOrJumps(getAllAllowedMovesAndJumps());
     }
 
-    public ArrayList<AllowedMoveOrJump> getAllAllowedMovesAndJumps() {
+    public List<AllowedMoveOrJump> getAllAllowedMovesAndJumps() {
 
         return MovesAndJumps.getAllAllowedMovesAndJumps(tokens);
     }
