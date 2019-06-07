@@ -19,8 +19,6 @@ public class CheckersGameModel {
     private TokenLayer tokenLayer;
     private MarkLayer markLayer;
 
-    private PlayerToken activeToken;
-
     public CheckersGameModel() {
 
         Players.initializePlayers();
@@ -78,7 +76,6 @@ public class CheckersGameModel {
             // if own token has allowed moves/jumps
             } else if (!MovesAndJumps.getEndPositionsFor(currentClick).isEmpty()) {
                 Message.giveInfo("SELECTED_OWN_TOKEN");
-                activeToken = currentToken;
                 MovesAndJumps.selectTokenToMove(currentClick);
 
                 markLayer.markCurrentClick(currentClick);
@@ -90,9 +87,8 @@ public class CheckersGameModel {
         } else {
 
             // if token is clicked again
-            if (activeToken == currentToken) {
+            if (!MovesAndJumps.endPositions.isEmpty() && MovesAndJumps.endPositions.values().iterator().next().getStartPosition()==currentClick) {
                 Message.giveInfo("TOKEN_DEACTIVATED");
-                activeToken = null;
                 MovesAndJumps.deselectTokenToMove();
                 markLayer.deactivateMarkOfCurrentClick();
                 markLayer.showAllowedTokens();
@@ -100,7 +96,6 @@ public class CheckersGameModel {
             // if space is another token of current player
             } else if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
                 Message.giveInfo("ACTIVATE_NEW_TOKEN");
-                activeToken = tokenLayer.getTokenAt(currentClick);
                 MovesAndJumps.selectTokenToMove(currentClick);
 
                 markLayer.markCurrentClick(currentClick);
@@ -116,7 +111,6 @@ public class CheckersGameModel {
                 AllowedMoveOrJump currentMove = MovesAndJumps.getMoveOrJump(currentClick);
                 tokenLayer.executeMove(currentMove);
 
-                activeToken = null;
                 MovesAndJumps.deselectTokenToMove();
                 Players.nextPlayer();
 
