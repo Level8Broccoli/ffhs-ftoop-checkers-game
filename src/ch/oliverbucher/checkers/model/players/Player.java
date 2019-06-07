@@ -1,4 +1,4 @@
-package ch.oliverbucher.checkers.model;
+package ch.oliverbucher.checkers.model.players;
 
 import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.enumaration.PlayerColor;
@@ -7,8 +7,8 @@ import ch.oliverbucher.checkers.enumaration.PlayerType;
 public class Player {
 
     private PlayerType playerType;
-    private PlayerColor playerColor;
-    private DirectionOfPlay directionOfPlay;
+    private final PlayerColor playerColor;
+    private final DirectionOfPlay directionOfPlay;
 
     public Player(PlayerType playerType, PlayerColor playerColor, DirectionOfPlay directionOfPlay) {
 

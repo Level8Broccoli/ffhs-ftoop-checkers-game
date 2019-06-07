@@ -1,24 +1,21 @@
 package ch.oliverbucher.checkers.model.token;
 
 import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
-import ch.oliverbucher.checkers.model.Player;
+import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
-import javafx.geometry.Pos;
 
 import java.util.ArrayList;
 
 public class PlayerToken {
 
-    private PositionXY position;
     private final Player playerOwner;
     private final DirectionOfPlay directionOfPlay;
     private ArrayList<PositionXY> allowedMoves;
 
-    public PlayerToken(Player playerOwner, PositionXY position) {
+    public PlayerToken(Player playerOwner) {
 
         this.playerOwner = playerOwner;
-        this.position = position;
         this.directionOfPlay = playerOwner.getDirectionOfPlay();
     }
 
@@ -27,12 +24,12 @@ public class PlayerToken {
         return playerOwner.getPlayerColor().name();
     }
 
-    public ArrayList<PositionXY> simpleMove() {
+    public ArrayList<PositionXY> simpleMove(PositionXY currentPosition) {
 
         ArrayList<PositionXY> possibleMoves = new ArrayList<>();
 
-        int currentPositionX = position.getPositionX();
-        int currentPositionY = position.getPositionY();
+        int currentPositionX = currentPosition.getPositionX();
+        int currentPositionY = currentPosition.getPositionY();
         int nextRowY;
 
         if (directionOfPlay.isUp()) {
@@ -69,13 +66,8 @@ public class PlayerToken {
         return allowedMoves;
     }
 
-    public void updatePosition(PositionXY position) {
+    public Player getPlayerOwner() {
 
-        this.position = position;
-    }
-
-    public PositionXY getPosition() {
-
-        return position;
+        return playerOwner;
     }
 }

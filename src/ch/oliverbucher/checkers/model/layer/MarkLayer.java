@@ -1,6 +1,7 @@
 package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.enumaration.MarkType;
+import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.view.Message;
@@ -12,8 +13,7 @@ public class MarkLayer {
 
     private final TokenLayer tokenLayer;
     private HashMap<PositionXY, MarkType> marks;
-    private PositionXY lastClicked;
-    
+
     public MarkLayer(TokenLayer tokenLayer) {
 
         this.tokenLayer = tokenLayer;
@@ -29,17 +29,20 @@ public class MarkLayer {
 
             PlayerToken currentToken = tokenLayer.get(position);
 
-            if (currentToken.hasAllowedMoves()) {
+            if (currentToken.hasAllowedMoves() && currentToken.getPlayerOwner() == Players.CURRENT_PLAYER) {
                 marks.put(position, MarkType.TOKEN_COULD_MOVE);
             }
         }
     }
 
-    public void markCurrentClick(PositionXY currentClick) {
+    public void markCurrentClick(PositionXY position) {
 
-        updateMarkLayer();
-        marks.put(currentClick, MarkType.CURRENT_CLICK);
-        lastClicked = currentClick;
+        marks.put(position, MarkType.CURRENT_CLICK);
+    }
+
+    public void markCurrentClickAsMoved(PositionXY position) {
+
+        marks.put(position, MarkType.TOKEN_MOVED);
     }
 
     public MarkType get(PositionXY position) {
@@ -67,9 +70,6 @@ public class MarkLayer {
             Message.giveInfo("TOKEN_HAS_NO_ALLOWED_MOVES");
 
             updateMarkLayer();
-
-            PositionXY currentPosition = activeToken.getPosition();
-            marks.put(currentPosition, MarkType.NO_MOVE_POSSIBLE);
         }
     }
 }

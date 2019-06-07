@@ -1,12 +1,10 @@
 package ch.oliverbucher.checkers.model.token;
 
-import ch.oliverbucher.checkers.model.Player;
-import ch.oliverbucher.checkers.model.position.PositionXY;
+import ch.oliverbucher.checkers.model.players.Player;
 
 public class KingPlayerToken extends PlayerToken {
 
-    public KingPlayerToken(Player playerOwner, PositionXY positionXY) {
-
-        super(playerOwner, positionXY);
+    public KingPlayerToken(Player playerOwner) {
+        super(playerOwner);
     }
 }
