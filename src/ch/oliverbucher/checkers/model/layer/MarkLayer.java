@@ -5,7 +5,6 @@ import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +30,9 @@ public class MarkLayer {
         }
     }
 
-    public void showAllowedEndMovesOrJumps() {
+    public void showAllowedEndMovesOrJumps(PositionXY activeToken) {
 
-        Map<PositionXY, AllowedMoveOrJump> allowedEndMovesOrJumps = MovesAndJumps.endPositions;
+        Map<PositionXY, AllowedMoveOrJump> allowedEndMovesOrJumps = MovesAndJumps.getEndPositionsFor(activeToken);
 
         for (PositionXY allowedPosition: allowedEndMovesOrJumps.keySet()) {
 

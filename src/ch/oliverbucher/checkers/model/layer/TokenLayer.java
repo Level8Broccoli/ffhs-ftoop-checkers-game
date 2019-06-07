@@ -1,8 +1,8 @@
 package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
-import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
+import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -50,12 +50,10 @@ public class TokenLayer {
             }
         }
 
-        calculateAllAllowedMovesAndJumps();
+        MovesAndJumps.setMovesOrJumps(getAllAllowedMovesAndJumps());
     }
 
-    public void calculateAllAllowedMovesAndJumps() {
-
-        MovesAndJumps.resetMoves();
+    public ArrayList<AllowedMoveOrJump> getAllAllowedMovesAndJumps() {
 
         ArrayList<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
         ArrayList<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
@@ -93,9 +91,9 @@ public class TokenLayer {
         }
 
         if (allowedJumps.size() == 0) {
-            MovesAndJumps.setMovesOrJumps(allowedMoves);
+            return allowedMoves;
         } else {
-            MovesAndJumps.setMovesOrJumps(allowedJumps);
+            return allowedJumps;
         }
     }
 

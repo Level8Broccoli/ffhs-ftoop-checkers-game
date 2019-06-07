@@ -19,6 +19,8 @@ public class CheckersGameModel {
     private TokenLayer tokenLayer;
     private MarkLayer markLayer;
 
+    private PositionXY activeToken;
+
     public CheckersGameModel() {
 
         Players.initializePlayers();
@@ -59,7 +61,7 @@ public class CheckersGameModel {
             return;
         }
 
-        if (!MovesAndJumps.isTokenSelected()) {
+        if (activeToken == null) {
 
             // if BLACK field is empty
             if (currentToken == null) {
@@ -76,10 +78,10 @@ public class CheckersGameModel {
             // if own token has allowed moves/jumps
             } else if (!MovesAndJumps.getEndPositionsFor(currentClick).isEmpty()) {
                 Message.giveInfo("SELECTED_OWN_TOKEN");
-                MovesAndJumps.selectTokenToMove(currentClick);
+                activeToken = currentClick;
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps();
+                markLayer.showAllowedEndMovesOrJumps(activeToken);
 
             }
 
@@ -87,34 +89,34 @@ public class CheckersGameModel {
         } else {
 
             // if token is clicked again
-            if (!MovesAndJumps.endPositions.isEmpty() && MovesAndJumps.endPositions.values().iterator().next().getStartPosition()==currentClick) {
+            if (activeToken == currentClick) {
                 Message.giveInfo("TOKEN_DEACTIVATED");
-                MovesAndJumps.deselectTokenToMove();
+                activeToken = null;
                 markLayer.deactivateMarkOfCurrentClick();
                 markLayer.showAllowedTokens();
 
             // if space is another token of current player
             } else if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
                 Message.giveInfo("ACTIVATE_NEW_TOKEN");
-                MovesAndJumps.selectTokenToMove(currentClick);
+                activeToken = currentClick;
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps();
+                markLayer.showAllowedEndMovesOrJumps(activeToken);
 
             // if move/jump is not allowed
-            } else if (!MovesAndJumps.endPositions.containsKey(currentClick)) {
+            } else if (!MovesAndJumps.getEndPositionsFor(activeToken).containsKey(currentClick)) {
                 Message.giveInfo("MOVE_NOT_ALLOWED");
 
             // if move/jump is allowed
-            } else if (MovesAndJumps.endPositions.containsKey(currentClick)) {
+            } else if (MovesAndJumps.getEndPositionsFor(activeToken).containsKey(currentClick)) {
                 Message.giveInfo("TOKEN_MOVED");
-                AllowedMoveOrJump currentMove = MovesAndJumps.getMoveOrJump(currentClick);
+                AllowedMoveOrJump currentMove = MovesAndJumps.getEndPositionsFor(activeToken).get(currentClick);
                 tokenLayer.executeMove(currentMove);
 
-                MovesAndJumps.deselectTokenToMove();
+                activeToken = null;
                 Players.nextPlayer();
 
-                tokenLayer.calculateAllAllowedMovesAndJumps();
+                MovesAndJumps.setMovesOrJumps(tokenLayer.getAllAllowedMovesAndJumps());
                 markLayer.markCurrentClick(currentClick);
                 markLayer.showAllowedTokens();
             }
