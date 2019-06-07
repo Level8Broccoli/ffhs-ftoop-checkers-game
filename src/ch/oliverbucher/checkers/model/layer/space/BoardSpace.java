@@ -25,9 +25,4 @@ public class BoardSpace {
 
         return isAllowed;
     }
-
-    public PositionXY getPositionXY() {
-
-        return positionXY;
-    }
 }

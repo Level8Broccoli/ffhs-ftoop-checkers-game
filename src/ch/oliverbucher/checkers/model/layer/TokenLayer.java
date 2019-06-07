@@ -1,5 +1,6 @@
 package ch.oliverbucher.checkers.model.layer;
 
+import ch.oliverbucher.checkers.enumaration.JumpDirections;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -47,32 +48,40 @@ public class TokenLayer {
             }
         }
 
-        calculateAllPossibleMoves();
+        calculateAllPossibleMovesAndJumps();
     }
 
-    public void updateTokenLayer() {
-
-        calculateAllPossibleMoves();
-    }
-
-
-    private void calculateAllPossibleMoves() {
+    public void calculateAllPossibleMovesAndJumps() {
 
         for (PositionXY currentPosition : tokens.keySet()) {
 
             PlayerToken currentToken = tokens.get(currentPosition);
 
-            ArrayList<PositionXY> allowedMoves = new ArrayList<>();
+            HashMap<PositionXY, JumpDirections> allowedMoves = new HashMap<>();
+            HashMap<PositionXY, JumpDirections> possibleMoves = currentToken.jumps(currentPosition);
 
-            for (PositionXY possibleMovePosition : currentToken.simpleMove(currentPosition)) {
+            for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
 
                 if (tokens.get(possibleMovePosition) == null) {
 
-                    allowedMoves.add(possibleMovePosition);
+                    allowedMoves.put(possibleMovePosition, possibleMoves.get(possibleMovePosition));
                 }
             }
 
             currentToken.setAllowedMoves(allowedMoves);
+
+            HashMap<PositionXY, JumpDirections> allowedJumps = new HashMap<>();
+            HashMap<PositionXY, JumpDirections> possibleJumps = currentToken.jumps(currentPosition);
+
+            for (PositionXY possibleJumpPosition: possibleJumps.keySet()) {
+
+                if (tokens.get(possibleJumpPosition) == null) {
+
+                    allowedJumps.put(possibleJumpPosition, possibleJumps.get(possibleJumpPosition));
+                }
+            }
+
+            currentToken.setAllowedJumps(allowedJumps);
         }
     }
 
@@ -84,7 +93,6 @@ public class TokenLayer {
     public void moveToken(PositionXY lastClick, PositionXY currentClick) {
 
         PlayerToken activeToken = tokens.get(lastClick);
-        System.out.println("Active Token: " + activeToken);
         tokens.remove(lastClick);
         tokens.put(currentClick, activeToken);
     }

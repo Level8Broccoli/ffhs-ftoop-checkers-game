@@ -1,12 +1,11 @@
 package ch.oliverbucher.checkers.model.layer;
 
+import ch.oliverbucher.checkers.enumaration.JumpDirections;
 import ch.oliverbucher.checkers.enumaration.MarkType;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
-import ch.oliverbucher.checkers.view.Message;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MarkLayer {
@@ -18,12 +17,10 @@ public class MarkLayer {
 
         this.tokenLayer = tokenLayer;
         marks = new HashMap<>();
-        updateMarkLayer();
+        showAllowedTokens();
     }
 
-    private void updateMarkLayer() {
-
-        marks.clear();
+    public void showAllowedTokens() {
 
         for (PositionXY position: tokenLayer.getTokens().keySet()) {
 
@@ -35,41 +32,24 @@ public class MarkLayer {
         }
     }
 
-    public void markCurrentClick(PositionXY position) {
+    public void markCurrentClick(PositionXY currentClick) {
 
-        marks.put(position, MarkType.CURRENT_CLICK);
-    }
-
-    public void markCurrentClickAsMoved(PositionXY position) {
-
-        marks.put(position, MarkType.TOKEN_MOVED);
+        marks.clear();
+        marks.put(currentClick, MarkType.CURRENT_CLICK);
     }
 
     public MarkType get(PositionXY position) {
 
-            return marks.get(position);
+        return marks.get(position);
     }
 
-    public void showTokensWithAllowedMoves() {
+    public void showAllowedMovesAndJumps(HashMap<PositionXY, JumpDirections> allowedJumps, HashMap<PositionXY, JumpDirections> allowedMoves) {
 
-        updateMarkLayer();
+        allowedMoves.forEach((positionXY, directions) -> marks.put(positionXY, MarkType.POSSIBLE_MOVE));
     }
 
-    public void showAllowedMoves(PlayerToken activeToken) {
+    public void deactivateMarkOfCurrentClick() {
 
         marks.clear();
-
-        if (activeToken.hasAllowedMoves()) {
-
-            ArrayList<PositionXY> allowedMoves = activeToken.getAllowedMoves();
-
-            allowedMoves.forEach(positionXY -> marks.put(positionXY, MarkType.POSSIBLE_MOVE));
-
-        } else {
-
-            Message.giveInfo("TOKEN_HAS_NO_ALLOWED_MOVES");
-
-            updateMarkLayer();
-        }
     }
 }
