@@ -6,10 +6,9 @@ import java.util.ArrayList;
 
 public class Positions {
 
-    private static Positions ourInstance = new Positions();
     private static ArrayList<ArrayList<PositionXY>> positions;
 
-    public Positions() {
+    private static void createPositions() {
 
         positions = new ArrayList<>();
 
@@ -24,12 +23,11 @@ public class Positions {
         }
     }
 
-    public static Positions getInstance() {
-
-        return ourInstance;
-    }
-
     public static PositionXY getPosition(int x, int y) {
+
+        if (positions == null || positions.size() == 0) {
+            Positions.createPositions();
+        }
 
         return positions.get(x).get(y);
     }
