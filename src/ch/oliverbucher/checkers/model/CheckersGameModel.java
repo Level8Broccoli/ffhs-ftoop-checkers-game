@@ -89,7 +89,7 @@ public class CheckersGameModel {
                 MovesAndJumps.setEndPositions(currentClick);
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesAndJumps(currentClick);
+                markLayer.showAllowedEndMovesOrJumps();
 
             }
 
@@ -111,7 +111,7 @@ public class CheckersGameModel {
                 MovesAndJumps.setEndPositions(currentClick);
 
                 markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesAndJumps(currentClick);
+                markLayer.showAllowedEndMovesOrJumps();
 
             // if move/jump is not allowed
             } else if (!currentClick.hasAllowedEndMovesOrJumps()) {

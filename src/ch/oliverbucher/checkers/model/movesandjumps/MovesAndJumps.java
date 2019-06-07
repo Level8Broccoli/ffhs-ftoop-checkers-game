@@ -83,4 +83,9 @@ public class MovesAndJumps {
 
         return endPositions.get(currentClick);
     }
+
+    public static HashMap<PositionXY, AllowedMoveOrJump> getEndPositions() {
+
+        return endPositions;
+    }
 }

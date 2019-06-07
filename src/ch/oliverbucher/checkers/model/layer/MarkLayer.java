@@ -4,9 +4,7 @@ import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
 import ch.oliverbucher.checkers.enumaration.MarkType;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
-import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.token.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +27,8 @@ public class MarkLayer {
 
         for (AllowedMoveOrJump allowedMoveOrJump: allowedMoveOrJumps) {
 
+            PositionXY allowedTokens = allowedMoveOrJump.getStartPosition();
+            marks.put(allowedTokens, MarkType.TOKEN_COULD_MOVE_OR_JUMP);
         }
 
 //        HashMap<PlayerToken, PlayerToken> canJump = new HashMap<>();
@@ -66,6 +66,17 @@ public class MarkLayer {
 //        }
     }
 
+    public void showAllowedEndMovesOrJumps() {
+
+        HashMap<PositionXY, AllowedMoveOrJump> allowedEndMovesOrJumps = MovesAndJumps.getEndPositions();
+
+        for (PositionXY allowedPosition: allowedEndMovesOrJumps.keySet()) {
+
+            marks.put(allowedPosition, MarkType.POSSIBLE_MOVE);
+        }
+
+    }
+
     public void markCurrentClick(PositionXY currentClick) {
 
         marks.clear();
@@ -80,15 +91,5 @@ public class MarkLayer {
     public void deactivateMarkOfCurrentClick() {
 
         marks.clear();
-    }
-
-    public void showAllowedStartMovesAndJumps(HashMap<PositionXY, HorizontalDirection> allowedJumps, HashMap<PositionXY, HorizontalDirection> allowedMoves) {
-
-        allowedMoves.forEach((positionXY, directions) -> marks.put(positionXY, MarkType.POSSIBLE_MOVE));
-    }
-
-    public void showAllowedEndMovesAndJumps(PositionXY currentClick) {
-
-
     }
 }
