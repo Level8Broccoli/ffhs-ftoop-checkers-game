@@ -31,7 +31,7 @@ public class BoardLayer {
                     isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(currentBoardColor, isAllowed, currentPosition);
+                BoardSpace field = new BoardSpace(currentBoardColor, isAllowed);
                 boardLayer.put(currentPosition, field);
             }
         }

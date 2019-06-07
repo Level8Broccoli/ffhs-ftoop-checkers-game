@@ -21,14 +21,13 @@ public class CheckersGameModel {
     private MarkLayer markLayer;
 
     private PlayerToken activeToken;
-    private PositionXY lastClick;
 
     public CheckersGameModel() {
 
         Players.initializePlayers();
         boardLayer = new BoardLayer();
         tokenLayer = new TokenLayer(boardLayer);
-        markLayer = new MarkLayer(tokenLayer);
+        markLayer = new MarkLayer();
     }
 
     public BoardLayer getBoardLayer() {
@@ -85,7 +84,6 @@ public class CheckersGameModel {
             } else if (currentClick.hasAllowedStartMovesOrJumps()) {
                 Message.giveInfo("SELECTED_OWN_TOKEN");
                 activeToken = currentToken;
-                lastClick = currentClick;
                 MovesAndJumps.setEndPositions(currentClick);
 
                 markLayer.markCurrentClick(currentClick);

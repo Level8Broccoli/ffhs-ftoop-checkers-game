@@ -56,8 +56,8 @@ public class CheckersGamePresenter extends Application {
         // Set scene and start application
         stage.setScene(launchScene);
         stage.setTitle(Config.getValue("GAME_TITLE"));
-        stage.setWidth(Double.parseDouble(Config.getValue("WINDOW_WIDTH")));
-        stage.setHeight(Double.parseDouble(Config.getValue("WINDOW_HEIGHT")));
+        stage.setWidth(Config.getDoubleValue("WINDOW_WIDTH"));
+        stage.setHeight(Config.getDoubleValue("WINDOW_HEIGHT"));
 
         stage.show();
     }

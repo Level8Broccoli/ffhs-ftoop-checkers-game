@@ -22,7 +22,7 @@ public class Config {
         }
     }
 
-    private static int getIntegerValue(String key) {
+    public static int getIntegerValue(String key) {
 
         String value = getValue(key);
         if (value != null) {
@@ -32,7 +32,7 @@ public class Config {
         }
     }
 
-    private static double getDoubleValue(String key) {
+    public static double getDoubleValue(String key) {
 
         String value = getValue(key);
         if (value != null) {
