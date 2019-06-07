@@ -12,6 +12,9 @@ import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.view.Message;
 
+import java.util.List;
+import java.util.Map;
+
 
 public class CheckersGameModel {
 
@@ -52,76 +55,82 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        PositionXY currentClick = Positions.getPosition(x, y);
-        PlayerToken currentToken = tokenLayer.getTokenAt(currentClick);
+        final PositionXY currentClick = Positions.getPosition(x, y);
 
         // possibilities no matter what came before
-        String reason = getReasonWhyItIsNotGameChanging(currentClick);
+        final String reason = getReasonWhyItIsNotGameChanging(currentClick);
         if (reason != null) {
             Message.giveInfo(reason);
             return;
         }
+        final List<AllowedMoveOrJump> allAllowedMovesAndJumps = tokenLayer.getAllAllowedMovesAndJumps();
 
         if (activeToken == null) {
-
-            // if BLACK field is empty
-            if (currentToken == null) {
-                Message.giveInfo("SPACE_IS_EMPTY");
-                markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
-
-            // if own token has no allowed moves/jumps
-            } else if (MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), currentClick).isEmpty()) {
-                Message.giveInfo("NOT_ALLOWED_TO_MOVE_OR_JUMP");
-                markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
-
-            // if own token has allowed moves/jumps
-            } else if (!MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), currentClick).isEmpty()) {
-                Message.giveInfo("SELECTED_OWN_TOKEN");
-                activeToken = currentClick;
-
-                markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps(MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), currentClick));
-
-            }
-
-        // if own token has been clicked right before
+            tryClickToActivateToken(currentClick, allAllowedMovesAndJumps);
         } else {
+            tryClickToMove(currentClick, allAllowedMovesAndJumps);
+        }
+    }
 
-            // if token is clicked again
-            if (activeToken == currentClick) {
-                Message.giveInfo("TOKEN_DEACTIVATED");
-                activeToken = null;
-                markLayer.deactivateMarkOfCurrentClick();
-                markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
+    private void tryClickToMove(PositionXY currentClick, List<AllowedMoveOrJump> allAllowedMovesAndJumps) {
+        final Map<PositionXY, AllowedMoveOrJump> endPositionsStartingFromActiveToken =
+                MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps,
+                        activeToken);
 
-            // if space is another token of current player
-            } else if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
-                Message.giveInfo("ACTIVATE_NEW_TOKEN");
-                activeToken = currentClick;
+        // if token is clicked again
+        if (activeToken == currentClick) {
+            Message.giveInfo("TOKEN_DEACTIVATED");
+            activeToken = null;
+            markLayer.deactivateMarkOfCurrentClick();
+            markLayer.showAllowedTokens(allAllowedMovesAndJumps);
+        // if space is another token of current player
+        } else if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
+            Message.giveInfo("ACTIVATE_NEW_TOKEN");
+            activeToken = currentClick;
 
-                markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedEndMovesOrJumps(MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(),
-                        activeToken));
+            markLayer.markCurrentClick(currentClick);
+            markLayer.showAllowedEndMovesOrJumps(endPositionsStartingFromActiveToken);
+        // if move/jump is not allowed
+        } else if (!endPositionsStartingFromActiveToken.containsKey(currentClick)) {
+            Message.giveInfo("MOVE_NOT_ALLOWED");
+        // if move/jump is allowed
+        } else if (endPositionsStartingFromActiveToken.containsKey(currentClick)) {
+            Message.giveInfo("TOKEN_MOVED");
+            AllowedMoveOrJump currentMove =
+                    endPositionsStartingFromActiveToken.get(currentClick);
 
-            // if move/jump is not allowed
-            } else if (!MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).containsKey(currentClick)) {
-                Message.giveInfo("MOVE_NOT_ALLOWED");
+            tokenLayer.executeMove(currentMove);
 
-            // if move/jump is allowed
-            } else if (MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).containsKey(currentClick)) {
-                Message.giveInfo("TOKEN_MOVED");
-                AllowedMoveOrJump currentMove =
-                        MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps(), activeToken).get(currentClick);
-                tokenLayer.executeMove(currentMove);
+            activeToken = null;
+            Players.nextPlayer();
 
-                activeToken = null;
-                Players.nextPlayer();
+            markLayer.markCurrentClick(currentClick);
+            markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
+        }
+    }
 
-                markLayer.markCurrentClick(currentClick);
-                markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
-            }
+    private void tryClickToActivateToken(PositionXY currentClick, List<AllowedMoveOrJump> allAllowedMovesAndJumps) {
+        final Map<PositionXY, AllowedMoveOrJump> endPositionsStartingFromCurrentClick =
+                MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps,
+                        currentClick);
+
+        // if BLACK field is empty
+        if (tokenLayer.getTokenAt(currentClick) == null) {
+            Message.giveInfo("SPACE_IS_EMPTY");
+            markLayer.markCurrentClick(currentClick);
+            markLayer.showAllowedTokens(allAllowedMovesAndJumps);
+        // if own token has no allowed moves/jumps
+        } else if (endPositionsStartingFromCurrentClick.isEmpty()) {
+            Message.giveInfo("NOT_ALLOWED_TO_MOVE_OR_JUMP");
+            markLayer.markCurrentClick(currentClick);
+            markLayer.showAllowedTokens(allAllowedMovesAndJumps);
+        // if own token has allowed moves/jumps
+        } else if (!endPositionsStartingFromCurrentClick.isEmpty()) {
+            Message.giveInfo("SELECTED_OWN_TOKEN");
+            activeToken = currentClick;
+
+            markLayer.markCurrentClick(currentClick);
+            markLayer.showAllowedEndMovesOrJumps(endPositionsStartingFromCurrentClick);
         }
     }
 
