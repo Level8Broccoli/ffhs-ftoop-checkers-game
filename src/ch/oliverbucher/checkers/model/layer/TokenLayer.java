@@ -1,6 +1,9 @@
 package ch.oliverbucher.checkers.model.layer;
 
-import ch.oliverbucher.checkers.enumaration.JumpDirections;
+import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
+import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
+import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
+import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -48,49 +51,55 @@ public class TokenLayer {
             }
         }
 
-        calculateAllPossibleMovesAndJumps();
+        calculateAllAllowedMovesAndJumps();
     }
 
-    public void calculateAllPossibleMovesAndJumps() {
+    public void calculateAllAllowedMovesAndJumps() {
+
+        MovesAndJumps.resetMoves();
+
+        ArrayList<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
+        ArrayList<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
 
         for (PositionXY currentPosition : tokens.keySet()) {
 
             PlayerToken currentToken = tokens.get(currentPosition);
-
-            HashMap<PositionXY, JumpDirections> allowedMoves = new HashMap<>();
-            HashMap<PositionXY, JumpDirections> possibleMoves = currentToken.jumps(currentPosition);
+            HashMap<PositionXY, HorizontalDirection> possibleMoves = currentToken.getPossibleMoves(currentPosition);
 
             for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
 
                 if (tokens.get(possibleMovePosition) == null) {
+                    AllowedMoveOrJump possibleMove = new AllowedMoveOrJump(currentPosition, possibleMovePosition);
+                    allowedMoves.add(possibleMove);
 
-                    allowedMoves.put(possibleMovePosition, possibleMoves.get(possibleMovePosition));
+                } else if (tokens.get(possibleMovePosition).getPlayerOwner() != Players.CURRENT_PLAYER) {
+
+                    HorizontalDirection direction = possibleMoves.get(possibleMovePosition);
+                    PositionXY positionBehindOpponent = currentToken.getPositionBehindOpponent(currentPosition, direction);
+
+                    if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
+                        AllowedMoveOrJump possibleJump = new AllowedMoveOrJump(currentPosition,
+                                positionBehindOpponent, possibleMovePosition);
+                        allowedJumps.add(possibleJump);
+                    }
                 }
             }
 
-            currentToken.setAllowedMoves(allowedMoves);
 
-            HashMap<PositionXY, JumpDirections> allowedJumps = new HashMap<>();
-            HashMap<PositionXY, JumpDirections> possibleJumps = currentToken.jumps(currentPosition);
-
-            for (PositionXY possibleJumpPosition: possibleJumps.keySet()) {
-
-                if (tokens.get(possibleJumpPosition) == null) {
-
-                    allowedJumps.put(possibleJumpPosition, possibleJumps.get(possibleJumpPosition));
-                }
+            if (allowedJumps.size() == 0) {
+                MovesAndJumps.setMovesOrJumps(allowedMoves);
+            } else {
+                MovesAndJumps.setMovesOrJumps(allowedJumps);
             }
-
-            currentToken.setAllowedJumps(allowedJumps);
         }
     }
 
-    public PlayerToken get(PositionXY positionXY) {
+    public PlayerToken getTokenAt(PositionXY positionXY) {
 
         return tokens.get(positionXY);
     }
 
-    public void moveToken(PositionXY lastClick, PositionXY currentClick) {
+    public void moveTokenFromTo(PositionXY lastClick, PositionXY currentClick) {
 
         PlayerToken activeToken = tokens.get(lastClick);
         tokens.remove(lastClick);
@@ -100,5 +109,20 @@ public class TokenLayer {
     public HashMap<PositionXY, PlayerToken> getTokens() {
 
         return tokens;
+    }
+
+    public void executeMove(AllowedMoveOrJump currentMove) {
+
+        PositionXY startPosition = currentMove.getStartPosition();
+        PositionXY endPosition = currentMove.getEndPosition();
+        PositionXY opponentToken = currentMove.getOpponentToken();
+
+        if (opponentToken != null) {
+            tokens.remove(opponentToken);
+        }
+
+        PlayerToken currentToken = tokens.get(startPosition);
+        tokens.remove(startPosition);
+        tokens.put(endPosition, currentToken);
     }
 }

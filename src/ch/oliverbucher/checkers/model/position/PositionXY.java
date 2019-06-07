@@ -1,5 +1,8 @@
 package ch.oliverbucher.checkers.model.position;
 
+import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
+import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
+
 public class PositionXY {
 
     private int positionX;
@@ -19,5 +22,15 @@ public class PositionXY {
     public int getPositionY() {
 
         return positionY;
+    }
+
+    public boolean hasAllowedStartMovesOrJumps() {
+
+        return MovesAndJumps.hasAllowedStartMovesOrJumps(this);
+    }
+
+    public boolean hasAllowedEndMovesOrJumps() {
+
+        return MovesAndJumps.hasAllowedEndMovesOrJumps(this);
     }
 }

@@ -70,7 +70,7 @@ Button {
     -fx-background-color: #6b996b;
 }
 
-#boardContainer #TOKEN_COULD_MOVE {
+#boardContainer #TOKEN_COULD_MOVE_OR_JUMP {
     -fx-border-color: #228B22;
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-radius: 3px;

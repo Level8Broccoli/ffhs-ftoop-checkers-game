@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.enumaration;
 
-public enum JumpDirections {
+public enum HorizontalDirection {
 
     LEFT, RIGHT
 }
