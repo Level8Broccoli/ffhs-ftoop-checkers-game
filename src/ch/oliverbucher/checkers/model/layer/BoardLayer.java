@@ -1,25 +1,25 @@
 package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
-import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
+import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.resources.Config;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BoardLayer {
 
-    private ArrayList<ArrayList<BoardSpace>> boardLayer;
+    private HashMap<PositionXY, BoardSpace> boardLayer;
 
     public BoardLayer() {
 
-        boardLayer = new ArrayList<>();
+        boardLayer = new HashMap<>();
 
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
-
-            boardLayer.add(new ArrayList<>());
-
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+
+                PositionXY currentPosition = Positions.getPosition(x, y);
 
                 BoardColor currentBoardColor;
                 Boolean isAllowed;
@@ -31,19 +31,14 @@ public class BoardLayer {
                     isAllowed = true;
                 }
 
-                BoardSpace field = new BoardSpace(currentBoardColor, isAllowed, new Position(x, y));
-                boardLayer.get(x).add(field);
+                BoardSpace field = new BoardSpace(currentBoardColor, isAllowed, currentPosition);
+                boardLayer.put(currentPosition, field);
             }
         }
     }
 
-    public ArrayList<BoardSpace> get(int x) {
+    public BoardSpace get(PositionXY currentPosition) {
 
-        return boardLayer.get(x);
-    }
-
-    public Position getPositionOf(int x, int y) {
-
-        return boardLayer.get(x).get(y).getPosition();
+        return boardLayer.get(currentPosition);
     }
 }

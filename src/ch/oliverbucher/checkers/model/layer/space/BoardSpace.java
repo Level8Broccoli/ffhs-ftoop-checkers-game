@@ -1,19 +1,19 @@
 package ch.oliverbucher.checkers.model.layer.space;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
-import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 
 public class BoardSpace {
 
     private final boolean isAllowed;
     private final BoardColor boardColor;
-    private final Position position;
+    private final PositionXY positionXY;
 
-    public BoardSpace(BoardColor boardColor, Boolean isAllowed, Position position) {
+    public BoardSpace(BoardColor boardColor, Boolean isAllowed, PositionXY positionXY) {
 
         this.boardColor = boardColor;
         this.isAllowed = isAllowed;
-        this.position = position;
+        this.positionXY = positionXY;
     }
 
     public BoardColor getBoardColor() {
@@ -26,8 +26,8 @@ public class BoardSpace {
         return isAllowed;
     }
 
-    public Position getPosition() {
+    public PositionXY getPositionXY() {
 
-        return position;
+        return positionXY;
     }
 }

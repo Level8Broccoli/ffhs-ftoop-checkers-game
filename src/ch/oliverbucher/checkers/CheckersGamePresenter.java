@@ -2,9 +2,10 @@ package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
-import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
+import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
@@ -13,7 +14,6 @@ import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -106,16 +106,15 @@ public class CheckersGamePresenter extends Application {
 
         for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
-            ArrayList<BoardSpace> currentBoardRow = model.getBoardLayer().get(x);
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-                Position currentPosition = model.getBoardLayer().getPositionOf(x, y);
+                PositionXY currentPosition = Positions.getPosition(x, y);
 
                 StackPane stackPane = new StackPane();
                 stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
 
                 // draw board layer
-                BoardSpace currentSpace = currentBoardRow.get(y);
+                BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
                 BoardColor currentBoardColor = currentSpace.getBoardColor();
 
                 Button btnBackground = new Button();

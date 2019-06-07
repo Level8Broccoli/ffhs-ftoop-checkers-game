@@ -1,23 +1,23 @@
 package ch.oliverbucher.checkers.model.token;
 
 import ch.oliverbucher.checkers.model.Player;
-import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 
 import java.util.ArrayList;
 
 public class PlayerToken {
 
-    private final Position position;
+    private final PositionXY positionXY;
     private final Player playerOwner;
-    private ArrayList<Position> possibleMoves;
+    private ArrayList<PositionXY> possibleMoves;
 
-    public PlayerToken(Player playerOwner, Position position) {
+    public PlayerToken(Player playerOwner, PositionXY positionXY) {
 
         this.playerOwner = playerOwner;
-        this.position = position;
+        this.positionXY = positionXY;
     }
 
-    public void setPossibleMoves(ArrayList<Position> possibleMoves) {
+    public void setPossibleMoves(ArrayList<PositionXY> possibleMoves) {
 
         this.possibleMoves = possibleMoves;
     }

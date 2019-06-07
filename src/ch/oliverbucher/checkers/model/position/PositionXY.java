@@ -1,13 +1,13 @@
-package ch.oliverbucher.checkers.model;
+package ch.oliverbucher.checkers.model.position;
 
 import ch.oliverbucher.checkers.resources.Config;
 
-public class Position {
+public class PositionXY {
 
     private int positionX;
     private int positionY;
 
-    public Position(int positionX, int positionY) {
+    public PositionXY(int positionX, int positionY) {
 
         this.positionX = positionX;
         this.positionY = positionY;

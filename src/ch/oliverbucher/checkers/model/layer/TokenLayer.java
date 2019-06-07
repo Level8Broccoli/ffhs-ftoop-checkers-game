@@ -1,7 +1,8 @@
 package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.model.Player;
-import ch.oliverbucher.checkers.model.Position;
+import ch.oliverbucher.checkers.model.position.PositionXY;
+import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 
@@ -11,7 +12,7 @@ public class TokenLayer {
 
     private Player[] players;
     private BoardLayer boardLayer;
-    private HashMap<Position, PlayerToken> tokens;
+    private HashMap<PositionXY, PlayerToken> tokens;
 
     public TokenLayer(BoardLayer boardLayer, Player[] players) {
 
@@ -28,18 +29,18 @@ public class TokenLayer {
 
             for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-                Position currentPosition = boardLayer.get(x).get(y).getPosition();
+                PositionXY currentPosition = Positions.getPosition(x, y);
 
                 if (y < Config.START_ROWS) {
 
-                    if (boardLayer.get(x).get(y).isAllowed()) {
+                    if (boardLayer.get(currentPosition).isAllowed()) {
 
                         tokens.put(currentPosition, new PlayerToken(players[1], currentPosition));
                     }
 
                 } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
 
-                    if (boardLayer.get(x).get(y).isAllowed()) {
+                    if (boardLayer.get(currentPosition).isAllowed()) {
 
                         tokens.put(currentPosition, new PlayerToken(players[0], currentPosition));
                     }
@@ -52,16 +53,16 @@ public class TokenLayer {
 
     public void calculateAllPossibleMoves() {
 
-        for (Position position: tokens.keySet()) {
-            System.out.println("Token on " + position.getPositionX() + " " + position.getPositionY() + ", belonging " +
-                    "to " + tokens.get(position).getPlayerOwner().getPlayerColor().name());
+        for (PositionXY positionXY : tokens.keySet()) {
+            System.out.println("Token on " + positionXY.getPositionX() + " " + positionXY.getPositionY() + ", belonging " +
+                    "to " + tokens.get(positionXY).getPlayerOwner().getPlayerColor().name());
         }
 //
 //        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 //
 //            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 //
-//                tokenLayer.get(new Position(x, y)).calculatePossibleMoves(this);
+//                tokenLayer.get(new PositionXY(x, y)).calculatePossibleMoves(this);
 //            }
 //        }
 //
@@ -81,12 +82,12 @@ public class TokenLayer {
 //            nextRowY = currentPositionY + 1;
 //        }
 //
-//        Position possibleMoveLeft = new Position(currentPositionX - 1, nextRowY);
+//        PositionXY possibleMoveLeft = new PositionXY(currentPositionX - 1, nextRowY);
 //        if (possibleMoveLeft.isOnTheBoard() && tokenLayer.isEmpty(possibleMoveLeft)) {
 //            possibleMoves.add(possibleMoveLeft);
 //        }
 //
-//        Position possibleMoveRight = new Position(currentPositionX + 1, nextRowY);
+//        PositionXY possibleMoveRight = new PositionXY(currentPositionX + 1, nextRowY);
 //        if (possibleMoveRight.isOnTheBoard() && tokenLayer.isEmpty(possibleMoveRight)) {
 //            possibleMoves.add(possibleMoveRight);
 //        }
@@ -101,12 +102,12 @@ public class TokenLayer {
 
     }
 
-    public PlayerToken get(Position position) {
+    public PlayerToken get(PositionXY positionXY) {
 
-        return tokens.get(position);
+        return tokens.get(positionXY);
     }
 
-//    public boolean isEmpty(Position position) {
+//    public boolean isEmpty(PositionXY position) {
 //
 //        return !tokenLayer.get(position.getPositionX()).get(position.getPositionY()).isPlayerAssigned();
 //    }

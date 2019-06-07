@@ -5,6 +5,7 @@ import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
+import ch.oliverbucher.checkers.model.position.Positions;
 
 public class CheckersGameModel {
 
@@ -38,8 +39,7 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        System.out.println(boardLayer.getPositionOf(x, y));
-        System.out.println(tokenLayer.get(boardLayer.getPositionOf(x, y)));
+        System.out.println(tokenLayer.get(Positions.getPosition(x, y)));
         System.out.println(x + " " + y);
     }
 }
