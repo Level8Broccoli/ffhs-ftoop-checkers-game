@@ -22,7 +22,7 @@ public class TokenLayer {
         generateTokenLayer();
     }
 
-    public void generateTokenLayer() {
+    private void generateTokenLayer() {
 
         tokens = new HashMap<>();
 
@@ -52,12 +52,17 @@ public class TokenLayer {
         calculateAllPossibleMoves();
     }
 
-    public void calculateAllPossibleMoves() {
+    public void updateTokenLayer() {
+
+        calculateAllPossibleMoves();
+    }
+
+
+    private void calculateAllPossibleMoves() {
 
         for (PositionXY currentPosition : tokens.keySet()) {
 
             PlayerToken currentToken = tokens.get(currentPosition);
-            Player currentTokenPlayerOwner = currentToken.getPlayerOwner();
 
             ArrayList<PositionXY> allowedMoves = new ArrayList<>();
 
@@ -68,6 +73,8 @@ public class TokenLayer {
                     allowedMoves.add(possibleMovePosition);
                 }
             }
+
+            currentToken.setAllowedMoves(allowedMoves);
         }
 //
 //        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
@@ -122,8 +129,14 @@ public class TokenLayer {
     public void moveToken(PositionXY lastClick, PositionXY currentClick) {
 
         PlayerToken activeToken = tokens.get(lastClick);
+        System.out.println("Active Token: " + activeToken);
         tokens.remove(lastClick);
         tokens.put(currentClick, activeToken);
+    }
+
+    public HashMap<PositionXY, PlayerToken> getTokens() {
+
+        return tokens;
     }
 
 //    public boolean isEmpty(PositionXY position) {

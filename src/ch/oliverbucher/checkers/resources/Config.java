@@ -1,5 +1,6 @@
 package ch.oliverbucher.checkers.resources;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Config {
@@ -7,21 +8,44 @@ public class Config {
     private static final ResourceBundle RESOURCE_BUNDLE =
             ResourceBundle.getBundle("ch.oliverbucher.checkers.resources.config");
 
-    public static int BOARD_WIDTH = Integer.parseInt(getValue("BOARD_WIDTH"));
-    public static int BOARD_HEIGHT = Integer.parseInt(getValue("BOARD_HEIGHT"));
-    public static int START_ROWS = Integer.parseInt(Config.getValue("START_ROWS"));
+    public static int BOARD_WIDTH = getIntegerValue("BOARD_WIDTH");
+    public static int BOARD_HEIGHT = getIntegerValue("BOARD_HEIGHT");
+    public static int START_ROWS = getIntegerValue("START_ROWS");
 
 
     public static String getValue(String key) {
 
-        return RESOURCE_BUNDLE.getString(key);
+        try {
+            return RESOURCE_BUNDLE.getString(key);
+        } catch (MissingResourceException exception) {
+            return null;
+        }
+    }
+
+    private static int getIntegerValue(String key) {
+
+        String value = getValue(key);
+        if (value != null) {
+            return Integer.parseInt(value);
+        } else {
+            return 0;
+        }
+    }
+
+    private static double getDoubleValue(String key) {
+
+        String value = getValue(key);
+        if (value != null) {
+            return Double.parseDouble(value);
+        } else {
+            return 0.0;
+        }
     }
 
     public static ResourceBundle getResourceBundle() {
         return RESOURCE_BUNDLE;
     }
 
-    public static double LENGHT_OF_SPACE =
-    Double.parseDouble(Config.getValue("WINDOW_WIDTH")) /
-            Double.parseDouble(Config.getValue("BOARD_WIDTH")) / 2;
+    public static double LENGTH_OF_SPACE =
+            getDoubleValue("WINDOW_WIDTH") / getDoubleValue("BOARD_WIDTH") / 2;
 }

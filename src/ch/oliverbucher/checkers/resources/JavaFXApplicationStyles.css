@@ -60,7 +60,14 @@ Button {
 }
 
 #boardContainer #CURRENT_CLICK {
-    -fx-border-color: #f4a460;
+     -fx-border-color: #f4a460;
+     -fx-background-color: rgba(0,0,0,0);
+     -fx-border-radius: 2px;
+     -fx-border-width: 2px;
+}
+
+#boardContainer #POSSIBLE_MOVE {
+    -fx-border-color: #228B22;
     -fx-background-color: rgba(0,0,0,0);
     -fx-border-radius: 2px;
     -fx-border-width: 2px;

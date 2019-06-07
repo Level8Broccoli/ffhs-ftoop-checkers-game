@@ -1,8 +1,8 @@
 package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
+import ch.oliverbucher.checkers.enumaration.MarkType;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
-import ch.oliverbucher.checkers.model.layer.space.MarkSpace;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
@@ -24,7 +24,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
 
 public class CheckersGamePresenter extends Application {
 
@@ -36,11 +35,6 @@ public class CheckersGamePresenter extends Application {
     private Scene launchScene;
     private Stage stage;
 
-    public CheckersGamePresenter() {
-
-        model = new CheckersGameModel();
-    }
-
     public void startApplication() {
 
         launch();
@@ -48,6 +42,8 @@ public class CheckersGamePresenter extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        model = new CheckersGameModel();
 
         stage = primaryStage;
 
@@ -112,7 +108,7 @@ public class CheckersGamePresenter extends Application {
                 PositionXY currentPosition = Positions.getPosition(x, y);
 
                 StackPane stackPane = new StackPane();
-                stackPane.setMaxSize(Config.LENGHT_OF_SPACE, Config.LENGHT_OF_SPACE);
+                stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);
 
                 // draw board layer
                 BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
@@ -131,17 +127,12 @@ public class CheckersGamePresenter extends Application {
                 }
 
                 // draw marked layer
-                MarkSpace currentMarkSpace = model.getMarkLayer().get(currentPosition);
-                if (currentMarkSpace != null) {
+                MarkType currentMarkType = model.getMarkLayer().get(currentPosition);
+                if (currentMarkType != null) {
                     Button btnMark = new Button();
-                    btnMark.setId(currentMarkSpace.getName());
+                    btnMark.setId(currentMarkType.getName());
                     stackPane.getChildren().add(btnMark);
                 }
-//                if (currentPlayerToken.hasPossibleMoves()) {
-//                    Button btnMark = new Button();
-//                    btnMark.setId("btnMarked");
-//                    stackPane.getChildren().add(btnMark);
-//                }
 
                 // draw interaction layer
                 Button btnInteraction = new Button();

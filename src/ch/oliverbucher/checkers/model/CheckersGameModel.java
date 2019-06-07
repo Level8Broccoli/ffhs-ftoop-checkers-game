@@ -19,8 +19,6 @@ public class CheckersGameModel {
     private MarkLayer markLayer;
 
     private PlayerToken activeToken;
-
-    private PositionXY currentClick;
     private PositionXY lastClick;
 
     public CheckersGameModel() {
@@ -30,7 +28,7 @@ public class CheckersGameModel {
 
         boardLayer = new BoardLayer();
         tokenLayer = new TokenLayer(boardLayer, players);
-        markLayer = new MarkLayer();
+        markLayer = new MarkLayer(tokenLayer);
     }
 
     public BoardLayer getBoardLayer() {
@@ -55,19 +53,24 @@ public class CheckersGameModel {
 
     public void clickEvent(int x, int y) {
 
-        currentClick = Positions.getPosition(x, y);
-        System.out.println("Clicked: " + x + " " + y);
+        PositionXY currentClick = Positions.getPosition(x, y);
         markLayer.markCurrentClick(currentClick);
 
-        if (activeToken == null) {
+        PlayerToken token = tokenLayer.get(currentClick);
+        System.out.println(token);
+
+        if (token != null && activeToken == null) {
             activeToken = tokenLayer.get(currentClick);
-        } else {
+            System.out.println("Token saved: " + activeToken);
+            markLayer.showAllowedMoves(activeToken);
+        } else if (token == null && activeToken != null){
             tokenLayer.moveToken(lastClick, currentClick);
-            System.out.println("Move from: " + lastClick.getPositionX() + " " + lastClick.getPositionY() + " to: " + currentClick.getPositionX() + " " + currentClick.getPositionY());
+            System.out.println("moved");
             activeToken = null;
+            markLayer.showTokensWithAllowedMoves();
         }
 
+        tokenLayer.updateTokenLayer();
         lastClick = currentClick;
     }
-
 }

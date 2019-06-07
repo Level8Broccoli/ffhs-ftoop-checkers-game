@@ -12,23 +12,13 @@ public class PlayerToken {
     private final PositionXY position;
     private final Player playerOwner;
     private final DirectionOfPlay directionOfPlay;
-    private ArrayList<PositionXY> possibleMoves;
+    private ArrayList<PositionXY> allowedMoves;
 
     public PlayerToken(Player playerOwner, PositionXY position) {
 
         this.playerOwner = playerOwner;
         this.position = position;
         this.directionOfPlay = playerOwner.getDirectionOfPlay();
-    }
-
-    public void setPossibleMoves(ArrayList<PositionXY> possibleMoves) {
-
-        this.possibleMoves = possibleMoves;
-    }
-
-    public boolean hasPossibleMoves() {
-
-        return possibleMoves != null && possibleMoves.size() > 0;
     }
 
     public Player getPlayerOwner() {
@@ -43,7 +33,7 @@ public class PlayerToken {
 
     public ArrayList<PositionXY> simpleMove() {
 
-        possibleMoves = new ArrayList<>();
+        ArrayList<PositionXY> possibleMoves = new ArrayList<>();
 
         int currentPositionX = position.getPositionX();
         int currentPositionY = position.getPositionY();
@@ -66,5 +56,20 @@ public class PlayerToken {
         }
 
         return possibleMoves;
+    }
+
+    public void setAllowedMoves(ArrayList<PositionXY> allowedMoves) {
+
+        this.allowedMoves = allowedMoves;
+    }
+
+    public boolean hasAllowedMoves() {
+
+        return allowedMoves != null && allowedMoves.size() > 0;
+    }
+
+    public ArrayList<PositionXY> getAllowedMoves() {
+
+        return allowedMoves;
     }
 }
