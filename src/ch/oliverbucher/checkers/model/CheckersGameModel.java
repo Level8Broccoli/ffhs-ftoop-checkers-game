@@ -55,17 +55,13 @@ public class CheckersGameModel {
 
         PositionXY currentClick = Positions.getPosition(x, y);
         markLayer.markCurrentClick(currentClick);
+        PlayerToken currentToken = tokenLayer.get(currentClick);
 
-        PlayerToken token = tokenLayer.get(currentClick);
-        System.out.println(token);
-
-        if (token != null && activeToken == null) {
+        if (currentToken != null && activeToken == null) {
             activeToken = tokenLayer.get(currentClick);
-            System.out.println("Token saved: " + activeToken);
             markLayer.showAllowedMoves(activeToken);
-        } else if (token == null && activeToken != null){
+        } else if (activeToken != null){
             tokenLayer.moveToken(lastClick, currentClick);
-            System.out.println("moved");
             activeToken = null;
             markLayer.showTokensWithAllowedMoves();
         }
