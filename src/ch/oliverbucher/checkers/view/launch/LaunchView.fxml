@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane
+  xmlns:fx="http://javafx.com/fxml"
+  xmlns="http://javafx.com/javafx"
+  fx:id="root">
+
+  <top>
+    <VBox fx:id="header">
+      <Label text="%TXT_WELCOME"/>
+    </VBox>
+  </top>
+
+  <center>
+    <VBox fx:id="main">
+      <Label text="%TXT_OPPONENT_QUESTION"/>
+      <HBox alignment="CENTER">
+        <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" fx:id="btnHuman"/>
+        <Label fx:id="lblSpace"/>
+        <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" fx:id="btnComputer"/>
+        <fx:define>
+          <ToggleGroup fx:id="playerType"/>
+        </fx:define>
+      </HBox>
+      <Button text="%BTN_START_GAME" fx:id="btnStartGame"/>
+      <Label fx:id="lblMessage"/>
+    </VBox>
+  </center>
+
+  <bottom>
+    <HBox fx:id="footer">
+      <Label text="%GAME_AUTHOR"/>
+      <Label text=", "/>
+      <Label text="%GAME_VERSION"/>
+    </HBox>
+  </bottom>
+
+</BorderPane>
