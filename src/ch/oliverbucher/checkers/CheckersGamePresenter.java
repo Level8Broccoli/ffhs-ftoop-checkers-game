@@ -145,10 +145,10 @@ public class CheckersGamePresenter extends Application {
         stackPane.getChildren().add(btnBackground);
 
         // draw token layer
-        final Token currentPlayerToken = tokenLayer.getTokenAt(currentPosition);
-        if (currentPlayerToken != null) {
+        final Token currentToken = tokenLayer.getTokenAt(currentPosition);
+        if (currentToken != null) {
           Button btnToken = new Button();
-          btnToken.setId(currentPlayerToken.getName());
+          btnToken.setId(currentToken.getName());
           stackPane.getChildren().add(btnToken);
         }
 

@@ -17,6 +17,11 @@ public class KingToken extends Token {
   }
 
   @Override
+  public String getName() {
+    return super.getName() + "_KING";
+  }
+
+  @Override
   public Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition) {
 
     Map<PositionXY, Direction> possibleMoves = new HashMap<>();

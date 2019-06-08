@@ -14,7 +14,7 @@ public abstract class Token {
     this.playerOwner = playerOwner;
   }
 
-  public final String getName() {
+  public String getName() {
     return playerOwner.getPlayerColor().name();
   }
 
