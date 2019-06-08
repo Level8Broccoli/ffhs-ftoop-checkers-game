@@ -1,6 +1,5 @@
 package ch.oliverbucher.checkers.model.players;
 
-import ch.oliverbucher.checkers.enumaration.DirectionOfPlay;
 import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 
@@ -24,8 +23,8 @@ public class Player {
     return playerColor;
   }
 
-  public DirectionOfPlay getDirectionOfPlay() {
+  public boolean isDirectionOfPlayUp() {
 
-    return playerColor.getDirectionOfPlay();
+    return playerColor == PlayerColor.WHITE;
   }
 }

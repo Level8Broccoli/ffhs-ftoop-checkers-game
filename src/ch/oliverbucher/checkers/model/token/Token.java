@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.model.token;
 
-import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
+import ch.oliverbucher.checkers.enumaration.Direction;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -18,29 +18,36 @@ public abstract class Token {
     return playerOwner.getPlayerColor().name();
   }
 
-  public abstract Map<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition);
+  public abstract Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition);
 
   public Player getPlayerOwner() {
 
     return playerOwner;
   }
 
-  public PositionXY getPositionBehindOpponent(
-      PositionXY jumpOverPosition, HorizontalDirection direction) {
+  public PositionXY getNextPositionInDirection(
+      PositionXY currentPosition, Direction direction) {
 
-    int targetPositionX = jumpOverPosition.positionX;
-    int targetPositionY = jumpOverPosition.positionY;
+    int targetPositionX = currentPosition.positionX;
+    int targetPositionY = currentPosition.positionY;
 
-    if (direction == HorizontalDirection.LEFT) {
-      targetPositionX--;
-    } else {
-      targetPositionX++;
-    }
-
-    if (playerOwner.getDirectionOfPlay().isUp()) {
-      targetPositionY--;
-    } else {
-      targetPositionY++;
+    switch (direction){
+      case LEFT_UP:
+        targetPositionX--;
+        targetPositionY--;
+        break;
+      case RIGHT_UP:
+        targetPositionX++;
+        targetPositionY--;
+        break;
+      case LEFT_DOWN:
+        targetPositionX--;
+        targetPositionY++;
+        break;
+      case RIGHT_DOWN:
+        targetPositionX++;
+        targetPositionY++;
+        break;
     }
 
     return Positions.getPosition(targetPositionX, targetPositionY);

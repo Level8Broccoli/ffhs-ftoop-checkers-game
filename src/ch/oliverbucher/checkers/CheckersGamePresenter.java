@@ -10,6 +10,7 @@ import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.players.Player;
+import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
@@ -36,19 +37,12 @@ public class CheckersGamePresenter extends Application {
   private TokenLayer tokenLayer;
   private MarkLayer markLayer;
 
-
-  private final Player[] players =
-      new Player[] {
-          new Player(PlayerType.HUMAN, PlayerColor.WHITE),
-          new Player(PlayerType.HUMAN, PlayerColor.BLACK)
-      };
-  private final Player currentPlayer = players[0];
-
   private String stylesheet;
 
   private Scene gameScene;
   private Scene launchScene;
   private Stage stage;
+  private Players players;
 
   public void startApplication() {
 
@@ -81,15 +75,16 @@ public class CheckersGamePresenter extends Application {
   }
 
   private void setUpModel() {
+    players = new Players();
     boardLayer = new BoardLayer();
     tokenLayer = new TokenLayer();
     markLayer = new MarkLayer();
 
-    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players, currentPlayer);
+    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players);
 
     tokenLayer.generateTokenLayer(boardLayer, players);
     markLayer.showAllowedTokens(
-        null, tokenLayer.getAllAllowedMovesAndJumps(currentPlayer).getMoreImportantMoves());
+        null, tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves());
   }
 
   private void setUpLaunchScreen() throws Exception {
@@ -185,6 +180,6 @@ public class CheckersGamePresenter extends Application {
   }
 
   public void setOpponent(PlayerType playerType) {
-    players[1].setPlayerType(playerType);
+    players.players[1].setPlayerType(playerType);
   }
 }

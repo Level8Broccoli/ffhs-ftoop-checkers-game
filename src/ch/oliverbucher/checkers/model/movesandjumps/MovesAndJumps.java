@@ -1,6 +1,6 @@
 package ch.oliverbucher.checkers.model.movesandjumps;
 
-import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
+import ch.oliverbucher.checkers.enumaration.Direction;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.token.Token;
@@ -20,7 +20,7 @@ public class MovesAndJumps {
 
       if (currentToken.getPlayerOwner() == currentPlayer) {
 
-        Map<PositionXY, HorizontalDirection> possibleMoves =
+        Map<PositionXY, Direction> possibleMoves =
             currentToken.getPossibleMoves(currentPosition);
 
         for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
@@ -33,10 +33,10 @@ public class MovesAndJumps {
 
           } else if (tokens.get(possibleMovePosition).getPlayerOwner() != currentPlayer) {
 
-            HorizontalDirection direction = possibleMoves.get(possibleMovePosition);
+            Direction direction = possibleMoves.get(possibleMovePosition);
 
             PositionXY positionBehindOpponent =
-                currentToken.getPositionBehindOpponent(possibleMovePosition, direction);
+                currentToken.getNextPositionInDirection(possibleMovePosition, direction);
 
             if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
               AllowedMoveOrJump possibleJump =
