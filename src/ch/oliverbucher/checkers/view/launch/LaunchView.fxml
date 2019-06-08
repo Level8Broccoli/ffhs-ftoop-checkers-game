@@ -11,6 +11,29 @@
   xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   fx:id="root">
+
+  <top>
+    <VBox fx:id="header">
+      <Label text="%TXT_WELCOME"/>
+    </VBox>
+  </top>
+
+  <center>
+    <VBox fx:id="main">
+      <Label text="%TXT_OPPONENT_QUESTION"/>
+      <HBox alignment="CENTER">
+        <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" fx:id="btnHuman"/>
+        <Label fx:id="lblSpace"/>
+        <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" fx:id="btnComputer"/>
+        <fx:define>
+          <ToggleGroup fx:id="playerType"/>
+        </fx:define>
+      </HBox>
+      <Button text="%BTN_START_GAME" fx:id="btnStartGame"/>
+      <Label fx:id="lblMessage"/>
+    </VBox>
+  </center>
+
   <bottom>
     <HBox fx:id="footer">
       <Label text="%GAME_AUTHOR"/>
@@ -19,25 +42,4 @@
     </HBox>
   </bottom>
 
-  <center>
-    <VBox fx:id="main">
-      <Button text="%BTN_START_GAME" fx:id="btnStartGame"/>
-      <HBox alignment="CENTER">
-        <Label fx:id="lblSpace"/>
-        <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" fx:id="btnHuman"/>
-        <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" fx:id="btnComputer"/>
-        <fx:define>
-          <ToggleGroup fx:id="playerType"/>
-        </fx:define>
-      </HBox>
-      <Label text="%TXT_OPPONENT_QUESTION"/>
-      <Label fx:id="lblMessage"/>
-    </VBox>
-  </center>
-
-  <top>
-    <VBox fx:id="header">
-      <Label text="%TXT_WELCOME"/>
-    </VBox>
-  </top>
 </BorderPane>

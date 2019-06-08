@@ -10,6 +10,27 @@
   xmlns:fx="http://javafx.com/fxml"
   xmlns="http://javafx.com/javafx"
   fx:id="root">
+
+  <top>
+    <VBox fx:id="header">
+      <Label text="%TXT_LETS_PLAY"/>
+    </VBox>
+  </top>
+
+  <center>
+    <VBox fx:id="main">
+      <GridPane fx:id="boardContainer">
+      </GridPane>
+      <Label fx:id="lblSpace"/>
+      <HBox alignment="CENTER">
+        <Button text="%BTN_NEW_GAME" fx:id="btnRestartGame"/>
+        <Label fx:id="lblSpaceBetweenButtons"/>
+        <Button text="%BTN_RULES" fx:id="btnRules"/>
+      </HBox>
+      <Label fx:id="lblMessage"/>
+    </VBox>
+  </center>
+
   <bottom>
     <HBox alignment="BOTTOM_RIGHT" fx:id="footer">
       <Label text="%GAME_AUTHOR"/>
@@ -18,23 +39,4 @@
     </HBox>
   </bottom>
 
-  <center>
-    <VBox fx:id="main">
-      <GridPane fx:id="boardContainer">
-      </GridPane>
-      <HBox alignment="CENTER">
-        <Button text="%BTN_NEW_GAME" fx:id="btnRestartGame"/>
-        <Button text="%BTN_RULES" fx:id="btnRules"/>
-        <Label fx:id="lblSpaceTest"/>
-      </HBox>
-      <Label fx:id="lblSpace"/>
-      <Label fx:id="lblMessage"/>
-    </VBox>
-  </center>
-
-  <top>
-    <VBox fx:id="header">
-      <Label text="%TXT_LETS_PLAY"/>
-    </VBox>
-  </top>
 </BorderPane>

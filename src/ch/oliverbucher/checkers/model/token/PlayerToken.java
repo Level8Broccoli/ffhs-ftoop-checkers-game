@@ -6,20 +6,13 @@ import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.HashMap;
 
-public class PlayerToken {
-
-  private final Player playerOwner;
+public class PlayerToken extends Token {
 
   public PlayerToken(Player playerOwner) {
-
-    this.playerOwner = playerOwner;
+    super(playerOwner);
   }
 
-  public final String getName() {
-
-    return playerOwner.getPlayerColor().name();
-  }
-
+  @Override
   public HashMap<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition) {
 
     HashMap<PositionXY, HorizontalDirection> possibleMoves = new HashMap<>();
@@ -40,31 +33,5 @@ public class PlayerToken {
     }
 
     return possibleMoves;
-  }
-
-  public Player getPlayerOwner() {
-
-    return playerOwner;
-  }
-
-  public PositionXY getPositionBehindOpponent(
-      PositionXY jumpOverPosition, HorizontalDirection direction) {
-
-    int targetPositionX = jumpOverPosition.positionX;
-    int targetPositionY = jumpOverPosition.positionY;
-
-    if (direction == HorizontalDirection.LEFT) {
-      targetPositionX--;
-    } else {
-      targetPositionX++;
-    }
-
-    if (playerOwner.getDirectionOfPlay().isUp()) {
-      targetPositionY--;
-    } else {
-      targetPositionY++;
-    }
-
-    return Positions.getPosition(targetPositionX, targetPositionY);
   }
 }
