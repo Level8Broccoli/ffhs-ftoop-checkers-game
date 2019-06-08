@@ -2,16 +2,17 @@ package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.MarkType;
+import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
 import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
+import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
-import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
@@ -35,6 +36,14 @@ public class CheckersGamePresenter extends Application {
   private BoardLayer boardLayer;
   private TokenLayer tokenLayer;
   private MarkLayer markLayer;
+
+
+  private final Player[] players =
+      new Player[] {
+          new Player(PlayerType.HUMAN, PlayerColor.WHITE),
+          new Player(PlayerType.HUMAN, PlayerColor.BLACK)
+      };
+  private Player currentPlayer = players[0];
 
   private String stylesheet;
 
@@ -73,17 +82,15 @@ public class CheckersGamePresenter extends Application {
   }
 
   private void setUpModel() {
-    Players.initializePlayers();
-
     boardLayer = new BoardLayer();
     tokenLayer = new TokenLayer();
     markLayer = new MarkLayer();
 
-    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer);
+    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players, currentPlayer);
 
-    tokenLayer.generateTokenLayer(boardLayer);
+    tokenLayer.generateTokenLayer(boardLayer, players);
     markLayer.showAllowedTokens(
-        null, tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves());
+        null, tokenLayer.getAllAllowedMovesAndJumps(currentPlayer).getMoreImportantMoves());
   }
 
   private void setUpLaunchScreen() throws Exception {
@@ -179,6 +186,6 @@ public class CheckersGamePresenter extends Application {
   }
 
   public void setOpponent(PlayerType playerType) {
-    model.setOpponent(playerType);
+    players[1].setPlayerType(playerType);
   }
 }

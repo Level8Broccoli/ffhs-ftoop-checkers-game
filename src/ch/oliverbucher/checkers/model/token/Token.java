@@ -4,7 +4,6 @@ import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Token {
@@ -19,8 +18,7 @@ public abstract class Token {
     return playerOwner.getPlayerColor().name();
   }
 
-  public abstract Map<PositionXY, HorizontalDirection> getPossibleMoves(
-      PositionXY currentPosition);
+  public abstract Map<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition);
 
   public Player getPlayerOwner() {
 
