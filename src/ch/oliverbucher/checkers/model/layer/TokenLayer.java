@@ -32,7 +32,7 @@ public class TokenLayer {
 
           if (boardLayer.get(currentPosition).isAllowed()) {
 
-            tokens.put(currentPosition, new KingToken(players.players[1]));
+            tokens.put(currentPosition, new KingToken(players.players[1], this));
           }
 
         } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
