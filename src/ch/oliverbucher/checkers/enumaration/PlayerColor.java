@@ -4,7 +4,7 @@ public enum PlayerColor {
   WHITE(DirectionOfPlay.UP),
   BLACK(DirectionOfPlay.DOWN);
 
-  private DirectionOfPlay direction;
+  private final DirectionOfPlay direction;
 
   PlayerColor(DirectionOfPlay direction) {
     this.direction = direction;

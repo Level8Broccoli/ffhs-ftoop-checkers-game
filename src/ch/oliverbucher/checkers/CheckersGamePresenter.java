@@ -10,7 +10,6 @@ import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.players.Player;
-import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
@@ -43,7 +42,7 @@ public class CheckersGamePresenter extends Application {
           new Player(PlayerType.HUMAN, PlayerColor.WHITE),
           new Player(PlayerType.HUMAN, PlayerColor.BLACK)
       };
-  private Player currentPlayer = players[0];
+  private final Player currentPlayer = players[0];
 
   private String stylesheet;
 

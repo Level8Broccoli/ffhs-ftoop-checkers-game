@@ -2,10 +2,11 @@ package ch.oliverbucher.checkers.model.position;
 
 import ch.oliverbucher.checkers.resources.Config;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Positions {
 
-  private static ArrayList<ArrayList<PositionXY>> positions;
+  private static List<List<PositionXY>> positions;
 
   private static void createPositions() {
 

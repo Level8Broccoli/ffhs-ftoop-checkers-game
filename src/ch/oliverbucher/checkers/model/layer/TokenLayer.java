@@ -4,7 +4,6 @@ import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMovesAndJumps;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
-import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;

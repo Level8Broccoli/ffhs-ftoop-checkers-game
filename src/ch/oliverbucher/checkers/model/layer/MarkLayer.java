@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MarkLayer {
 
-  private final HashMap<PositionXY, MarkType> marks = new HashMap<>();
+  private final Map<PositionXY, MarkType> marks = new HashMap<>();
 
   public void showAllowedTokens(
       PositionXY currentClick, List<AllowedMoveOrJump> allowedMoveOrJumps) {

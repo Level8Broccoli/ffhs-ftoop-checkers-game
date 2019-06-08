@@ -6,10 +6,11 @@ import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.resources.Config;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BoardLayer {
 
-  private final HashMap<PositionXY, BoardSpace> boardLayer;
+  private final Map<PositionXY, BoardSpace> boardLayer;
 
   public BoardLayer() {
 
