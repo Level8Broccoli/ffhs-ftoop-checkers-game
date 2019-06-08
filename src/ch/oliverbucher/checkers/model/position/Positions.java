@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Positions {
 
-  private static List<List<PositionXY>> positions;
+  private final List<List<PositionXY>> positions;
 
-  private static void createPositions() {
+  public Positions() {
 
     positions = new ArrayList<>();
 
@@ -23,11 +23,7 @@ public class Positions {
     }
   }
 
-  public static PositionXY getPosition(int x, int y) {
-
-    if (positions == null || positions.size() == 0) {
-      Positions.createPositions();
-    }
+  public PositionXY getPosition(int x, int y) {
 
     if (x >= 0 && y >= 0 && x < Config.BOARD_WIDTH && y < Config.BOARD_HEIGHT) {
 

@@ -27,7 +27,7 @@ public class TokenLayer {
 
       for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-        PositionXY currentPosition = Positions.getPosition(x, y);
+        PositionXY currentPosition = positions.getPosition(x, y);
 
         if (y < Config.START_ROWS) {
 

@@ -21,7 +21,7 @@ public class BoardLayer {
     for (int x = 0; x < Config.BOARD_WIDTH; x++) {
       for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-        PositionXY currentPosition = Positions.getPosition(x, y);
+        PositionXY currentPosition = positions.getPosition(x, y);
 
         BoardColor currentBoardColor;
         if ((x + y) % 2 == 0) {

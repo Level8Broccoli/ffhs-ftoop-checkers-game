@@ -134,7 +134,7 @@ public class CheckersGamePresenter extends Application {
 
       for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-        PositionXY currentPosition = Positions.getPosition(x, y);
+        PositionXY currentPosition = positions.getPosition(x, y);
 
         StackPane stackPane = new StackPane();
         stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);

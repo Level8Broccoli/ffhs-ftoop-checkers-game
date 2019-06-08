@@ -38,7 +38,7 @@ public class CheckersGameModel {
 
   public final void clickEvent(int x, int y) {
 
-    final PositionXY currentClick = Positions.getPosition(x, y);
+    final PositionXY currentClick = positions.getPosition(x, y);
 
     // possibilities no matter what came before
     final String reason = getReasonWhyItIsNotGameChanging(currentClick);

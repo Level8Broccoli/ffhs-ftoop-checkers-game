@@ -25,7 +25,7 @@ public class StandardToken extends Token {
     final boolean directionOfPlayIsUp = playerOwner.isDirectionOfPlayUp();
     final int nextRowY = directionOfPlayIsUp ? currentPositionY - 1 : currentPositionY + 1;
 
-    final PositionXY possibleMoveLeft = Positions.getPosition(currentPositionX - 1, nextRowY);
+    final PositionXY possibleMoveLeft = positions.getPosition(currentPositionX - 1, nextRowY);
     if (possibleMoveLeft != null) {
       if (directionOfPlayIsUp) {
         possibleMoves.put(possibleMoveLeft, Direction.LEFT_UP);
@@ -34,7 +34,7 @@ public class StandardToken extends Token {
       }
     }
 
-    final PositionXY possibleMoveRight = Positions.getPosition(currentPositionX + 1, nextRowY);
+    final PositionXY possibleMoveRight = positions.getPosition(currentPositionX + 1, nextRowY);
     if (possibleMoveRight != null) {
       if (directionOfPlayIsUp) {
         possibleMoves.put(possibleMoveRight, Direction.RIGHT_UP);

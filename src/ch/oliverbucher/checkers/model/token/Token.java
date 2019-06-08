@@ -51,6 +51,6 @@ public abstract class Token {
         break;
     }
 
-    return Positions.getPosition(targetPositionX, targetPositionY);
+    return positions.getPosition(targetPositionX, targetPositionY);
   }
 }
