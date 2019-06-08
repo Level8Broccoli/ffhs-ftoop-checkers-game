@@ -13,16 +13,9 @@ import java.util.Map;
 
 public class TokenLayer {
 
-  private final BoardLayer boardLayer;
   private Map<PositionXY, PlayerToken> tokens;
 
-  public TokenLayer(BoardLayer boardLayer) {
-
-    this.boardLayer = boardLayer;
-    generateTokenLayer();
-  }
-
-  private void generateTokenLayer() {
+  public void generateTokenLayer(BoardLayer boardLayer) {
 
     tokens = new HashMap<>();
 

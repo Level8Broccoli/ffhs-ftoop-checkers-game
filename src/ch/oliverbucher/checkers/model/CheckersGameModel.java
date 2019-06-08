@@ -22,29 +22,10 @@ public class CheckersGameModel {
   private PositionXY activeToken;
   private boolean isSubsequentMove = false;
 
-  public CheckersGameModel() {
-
-    Players.initializePlayers();
-    boardLayer = new BoardLayer();
-    tokenLayer = new TokenLayer(boardLayer);
-    markLayer = new MarkLayer();
-    markLayer.showAllowedTokens(
-        null, tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves());
-  }
-
-  public BoardLayer getBoardLayer() {
-
-    return boardLayer;
-  }
-
-  public TokenLayer getTokenLayer() {
-
-    return tokenLayer;
-  }
-
-  public MarkLayer getMarkLayer() {
-
-    return markLayer;
+  public CheckersGameModel(BoardLayer boardLayer, TokenLayer tokenLayer, MarkLayer markLayer) {
+    this.boardLayer = boardLayer;
+    this.tokenLayer = tokenLayer;
+    this.markLayer = markLayer;
   }
 
   public void setOpponent(PlayerType playerType) {
