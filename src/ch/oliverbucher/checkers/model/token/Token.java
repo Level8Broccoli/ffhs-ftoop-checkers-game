@@ -3,7 +3,6 @@ package ch.oliverbucher.checkers.model.token;
 import ch.oliverbucher.checkers.enumaration.Direction;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.Map;
 
 public abstract class Token {
@@ -19,7 +18,7 @@ public abstract class Token {
   }
 
   public abstract Map<PositionXY, Direction> getPossibleMoves(
-      PositionXY currentPosition, Positions positions);
+      PositionXY currentPosition);
 
   public Player getPlayerOwner() {
 
@@ -27,7 +26,7 @@ public abstract class Token {
   }
 
   public PositionXY getNextPositionInDirection(
-      PositionXY currentPosition, Direction direction, Positions positions) {
+      PositionXY currentPosition, Direction direction) {
 
     int targetPositionX = currentPosition.positionX;
     int targetPositionY = currentPosition.positionY;
@@ -51,6 +50,12 @@ public abstract class Token {
         break;
     }
 
-    return positions.getPosition(targetPositionX, targetPositionY);
+    PositionXY nextPosition = new PositionXY(targetPositionX, targetPositionY);
+
+    if (!nextPosition.isNotOutsideTheBoard()) {
+      return null;
+    }
+
+    return nextPosition;
   }
 }

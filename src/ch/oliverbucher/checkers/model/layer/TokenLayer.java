@@ -6,7 +6,6 @@ import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.KingToken;
 import ch.oliverbucher.checkers.model.token.StandardToken;
 import ch.oliverbucher.checkers.model.token.Token;
@@ -19,7 +18,7 @@ public class TokenLayer {
   private Map<PositionXY, Token> tokens;
 
   public final void generateTokenLayer(
-      BoardLayer boardLayer, Players players, Positions positions) {
+      BoardLayer boardLayer, Players players) {
 
     tokens = new HashMap<>();
 
@@ -27,7 +26,7 @@ public class TokenLayer {
 
       for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-        PositionXY currentPosition = positions.getPosition(x, y);
+        PositionXY currentPosition = new PositionXY(x, y);
 
         if (y < Config.START_ROWS) {
 
@@ -48,8 +47,8 @@ public class TokenLayer {
   }
 
   public final AllowedMovesAndJumps getAllAllowedMovesAndJumps(
-      Player currentPlayer, Positions positions) {
-    return MovesAndJumps.getAllAllowedMovesAndJumps(tokens, currentPlayer, positions);
+      Player currentPlayer) {
+    return MovesAndJumps.getAllAllowedMovesAndJumps(tokens, currentPlayer);
   }
 
   public final Token getTokenAt(PositionXY positionXY) {

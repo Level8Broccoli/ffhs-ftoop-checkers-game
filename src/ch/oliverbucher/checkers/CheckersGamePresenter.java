@@ -10,7 +10,6 @@ import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
@@ -42,7 +41,6 @@ public class CheckersGamePresenter extends Application {
   private Scene launchScene;
   private Stage stage;
   private Players players;
-  private Positions positions;
 
   public void startApplication() {
 
@@ -75,19 +73,18 @@ public class CheckersGamePresenter extends Application {
   }
 
   private void setUpModel() {
-    positions = new Positions();
     players = new Players();
-    boardLayer = new BoardLayer(positions);
+    boardLayer = new BoardLayer();
     tokenLayer = new TokenLayer();
     markLayer = new MarkLayer();
 
-    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players, positions);
+    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players);
 
-    tokenLayer.generateTokenLayer(boardLayer, players, positions);
+    tokenLayer.generateTokenLayer(boardLayer, players);
     markLayer.showAllowedTokens(
         null,
         tokenLayer
-            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+            .getAllAllowedMovesAndJumps(players.currentPlayer)
             .getMoreImportantMoves());
   }
 
@@ -130,7 +127,7 @@ public class CheckersGamePresenter extends Application {
 
     Label lblMessage = (Label) gameScene.lookup("#lblMessage");
     if (model.whoIsTheWinner() != null) {
-      lblMessage.setText(Config.MSG_LOSER_IS + model.whoIsTheWinner().getPlayerColor().name());
+      lblMessage.setText(Config.MSG_LOSER_IS + " " + model.whoIsTheWinner().getPlayerColor().name());
     } else {
       lblMessage.setText("");
     }
@@ -142,7 +139,7 @@ public class CheckersGamePresenter extends Application {
 
       for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-        PositionXY currentPosition = positions.getPosition(x, y);
+        PositionXY currentPosition = new PositionXY(x, y);
 
         StackPane stackPane = new StackPane();
         stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);

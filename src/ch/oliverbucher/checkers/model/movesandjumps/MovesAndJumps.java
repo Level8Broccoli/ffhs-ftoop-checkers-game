@@ -3,7 +3,6 @@ package ch.oliverbucher.checkers.model.movesandjumps;
 import ch.oliverbucher.checkers.enumaration.Direction;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Map;
 public class MovesAndJumps {
 
   public static AllowedMovesAndJumps getAllAllowedMovesAndJumps(
-      Map<PositionXY, Token> tokens, Player currentPlayer, Positions positions) {
+      Map<PositionXY, Token> tokens, Player currentPlayer) {
     AllowedMovesAndJumps allowedMovesAndJumps = new AllowedMovesAndJumps();
 
     for (PositionXY currentPosition : tokens.keySet()) {
@@ -22,7 +21,7 @@ public class MovesAndJumps {
       if (currentToken.getPlayerOwner() == currentPlayer) {
 
         Map<PositionXY, Direction> possibleMoves =
-            currentToken.getPossibleMoves(currentPosition, positions);
+            currentToken.getPossibleMoves(currentPosition);
 
         for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
 
@@ -37,7 +36,7 @@ public class MovesAndJumps {
             Direction direction = possibleMoves.get(possibleMovePosition);
 
             PositionXY positionBehindOpponent =
-                currentToken.getNextPositionInDirection(possibleMovePosition, direction, positions);
+                currentToken.getNextPositionInDirection(possibleMovePosition, direction);
 
             if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
               AllowedMoveOrJump possibleJump =
@@ -58,7 +57,7 @@ public class MovesAndJumps {
     Map<PositionXY, AllowedMoveOrJump> result = new HashMap<>();
 
     for (AllowedMoveOrJump allowedMoveOrJump : allAllowedMovesOrJumps) {
-      if (allowedMoveOrJump.getStartPosition() == currentClick) {
+      if (allowedMoveOrJump.getStartPosition().equals(currentClick)) {
         result.put(allowedMoveOrJump.getEndPosition(), allowedMoveOrJump);
       }
     }

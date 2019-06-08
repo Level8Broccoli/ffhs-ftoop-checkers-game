@@ -8,7 +8,6 @@ import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import java.util.List;
@@ -21,38 +20,29 @@ public class CheckersGameModel {
   private final TokenLayer tokenLayer;
   private final MarkLayer markLayer;
   private final Players players;
-  private final Positions positions;
   private PositionXY activeToken;
   private PositionXY currentClick;
   private boolean isSubsequentMove = false;
   private Player loser = null;
 
   public CheckersGameModel(
-      BoardLayer boardLayer,
-      TokenLayer tokenLayer,
-      MarkLayer markLayer,
-      Players players,
-      Positions positions) {
+      BoardLayer boardLayer, TokenLayer tokenLayer, MarkLayer markLayer, Players players) {
     this.boardLayer = boardLayer;
     this.tokenLayer = tokenLayer;
     this.markLayer = markLayer;
     this.players = players;
-    this.positions = positions;
   }
 
   public final void clickEvent(int x, int y) {
 
-    currentClick = positions.getPosition(x, y);
+    currentClick = new PositionXY(x, y);
 
-    // possibilities no matter what came before
-    final String reason = getReasonWhyItIsNotGameChanging(currentClick);
+    final String reason = getReasonWhyItIsNotGameChanging();
     if (reason != null) {
       // Message.giveInfo(reason);
     } else {
       final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
-          tokenLayer
-              .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
-              .getMoreImportantMoves();
+          tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
       if (activeToken == null) {
         tryClickToActivateToken(currentClick, allAllowedMovesAndJumps);
       } else {
@@ -65,9 +55,7 @@ public class CheckersGameModel {
 
   private void updateUi() {
     final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
-        tokenLayer
-            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
-            .getMoreImportantMoves();
+        tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
 
     if (allAllowedMovesAndJumps.isEmpty()) {
       loser = players.currentPlayer;
@@ -90,7 +78,7 @@ public class CheckersGameModel {
       PositionXY currentClick, List<AllowedMoveOrJump> allAllowedMovesAndJumps) {
     final Map<PositionXY, AllowedMoveOrJump> possibleMovesEndingAt =
         MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps, activeToken);
-    if (activeToken == currentClick && !isSubsequentMove) {
+    if (activeToken.equals(currentClick) && !isSubsequentMove) {
       activeToken = null;
       return;
     }
@@ -125,8 +113,7 @@ public class CheckersGameModel {
 
     if (currentMove.getOpponentToken() == null
         || MovesAndJumps.getEndPositionsFor(
-                tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer, positions)
-                    .allowedJumps,
+                tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).allowedJumps,
                 currentClick)
             .isEmpty()) {
       endOfTurn();
@@ -150,9 +137,7 @@ public class CheckersGameModel {
 
   private void computerMakeRandomMove() {
     List<AllowedMoveOrJump> allowedMovesOrJumps =
-        tokenLayer
-            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
-            .getMoreImportantMoves();
+        tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
 
     if (allowedMovesOrJumps.size() == 0) {
       return;
@@ -184,8 +169,9 @@ public class CheckersGameModel {
     }
   }
 
-  private String getReasonWhyItIsNotGameChanging(PositionXY currentClick) {
+  private String getReasonWhyItIsNotGameChanging() {
     Token currentToken = tokenLayer.getTokenAt(currentClick);
+
     if (!boardLayer.get(currentClick).isAllowed()) {
       return "SPACE_IS_NOT_BEING_USED_FOR_THIS_GAME";
     } else if (currentToken != null && currentToken.getPlayerOwner() != players.currentPlayer) {
