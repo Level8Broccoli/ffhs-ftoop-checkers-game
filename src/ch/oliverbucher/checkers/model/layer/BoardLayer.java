@@ -11,8 +11,10 @@ import java.util.Map;
 public class BoardLayer {
 
   private final Map<PositionXY, BoardSpace> boardLayer;
+  private final Positions positions;
 
-  public BoardLayer() {
+  public BoardLayer(Positions positions) {
+    this.positions = positions;
 
     boardLayer = new HashMap<>();
 

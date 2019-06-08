@@ -14,7 +14,8 @@ public class StandardToken extends Token {
   }
 
   @Override
-  public Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition) {
+  public Map<PositionXY, Direction> getPossibleMoves(
+      PositionXY currentPosition, Positions positions) {
 
     Map<PositionXY, Direction> possibleMoves = new HashMap<>();
 

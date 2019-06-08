@@ -4,6 +4,7 @@ import ch.oliverbucher.checkers.enumaration.Direction;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
+import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,8 @@ public class KingToken extends Token {
   }
 
   @Override
-  public Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition) {
+  public Map<PositionXY, Direction> getPossibleMoves(
+      PositionXY currentPosition, Positions positions) {
 
     Map<PositionXY, Direction> possibleMoves = new HashMap<>();
 
@@ -30,7 +32,7 @@ public class KingToken extends Token {
 
       PositionXY nextPosition = currentPosition;
       while (true) {
-        nextPosition = getNextPositionInDirection(nextPosition, direction);
+        nextPosition = getNextPositionInDirection(nextPosition, direction, positions);
         if (nextPosition == null) {
           break;
         }

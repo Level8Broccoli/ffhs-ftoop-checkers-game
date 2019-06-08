@@ -19,16 +19,22 @@ public class CheckersGameModel {
   private final TokenLayer tokenLayer;
   private final MarkLayer markLayer;
   private final Players players;
+  private final Positions positions;
   private PositionXY activeToken;
   private boolean isSubsequentMove = false;
 
-  public CheckersGameModel(BoardLayer boardLayer, TokenLayer tokenLayer, MarkLayer markLayer, Players players) {
+  public CheckersGameModel(
+      BoardLayer boardLayer,
+      TokenLayer tokenLayer,
+      MarkLayer markLayer,
+      Players players,
+      Positions positions) {
     this.boardLayer = boardLayer;
     this.tokenLayer = tokenLayer;
     this.markLayer = markLayer;
     this.players = players;
+    this.positions = positions;
   }
-
 
   public final void clickEvent(int x, int y) {
 
@@ -40,7 +46,9 @@ public class CheckersGameModel {
       // Message.giveInfo(reason);
     } else {
       final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
-          tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
+          tokenLayer
+              .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+              .getMoreImportantMoves();
       if (activeToken == null) {
         tryClickToActivateToken(currentClick, allAllowedMovesAndJumps);
       } else {
@@ -53,7 +61,9 @@ public class CheckersGameModel {
 
   private void updateUi(PositionXY currentClick) {
     final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
-        tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
+        tokenLayer
+            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+            .getMoreImportantMoves();
     if (activeToken == null) {
       Token tokenAtClick = tokenLayer.getTokenAt(currentClick);
       if (tokenAtClick == null) {
@@ -95,9 +105,10 @@ public class CheckersGameModel {
 
     tokenLayer.executeMove(currentMove);
 
-    if ((players.currentPlayer.isDirectionOfPlayUp() && currentMove.getEndPosition().positionY == 0)
-        || (!players.currentPlayer.isDirectionOfPlayUp()
-            && currentMove.getEndPosition().positionY == Config.BOARD_HEIGHT - 1)) {
+    final int endRowOfCurrentPlayer =
+        players.currentPlayer.isDirectionOfPlayUp() ? 0 : Config.BOARD_HEIGHT - 1;
+
+    if (currentMove.getEndPosition().positionY == endRowOfCurrentPlayer) {
       tokenLayer.upgradeTokenToKing(currentMove.getEndPosition(), players.currentPlayer);
       activeToken = null;
       players.nextPlayer();
@@ -106,7 +117,9 @@ public class CheckersGameModel {
 
     if (currentMove.getOpponentToken() == null
         || MovesAndJumps.getEndPositionsFor(
-                tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).allowedJumps, currentClick)
+                tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+                    .allowedJumps,
+                currentClick)
             .isEmpty()) {
       activeToken = null;
       players.nextPlayer();

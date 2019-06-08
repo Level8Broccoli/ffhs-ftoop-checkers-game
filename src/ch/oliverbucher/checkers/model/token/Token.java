@@ -18,7 +18,8 @@ public abstract class Token {
     return playerOwner.getPlayerColor().name();
   }
 
-  public abstract Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition);
+  public abstract Map<PositionXY, Direction> getPossibleMoves(
+      PositionXY currentPosition, Positions positions);
 
   public Player getPlayerOwner() {
 
@@ -26,12 +27,12 @@ public abstract class Token {
   }
 
   public PositionXY getNextPositionInDirection(
-      PositionXY currentPosition, Direction direction) {
+      PositionXY currentPosition, Direction direction, Positions positions) {
 
     int targetPositionX = currentPosition.positionX;
     int targetPositionY = currentPosition.positionY;
 
-    switch (direction){
+    switch (direction) {
       case LEFT_UP:
         targetPositionX--;
         targetPositionY--;

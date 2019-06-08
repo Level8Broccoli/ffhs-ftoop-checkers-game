@@ -2,14 +2,12 @@ package ch.oliverbucher.checkers;
 
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.MarkType;
-import ch.oliverbucher.checkers.enumaration.PlayerColor;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
 import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
-import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -43,6 +41,7 @@ public class CheckersGamePresenter extends Application {
   private Scene launchScene;
   private Stage stage;
   private Players players;
+  private Positions positions;
 
   public void startApplication() {
 
@@ -75,16 +74,20 @@ public class CheckersGamePresenter extends Application {
   }
 
   private void setUpModel() {
+    positions = new Positions();
     players = new Players();
-    boardLayer = new BoardLayer();
+    boardLayer = new BoardLayer(positions);
     tokenLayer = new TokenLayer();
     markLayer = new MarkLayer();
 
-    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players);
+    model = new CheckersGameModel(boardLayer, tokenLayer, markLayer, players, positions);
 
-    tokenLayer.generateTokenLayer(boardLayer, players);
+    tokenLayer.generateTokenLayer(boardLayer, players, positions);
     markLayer.showAllowedTokens(
-        null, tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves());
+        null,
+        tokenLayer
+            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+            .getMoreImportantMoves());
   }
 
   private void setUpLaunchScreen() throws Exception {
