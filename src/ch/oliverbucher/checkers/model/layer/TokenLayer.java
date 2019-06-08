@@ -2,6 +2,7 @@ package ch.oliverbucher.checkers.model.layer;
 
 import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
+import ch.oliverbucher.checkers.model.movesandjumps.AllowedMovesAndJumps;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
@@ -9,14 +10,13 @@ import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 public class TokenLayer {
 
     private BoardLayer boardLayer;
-    private HashMap<PositionXY, PlayerToken> tokens;
+    private Map<PositionXY, PlayerToken> tokens;
 
     public TokenLayer(BoardLayer boardLayer) {
 
@@ -52,7 +52,7 @@ public class TokenLayer {
         }
     }
 
-    public List<AllowedMoveOrJump> getAllAllowedMovesAndJumps() {
+    public AllowedMovesAndJumps getAllAllowedMovesAndJumps() {
 
         return MovesAndJumps.getAllAllowedMovesAndJumps(tokens);
     }

@@ -19,10 +19,11 @@ import java.util.Map;
 public class CheckersGameModel {
 
     private final BoardLayer boardLayer;
-    private TokenLayer tokenLayer;
-    private MarkLayer markLayer;
+    private final TokenLayer tokenLayer;
+    private final MarkLayer markLayer;
 
     private PositionXY activeToken;
+    private boolean isSubsequentMove = false;
 
     public CheckersGameModel() {
 
@@ -30,7 +31,7 @@ public class CheckersGameModel {
         boardLayer = new BoardLayer();
         tokenLayer = new TokenLayer(boardLayer);
         markLayer = new MarkLayer();
-        markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
+        markLayer.showAllowedTokens(null, tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves());
     }
 
     public BoardLayer getBoardLayer() {
@@ -61,14 +62,30 @@ public class CheckersGameModel {
         final String reason = getReasonWhyItIsNotGameChanging(currentClick);
         if (reason != null) {
             Message.giveInfo(reason);
-            return;
-        }
-        final List<AllowedMoveOrJump> allAllowedMovesAndJumps = tokenLayer.getAllAllowedMovesAndJumps();
-
-        if (activeToken == null) {
-            tryClickToActivateToken(currentClick, allAllowedMovesAndJumps);
         } else {
-            tryClickToMove(currentClick, allAllowedMovesAndJumps);
+            final List<AllowedMoveOrJump> allAllowedMovesAndJumps = tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves();
+            if (activeToken == null) {
+                tryClickToActivateToken(currentClick, allAllowedMovesAndJumps);
+            } else {
+                tryClickToMove(currentClick, allAllowedMovesAndJumps);
+            }
+        }
+
+        updateUi(currentClick);
+    }
+
+    private void updateUi(PositionXY currentClick) {
+        final List<AllowedMoveOrJump> allAllowedMovesAndJumps = tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves();
+        if (activeToken == null) {
+            PlayerToken tokenAtClick = tokenLayer.getTokenAt(currentClick);
+            if (tokenAtClick == null) {
+                markLayer.showAllowedTokens(currentClick, allAllowedMovesAndJumps);
+            } else  {
+                markLayer.showAllowedTokens(null, allAllowedMovesAndJumps);
+            }
+        } else {
+            markLayer.showAllowedEndMovesOrJumps(activeToken, MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps,
+                    activeToken));
         }
     }
 
@@ -76,18 +93,13 @@ public class CheckersGameModel {
         final Map<PositionXY, AllowedMoveOrJump> possibleMovesEndingAt =
                 MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps,
                         activeToken);
-        if (activeToken == currentClick) {
+        if (activeToken == currentClick && !isSubsequentMove) {
             activeToken = null;
-            markLayer.deactivateMarkOfCurrentClick();
-            markLayer.showAllowedTokens(allAllowedMovesAndJumps);
             return;
         }
 
-        // if token is clicked again
         if (tokenLayer.getTokenAt(currentClick) != null && tokenLayer.getTokenAt(currentClick).getPlayerOwner() == Players.CURRENT_PLAYER) {
             activeToken = currentClick;
-            markLayer.markCurrentClick(currentClick);
-            markLayer.showAllowedEndMovesOrJumps(possibleMovesEndingAt);
             return;
         }
 
@@ -103,11 +115,16 @@ public class CheckersGameModel {
 
         tokenLayer.executeMove(currentMove);
 
-        activeToken = null;
-        Players.nextPlayer();
-
-        markLayer.markCurrentClick(currentClick);
-        markLayer.showAllowedTokens(tokenLayer.getAllAllowedMovesAndJumps());
+        if (currentMove.getOpponentToken() == null ||
+                MovesAndJumps.getEndPositionsFor(tokenLayer.getAllAllowedMovesAndJumps().allowedJumps,
+                currentClick).isEmpty()) {
+            activeToken = null;
+            Players.nextPlayer();
+            isSubsequentMove = false;
+        } else {
+            activeToken = currentClick;
+            isSubsequentMove = true;
+        }
     }
 
     private void tryClickToActivateToken(PositionXY currentClick, List<AllowedMoveOrJump> allAllowedMovesAndJumps) {
@@ -115,13 +132,9 @@ public class CheckersGameModel {
                 MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps,
                         currentClick);
 
-        markLayer.markCurrentClick(currentClick);
 
-        if (possibleMoves.isEmpty()) {
-            markLayer.showAllowedTokens(allAllowedMovesAndJumps);
-        } else {
+        if (!possibleMoves.isEmpty() && !isSubsequentMove) {
             activeToken = currentClick;
-            markLayer.showAllowedEndMovesOrJumps(possibleMoves);
         }
     }
 

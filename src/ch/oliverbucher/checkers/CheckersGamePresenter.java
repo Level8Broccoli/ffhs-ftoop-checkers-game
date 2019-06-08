@@ -94,7 +94,7 @@ public class CheckersGamePresenter extends Application {
     }
 
     public void newGame() {
-
+        model = new CheckersGameModel();
         stage.setScene(launchScene);
     }
 

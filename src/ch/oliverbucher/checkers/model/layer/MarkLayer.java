@@ -12,8 +12,12 @@ public class MarkLayer {
 
     private HashMap<PositionXY, MarkType> marks = new HashMap<>();
 
-    public void showAllowedTokens(List<AllowedMoveOrJump> allowedMoveOrJumps) {
+    public void showAllowedTokens(PositionXY currentClick, List<AllowedMoveOrJump> allowedMoveOrJumps) {
 
+        marks.clear();
+        if (currentClick != null) {
+            marks.put(currentClick, MarkType.CURRENT_CLICK);
+        }
         for (AllowedMoveOrJump allowedMoveOrJump: allowedMoveOrJumps) {
 
             PositionXY allowedTokens = allowedMoveOrJump.getStartPosition();
@@ -21,7 +25,11 @@ public class MarkLayer {
         }
     }
 
-    public void showAllowedEndMovesOrJumps(Map<PositionXY, AllowedMoveOrJump> allowedEndMovesOrJumps) {
+    public void showAllowedEndMovesOrJumps(PositionXY currentClick,
+                                           Map<PositionXY, AllowedMoveOrJump> allowedEndMovesOrJumps) {
+
+        marks.clear();
+        marks.put(currentClick, MarkType.CURRENT_CLICK);
 
         for (PositionXY allowedPosition: allowedEndMovesOrJumps.keySet()) {
 
@@ -30,19 +38,8 @@ public class MarkLayer {
 
     }
 
-    public void markCurrentClick(PositionXY currentClick) {
-
-        marks.clear();
-        marks.put(currentClick, MarkType.CURRENT_CLICK);
-    }
-
     public MarkType get(PositionXY position) {
 
         return marks.get(position);
-    }
-
-    public void deactivateMarkOfCurrentClick() {
-
-        marks.clear();
     }
 }

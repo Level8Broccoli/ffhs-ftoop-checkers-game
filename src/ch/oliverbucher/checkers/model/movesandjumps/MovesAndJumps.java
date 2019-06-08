@@ -9,10 +9,8 @@ import java.util.*;
 
 public class MovesAndJumps {
 
-    public static List<AllowedMoveOrJump> getAllAllowedMovesAndJumps(Map<PositionXY, PlayerToken> tokens) {
-
-        List<AllowedMoveOrJump> allowedMoves = new ArrayList<>();
-        List<AllowedMoveOrJump> allowedJumps = new ArrayList<>();
+    public static AllowedMovesAndJumps getAllAllowedMovesAndJumps(Map<PositionXY, PlayerToken> tokens) {
+        AllowedMovesAndJumps allowedMovesAndJumps = new AllowedMovesAndJumps();
 
         for (PositionXY currentPosition : tokens.keySet()) {
 
@@ -27,7 +25,7 @@ public class MovesAndJumps {
                     if (tokens.get(possibleMovePosition) == null) {
 
                         AllowedMoveOrJump possibleMove = new AllowedMoveOrJump(currentPosition, possibleMovePosition);
-                        allowedMoves.add(possibleMove);
+                        allowedMovesAndJumps.allowedMoves.add(possibleMove);
 
                     } else if (tokens.get(possibleMovePosition).getPlayerOwner() != Players.CURRENT_PLAYER) {
 
@@ -39,18 +37,13 @@ public class MovesAndJumps {
                         if (positionBehindOpponent != null && tokens.get(positionBehindOpponent) == null) {
                             AllowedMoveOrJump possibleJump = new AllowedMoveOrJump(currentPosition,
                                     positionBehindOpponent, possibleMovePosition);
-                            allowedJumps.add(possibleJump);
+                            allowedMovesAndJumps.allowedJumps.add(possibleJump);
                         }
                     }
                 }
             }
         }
-
-        if (allowedJumps.size() == 0) {
-            return allowedMoves;
-        } else {
-            return allowedJumps;
-        }
+        return allowedMovesAndJumps;
     }
 
     public static Map<PositionXY, AllowedMoveOrJump> getEndPositionsFor(List<AllowedMoveOrJump> allAllowedMovesOrJumps, PositionXY currentClick) {
