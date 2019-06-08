@@ -1,11 +1,11 @@
 package ch.oliverbucher.checkers.enumaration;
 
 public enum DirectionOfPlay {
+  DOWN,
+  UP;
 
-    DOWN, UP;
+  public boolean isUp() {
 
-    public boolean isUp() {
-
-        return (this == UP);
-    }
+    return (this == UP);
+  }
 }

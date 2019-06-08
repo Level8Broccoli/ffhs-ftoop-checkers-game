@@ -4,36 +4,37 @@ import ch.oliverbucher.checkers.model.position.PositionXY;
 
 public class AllowedMoveOrJump {
 
-    private final PositionXY startPosition;
-    private final PositionXY endPosition;
-    private final PositionXY jumpOverOpponentPosition;
+  private final PositionXY startPosition;
+  private final PositionXY endPosition;
+  private final PositionXY jumpOverOpponentPosition;
 
-    public AllowedMoveOrJump(PositionXY startPosition, PositionXY endPosition) {
+  public AllowedMoveOrJump(PositionXY startPosition, PositionXY endPosition) {
 
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-        this.jumpOverOpponentPosition = null;
-    }
+    this.startPosition = startPosition;
+    this.endPosition = endPosition;
+    this.jumpOverOpponentPosition = null;
+  }
 
-    public AllowedMoveOrJump(PositionXY startPosition, PositionXY endPosition, PositionXY jumpOverOpponentPosition) {
+  public AllowedMoveOrJump(
+      PositionXY startPosition, PositionXY endPosition, PositionXY jumpOverOpponentPosition) {
 
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-        this.jumpOverOpponentPosition = jumpOverOpponentPosition;
-    }
+    this.startPosition = startPosition;
+    this.endPosition = endPosition;
+    this.jumpOverOpponentPosition = jumpOverOpponentPosition;
+  }
 
-    public PositionXY getStartPosition() {
+  public PositionXY getStartPosition() {
 
-        return startPosition;
-    }
+    return startPosition;
+  }
 
-    public PositionXY getEndPosition() {
+  public PositionXY getEndPosition() {
 
-        return endPosition;
-    }
+    return endPosition;
+  }
 
-    public PositionXY getOpponentToken() {
+  public PositionXY getOpponentToken() {
 
-        return jumpOverOpponentPosition;
-    }
+    return jumpOverOpponentPosition;
+  }
 }

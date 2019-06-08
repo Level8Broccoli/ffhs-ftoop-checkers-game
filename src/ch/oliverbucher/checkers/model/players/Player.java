@@ -6,28 +6,26 @@ import ch.oliverbucher.checkers.enumaration.PlayerType;
 
 public class Player {
 
-    private PlayerType playerType;
-    private final PlayerColor playerColor;
-    private final DirectionOfPlay directionOfPlay;
+  private final PlayerColor playerColor;
+  private PlayerType playerType;
 
-    public Player(PlayerType playerType, PlayerColor playerColor, DirectionOfPlay directionOfPlay) {
+  public Player(PlayerType playerType, PlayerColor playerColor) {
 
-        this.playerType = playerType;
-        this.playerColor = playerColor;
-        this.directionOfPlay = directionOfPlay;
-    }
+    this.playerType = playerType;
+    this.playerColor = playerColor;
+  }
 
-    public void setPlayerType(PlayerType playerType) {
-        this.playerType = playerType;
-    }
+  public void setPlayerType(PlayerType playerType) {
+    this.playerType = playerType;
+  }
 
-    public PlayerColor getPlayerColor() {
+  public PlayerColor getPlayerColor() {
 
-        return playerColor;
-    }
+    return playerColor;
+  }
 
-    public DirectionOfPlay getDirectionOfPlay() {
+  public DirectionOfPlay getDirectionOfPlay() {
 
-        return directionOfPlay;
-    }
+    return playerColor.getDirectionOfPlay();
+  }
 }

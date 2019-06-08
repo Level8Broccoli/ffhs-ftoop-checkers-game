@@ -3,14 +3,15 @@ package ch.oliverbucher.checkers;
 import ch.oliverbucher.checkers.enumaration.BoardColor;
 import ch.oliverbucher.checkers.enumaration.MarkType;
 import ch.oliverbucher.checkers.enumaration.PlayerType;
-import ch.oliverbucher.checkers.model.position.PositionXY;
-import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
 import ch.oliverbucher.checkers.model.CheckersGameModel;
+import ch.oliverbucher.checkers.model.layer.space.BoardSpace;
+import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
 import ch.oliverbucher.checkers.view.launch.LaunchViewController;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -23,138 +24,141 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import java.net.URL;
-
 public class CheckersGamePresenter extends Application {
 
-    private CheckersGameModel model;
+  private CheckersGameModel model;
 
-    private String stylesheet;
+  private String stylesheet;
 
-    private Scene gameScene;
-    private Scene launchScene;
-    private Stage stage;
+  private Scene gameScene;
+  private Scene launchScene;
+  private Stage stage;
 
-    public void startApplication() {
+  public void startApplication() {
 
-        launch();
-    }
+    launch();
+  }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+  @Override
+  public void start(Stage primaryStage) throws Exception {
 
-//        TODO
+    //        TODO
 
-        model = new CheckersGameModel();
+    model = new CheckersGameModel();
 
-        stage = primaryStage;
+    stage = primaryStage;
 
-        // Load stylesheet
-        stylesheet = this.getClass().getResource("/ch/oliverbucher/checkers/resources/JavaFXApplicationStyles.css").toExternalForm();
+    // Load stylesheet
+    stylesheet =
+        this.getClass()
+            .getResource("/ch/oliverbucher/checkers/resources/JavaFXApplicationStyles.css")
+            .toExternalForm();
 
-        setUpLaunchScreen();
-        setUpGameScreen();
+    setUpLaunchScreen();
+    setUpGameScreen();
 
-        // Set scene and start application
-        stage.setScene(launchScene);
-        stage.setTitle(Config.GAME_TITLE);
-        stage.setWidth(Config.WINDOW_WIDTH);
-        stage.setHeight(Config.WINDOW_HEIGHT);
+    // Set scene and start application
+    stage.setScene(launchScene);
+    stage.setTitle(Config.GAME_TITLE);
+    stage.setWidth(Config.WINDOW_WIDTH);
+    stage.setHeight(Config.WINDOW_HEIGHT);
 
-        stage.show();
-    }
+    stage.show();
+  }
 
-    private void setUpLaunchScreen() throws Exception {
+  private void setUpLaunchScreen() throws Exception {
 
-        URL launchFxmlURL = getClass().getResource("view/launch/LaunchView.fxml");
-        FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.RESOURCE_BUNDLE);
-        LaunchViewController launchViewController = new LaunchViewController();
-        launchViewController.setPresenter(this);
-        launchFxmlLoader.setController(launchViewController);
-        Parent launchRoot = launchFxmlLoader.load();
-        launchRoot.getStylesheets().add(stylesheet);
-        launchScene = new Scene(launchRoot);
-    }
+    URL launchFxmlURL = getClass().getResource("view/launch/LaunchView.fxml");
+    FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.RESOURCE_BUNDLE);
+    LaunchViewController launchViewController = new LaunchViewController();
+    launchViewController.setPresenter(this);
+    launchFxmlLoader.setController(launchViewController);
+    Parent launchRoot = launchFxmlLoader.load();
+    launchRoot.getStylesheets().add(stylesheet);
+    launchScene = new Scene(launchRoot);
+  }
 
-    private void setUpGameScreen() throws Exception {
+  private void setUpGameScreen() throws Exception {
 
-        URL gameFxmlURL = getClass().getResource("view/game/GameView.fxml");
-        FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.RESOURCE_BUNDLE);
-        GameViewController gameViewController = new GameViewController();
-        gameViewController.setPresenter(this);
-        gameFxmlLoader.setController(gameViewController);
-        Parent gameRoot = gameFxmlLoader.load();
-        gameRoot.getStylesheets().add(stylesheet);
-        gameScene = new Scene(gameRoot);
-    }
+    URL gameFxmlURL = getClass().getResource("view/game/GameView.fxml");
+    FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.RESOURCE_BUNDLE);
+    GameViewController gameViewController = new GameViewController();
+    gameViewController.setPresenter(this);
+    gameFxmlLoader.setController(gameViewController);
+    Parent gameRoot = gameFxmlLoader.load();
+    gameRoot.getStylesheets().add(stylesheet);
+    gameScene = new Scene(gameRoot);
+  }
 
-    public void startGame() {
+  public void startGame() {
 
-        stage.setScene(gameScene);
-        drawBoard();
-    }
+    stage.setScene(gameScene);
+    drawBoard();
+  }
 
-    public void restartGame() {
-        model = new CheckersGameModel();
-        stage.setScene(launchScene);
-    }
+  public void restartGame() {
+    model = new CheckersGameModel();
+    stage.setScene(launchScene);
+  }
 
-    public void drawBoard() {
+  private void drawBoard() {
 
-        GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
-        gridContainer.getChildren().removeAll();
+    GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");
+    gridContainer.getChildren().removeAll();
 
-        for (int x = 0; x < Config.BOARD_WIDTH; x++) {
+    for (int x = 0; x < Config.BOARD_WIDTH; x++) {
 
-            for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
+      for (int y = 0; y < Config.BOARD_HEIGHT; y++) {
 
-                PositionXY currentPosition = Positions.getPosition(x, y);
+        PositionXY currentPosition = Positions.getPosition(x, y);
 
-                StackPane stackPane = new StackPane();
-                stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);
+        StackPane stackPane = new StackPane();
+        stackPane.setMaxSize(Config.LENGTH_OF_SPACE, Config.LENGTH_OF_SPACE);
 
-                // draw board layer
-                final BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
-                final BoardColor currentBoardColor = currentSpace.getBoardColor();
+        // draw board layer
+        final BoardSpace currentSpace = model.getBoardLayer().get(currentPosition);
+        final BoardColor currentBoardColor = currentSpace.getBoardColor();
 
-                final Button btnBackground = new Button();
-                btnBackground.setId(String.valueOf(currentBoardColor));
-                stackPane.getChildren().add(btnBackground);
+        final Button btnBackground = new Button();
+        btnBackground.setId(String.valueOf(currentBoardColor));
+        stackPane.getChildren().add(btnBackground);
 
-                // draw token layer
-                final PlayerToken currentPlayerToken = model.getTokenLayer().getTokenAt(currentPosition);
-                if (currentPlayerToken != null) {
-                    Button btnToken = new Button();
-                    btnToken.setId(currentPlayerToken.getName());
-                    stackPane.getChildren().add(btnToken);
-                }
-
-                // draw marked layer
-                final MarkType currentMarkType = model.getMarkLayer().get(currentPosition);
-                if (currentMarkType != null) {
-                    Button btnMark = new Button();
-                    btnMark.setId(currentMarkType.getName());
-                    stackPane.getChildren().add(btnMark);
-                }
-
-                // draw interaction layer
-                Button btnInteraction = new Button();
-                final int positionX = x;
-                final int positionY = y;
-                btnInteraction.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                        (EventHandler<Event>) event -> {
-                            model.clickEvent(positionX, positionY);
-                            drawBoard();
-                        });
-                btnInteraction.setId("btnInteraction");
-                stackPane.getChildren().add(btnInteraction);
-
-                gridContainer.add(stackPane, x, y);
-            }
+        // draw token layer
+        final PlayerToken currentPlayerToken = model.getTokenLayer().getTokenAt(currentPosition);
+        if (currentPlayerToken != null) {
+          Button btnToken = new Button();
+          btnToken.setId(currentPlayerToken.getName());
+          stackPane.getChildren().add(btnToken);
         }
-    }
 
-    public void setOpponent(PlayerType playerType) {
-        model.setOpponent(playerType);
+        // draw marked layer
+        final MarkType currentMarkType = model.getMarkLayer().get(currentPosition);
+        if (currentMarkType != null) {
+          Button btnMark = new Button();
+          btnMark.setId(currentMarkType.getName());
+          stackPane.getChildren().add(btnMark);
+        }
+
+        // draw interaction layer
+        Button btnInteraction = new Button();
+        final int positionX = x;
+        final int positionY = y;
+        btnInteraction.addEventHandler(
+            MouseEvent.MOUSE_CLICKED,
+            (EventHandler<Event>)
+                event -> {
+                  model.clickEvent(positionX, positionY);
+                  drawBoard();
+                });
+        btnInteraction.setId("btnInteraction");
+        stackPane.getChildren().add(btnInteraction);
+
+        gridContainer.add(stackPane, x, y);
+      }
     }
+  }
+
+  public void setOpponent(PlayerType playerType) {
+    model.setOpponent(playerType);
+  }
 }

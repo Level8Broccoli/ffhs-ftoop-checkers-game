@@ -2,54 +2,47 @@ package ch.oliverbucher.checkers.view.game;
 
 import ch.oliverbucher.checkers.CheckersGamePresenter;
 import ch.oliverbucher.checkers.resources.Config;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-import java.awt.*;
-import java.net.URI;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class GameViewController implements Initializable {
 
-    @FXML
-    private Button btnRestartGame;
+  @FXML private Button btnRestartGame;
 
-    @FXML
-    private Button btnRules;
+  @FXML private Button btnRules;
 
-    @FXML
-    private Button hide;
+  private CheckersGamePresenter presenter;
 
-    private CheckersGamePresenter presenter;
+  public void initialize(URL location, ResourceBundle resources) {
 
-    public void initialize(URL location, ResourceBundle resources) {
+    btnRestartGame.setOnAction(this::onClickNewGame);
+    btnRules.setOnAction(this::onClickShowRules);
+  }
 
-        btnRestartGame.setOnAction(this::onClickNewGame);
-        btnRules.setOnAction(this::onClickShowRules);
+  private void onClickShowRules(ActionEvent event) {
+
+    try {
+      if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+        Desktop.getDesktop().browse(new URI(Config.LINK_RULES));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    private void onClickShowRules(ActionEvent event) {
+  private void onClickNewGame(ActionEvent event) {
 
-        try {
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI(Config.LINK_RULES));
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    presenter.restartGame();
+  }
 
-    private void onClickNewGame(ActionEvent event) {
+  public void setPresenter(CheckersGamePresenter presenter) {
 
-        presenter.restartGame();
-    }
-
-    public void setPresenter(CheckersGamePresenter presenter) {
-
-        this.presenter = presenter;
-    }
+    this.presenter = presenter;
+  }
 }

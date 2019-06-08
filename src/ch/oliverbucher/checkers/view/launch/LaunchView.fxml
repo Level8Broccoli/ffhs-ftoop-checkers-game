@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane
-        fx:id="root"
-        xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml">
-    <top>
-        <VBox fx:id="header">
-            <Label text="%TXT_WELCOME" />
-        </VBox>
-    </top>
+  xmlns:fx="http://javafx.com/fxml"
+  xmlns="http://javafx.com/javafx"
+  fx:id="root">
+  <bottom>
+    <HBox fx:id="footer">
+      <Label text="%GAME_AUTHOR"/>
+      <Label text=", "/>
+      <Label text="%GAME_VERSION"/>
+    </HBox>
+  </bottom>
 
-    <center>
-        <VBox fx:id="main">
-            <Label text="%TXT_OPPONENT_QUESTION" />
-            <HBox alignment="CENTER">
-                <fx:define>
-                    <ToggleGroup fx:id="playerType" />
-                </fx:define>
-                <ToggleButton fx:id="btnHuman" text="%BTN_HUMAN" toggleGroup="$playerType" />
-                <Label fx:id="lblSpace"/>
-                <ToggleButton fx:id="btnComputer" text="%BTN_COMPUTER" toggleGroup="$playerType" />
-            </HBox>
-            <Button fx:id="btnStartGame" text="%BTN_START_GAME" />
-            <Label fx:id="lblMessage" />
-        </VBox>
-    </center>
+  <center>
+    <VBox fx:id="main">
+      <Button text="%BTN_START_GAME" fx:id="btnStartGame"/>
+      <HBox alignment="CENTER">
+        <Label fx:id="lblSpace"/>
+        <ToggleButton text="%BTN_HUMAN" toggleGroup="$playerType" fx:id="btnHuman"/>
+        <ToggleButton text="%BTN_COMPUTER" toggleGroup="$playerType" fx:id="btnComputer"/>
+        <fx:define>
+          <ToggleGroup fx:id="playerType"/>
+        </fx:define>
+      </HBox>
+      <Label text="%TXT_OPPONENT_QUESTION"/>
+      <Label fx:id="lblMessage"/>
+    </VBox>
+  </center>
 
-    <bottom>
-        <HBox fx:id="footer">
-            <Label text="%GAME_AUTHOR" />
-            <Label text=", " />
-            <Label text="%GAME_VERSION" />
-        </HBox>
-    </bottom>
+  <top>
+    <VBox fx:id="header">
+      <Label text="%TXT_WELCOME"/>
+    </VBox>
+  </top>
 </BorderPane>
