@@ -5,6 +5,7 @@ import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
+import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
@@ -22,6 +23,7 @@ public class CheckersGameModel {
   private final Positions positions;
   private PositionXY activeToken;
   private boolean isSubsequentMove = false;
+  private Player loser = null;
 
   public CheckersGameModel(
       BoardLayer boardLayer,
@@ -64,6 +66,11 @@ public class CheckersGameModel {
         tokenLayer
             .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
             .getMoreImportantMoves();
+
+    if (allAllowedMovesAndJumps.isEmpty()) {
+      loser = players.currentPlayer;
+    }
+
     if (activeToken == null) {
       Token tokenAtClick = tokenLayer.getTokenAt(currentClick);
       if (tokenAtClick == null) {
@@ -110,8 +117,7 @@ public class CheckersGameModel {
 
     if (currentMove.getEndPosition().positionY == endRowOfCurrentPlayer) {
       tokenLayer.upgradeTokenToKing(currentMove.getEndPosition(), players.currentPlayer);
-      activeToken = null;
-      players.nextPlayer();
+      endOfTurn();
       return;
     }
 
@@ -121,13 +127,17 @@ public class CheckersGameModel {
                     .allowedJumps,
                 currentClick)
             .isEmpty()) {
-      activeToken = null;
-      players.nextPlayer();
-      isSubsequentMove = false;
+      endOfTurn();
     } else {
       activeToken = currentClick;
       isSubsequentMove = true;
     }
+  }
+
+  private void endOfTurn() {
+    activeToken = null;
+    players.nextPlayer();
+    isSubsequentMove = false;
   }
 
   private void tryClickToActivateToken(
@@ -148,5 +158,9 @@ public class CheckersGameModel {
       return "TOKEN_BELONGS_TO_OPPONENT";
     }
     return null;
+  }
+
+  public Player whoIsTheWinner() {
+    return loser;
   }
 }

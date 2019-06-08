@@ -17,6 +17,7 @@ public class Config {
   public static final double WINDOW_HEIGHT = getDoubleValue("WINDOW_HEIGHT");
   public static final String MSG_NO_OPPONENT = getValue("MSG_NO_OPPONENT");
   public static final String LINK_RULES = getValue("LINK_RULES");
+  public static final String MSG_LOSER_IS = getValue("MSG_LOSER_IS");
 
   private static String getValue(String key) {
 
