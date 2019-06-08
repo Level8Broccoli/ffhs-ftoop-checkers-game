@@ -38,9 +38,7 @@ public class CheckersGameModel {
     currentClick = new PositionXY(x, y);
 
     final String reason = getReasonWhyItIsNotGameChanging();
-    if (reason != null) {
-      // Message.giveInfo(reason);
-    } else {
+    if (reason == null) {
       final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
           tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves();
       if (activeToken == null) {
