@@ -10,4 +10,18 @@ public class PositionXY {
     this.positionX = positionX;
     this.positionY = positionY;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+
+    if (!(obj instanceof PositionXY)) {
+      return false;
+    }
+
+    PositionXY position = (PositionXY) obj;
+    return positionX == position.positionX && positionY == position.positionY;
+  }
 }

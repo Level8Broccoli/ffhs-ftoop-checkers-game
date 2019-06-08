@@ -4,7 +4,6 @@ import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
-import ch.oliverbucher.checkers.model.movesandjumps.AllowedMovesAndJumps;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
@@ -150,8 +149,10 @@ public class CheckersGameModel {
   }
 
   private void computerMakeRandomMove() {
-    List<AllowedMoveOrJump> allowedMovesOrJumps = tokenLayer
-            .getAllAllowedMovesAndJumps(players.currentPlayer, positions).getMoreImportantMoves();
+    List<AllowedMoveOrJump> allowedMovesOrJumps =
+        tokenLayer
+            .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
+            .getMoreImportantMoves();
 
     if (allowedMovesOrJumps.size() == 0) {
       return;
