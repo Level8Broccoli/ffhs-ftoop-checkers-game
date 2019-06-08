@@ -32,7 +32,7 @@ public class TokenLayer {
 
           if (boardLayer.get(currentPosition).isAllowed()) {
 
-            tokens.put(currentPosition, new KingToken(players.players[1], this));
+            tokens.put(currentPosition, new StandardToken(players.players[1]));
           }
 
         } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
@@ -47,17 +47,14 @@ public class TokenLayer {
   }
 
   public final AllowedMovesAndJumps getAllAllowedMovesAndJumps(Player currentPlayer) {
-
     return MovesAndJumps.getAllAllowedMovesAndJumps(tokens, currentPlayer);
   }
 
   public final Token getTokenAt(PositionXY positionXY) {
-
     return tokens.get(positionXY);
   }
 
   public final void executeMove(AllowedMoveOrJump currentMove) {
-
     PositionXY startPosition = currentMove.getStartPosition();
     PositionXY endPosition = currentMove.getEndPosition();
     PositionXY opponentToken = currentMove.getOpponentToken();
@@ -69,5 +66,10 @@ public class TokenLayer {
     Token currentToken = tokens.get(startPosition);
     tokens.remove(startPosition);
     tokens.put(endPosition, currentToken);
+  }
+
+  public void upgradeTokenToKing(PositionXY position, Player currentPlayer) {
+    tokens.remove(position);
+    tokens.put(position, new KingToken(currentPlayer, this));
   }
 }

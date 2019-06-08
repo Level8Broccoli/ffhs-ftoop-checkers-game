@@ -9,6 +9,7 @@ import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.Token;
+import ch.oliverbucher.checkers.resources.Config;
 import java.util.List;
 import java.util.Map;
 
@@ -93,6 +94,15 @@ public class CheckersGameModel {
     AllowedMoveOrJump currentMove = possibleMovesEndingAt.get(currentClick);
 
     tokenLayer.executeMove(currentMove);
+
+    if ((players.currentPlayer.isDirectionOfPlayUp() && currentMove.getEndPosition().positionY == 0)
+        || (!players.currentPlayer.isDirectionOfPlayUp()
+            && currentMove.getEndPosition().positionY == Config.BOARD_HEIGHT - 1)) {
+      tokenLayer.upgradeTokenToKing(currentMove.getEndPosition(), players.currentPlayer);
+      activeToken = null;
+      players.nextPlayer();
+      return;
+    }
 
     if (currentMove.getOpponentToken() == null
         || MovesAndJumps.getEndPositionsFor(
