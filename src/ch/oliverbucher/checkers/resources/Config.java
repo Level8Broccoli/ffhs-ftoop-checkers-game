@@ -5,15 +5,20 @@ import java.util.ResourceBundle;
 
 public class Config {
 
-    private static final ResourceBundle RESOURCE_BUNDLE =
+    public static final ResourceBundle RESOURCE_BUNDLE =
             ResourceBundle.getBundle("ch.oliverbucher.checkers.resources.config");
-
     public static final int BOARD_WIDTH = getIntegerValue("BOARD_WIDTH");
     public static final int BOARD_HEIGHT = getIntegerValue("BOARD_HEIGHT");
     public static final int START_ROWS = getIntegerValue("START_ROWS");
+    public static final double LENGTH_OF_SPACE =
+            getDoubleValue("WINDOW_WIDTH") / getDoubleValue("BOARD_WIDTH") / 2;
+    public static final String GAME_TITLE = getValue("GAME_TITLE");
+    public static final double WINDOW_WIDTH = getDoubleValue("WINDOW_WIDTH");
+    public static final double WINDOW_HEIGHT = getDoubleValue("WINDOW_HEIGHT");
+    public static final String MSG_NO_OPPONENT = getValue("MSG_NO_OPPONENT");
+    public static final String LINK_RULES = getValue("LINK_RULES");
 
-
-    public static String getValue(String key) {
+    private static String getValue(String key) {
 
         try {
             return RESOURCE_BUNDLE.getString(key);
@@ -22,7 +27,7 @@ public class Config {
         }
     }
 
-    public static int getIntegerValue(String key) {
+    private static int getIntegerValue(String key) {
 
         String value = getValue(key);
         if (value != null) {
@@ -32,7 +37,7 @@ public class Config {
         }
     }
 
-    public static double getDoubleValue(String key) {
+    private static double getDoubleValue(String key) {
 
         String value = getValue(key);
         if (value != null) {
@@ -42,10 +47,4 @@ public class Config {
         }
     }
 
-    public static ResourceBundle getResourceBundle() {
-        return RESOURCE_BUNDLE;
-    }
-
-    public static double LENGTH_OF_SPACE =
-            getDoubleValue("WINDOW_WIDTH") / getDoubleValue("BOARD_WIDTH") / 2;
 }

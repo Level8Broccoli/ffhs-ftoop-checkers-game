@@ -10,7 +10,6 @@ import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
-import ch.oliverbucher.checkers.view.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -61,7 +60,7 @@ public class CheckersGameModel {
         // possibilities no matter what came before
         final String reason = getReasonWhyItIsNotGameChanging(currentClick);
         if (reason != null) {
-            Message.giveInfo(reason);
+            // Message.giveInfo(reason);
         } else {
             final List<AllowedMoveOrJump> allAllowedMovesAndJumps = tokenLayer.getAllAllowedMovesAndJumps().getMoreImportantMoves();
             if (activeToken == null) {

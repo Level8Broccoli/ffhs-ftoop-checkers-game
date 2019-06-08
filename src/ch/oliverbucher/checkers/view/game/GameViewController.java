@@ -35,7 +35,7 @@ public class GameViewController implements Initializable {
 
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                Desktop.getDesktop().browse(new URI(Config.getValue("LINK_RULES")));
+                Desktop.getDesktop().browse(new URI(Config.LINK_RULES));
             }
         }
         catch (Exception e) {

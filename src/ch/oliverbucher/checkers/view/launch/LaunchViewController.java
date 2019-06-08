@@ -47,7 +47,7 @@ public class LaunchViewController implements Initializable {
     private void onClickStartGame(ActionEvent event) {
 
         if (!btnHuman.isSelected() && !btnComputer.isSelected()) {
-            lblMessage.setText(Config.getValue("MSG_NO_OPPONENT"));
+            lblMessage.setText(Config.MSG_NO_OPPONENT);
         } else if (btnHuman.isSelected()) {
             presenter.setOpponent(PlayerType.HUMAN);
             presenter.startGame();

@@ -56,9 +56,9 @@ public class CheckersGamePresenter extends Application {
 
         // Set scene and start application
         stage.setScene(launchScene);
-        stage.setTitle(Config.getValue("GAME_TITLE"));
-        stage.setWidth(Config.getDoubleValue("WINDOW_WIDTH"));
-        stage.setHeight(Config.getDoubleValue("WINDOW_HEIGHT"));
+        stage.setTitle(Config.GAME_TITLE);
+        stage.setWidth(Config.WINDOW_WIDTH);
+        stage.setHeight(Config.WINDOW_HEIGHT);
 
         stage.show();
     }
@@ -66,7 +66,7 @@ public class CheckersGamePresenter extends Application {
     private void setUpLaunchScreen() throws Exception {
 
         URL launchFxmlURL = getClass().getResource("view/launch/LaunchView.fxml");
-        FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.getResourceBundle());
+        FXMLLoader launchFxmlLoader = new FXMLLoader(launchFxmlURL, Config.RESOURCE_BUNDLE);
         LaunchViewController launchViewController = new LaunchViewController();
         launchViewController.setPresenter(this);
         launchFxmlLoader.setController(launchViewController);
@@ -78,7 +78,7 @@ public class CheckersGamePresenter extends Application {
     private void setUpGameScreen() throws Exception {
 
         URL gameFxmlURL = getClass().getResource("view/game/GameView.fxml");
-        FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.getResourceBundle());
+        FXMLLoader gameFxmlLoader = new FXMLLoader(gameFxmlURL, Config.RESOURCE_BUNDLE);
         GameViewController gameViewController = new GameViewController();
         gameViewController.setPresenter(this);
         gameFxmlLoader.setController(gameViewController);
