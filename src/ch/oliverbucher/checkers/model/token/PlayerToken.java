@@ -5,6 +5,7 @@ import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PlayerToken extends Token {
 
@@ -13,9 +14,9 @@ public class PlayerToken extends Token {
   }
 
   @Override
-  public HashMap<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition) {
+  public Map<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition) {
 
-    HashMap<PositionXY, HorizontalDirection> possibleMoves = new HashMap<>();
+    Map<PositionXY, HorizontalDirection> possibleMoves = new HashMap<>();
 
     final int currentPositionX = currentPosition.positionX;
     final int currentPositionY = currentPosition.positionY;

@@ -4,6 +4,7 @@ import ch.oliverbucher.checkers.enumaration.HorizontalDirection;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
+import ch.oliverbucher.checkers.model.token.Token;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +17,11 @@ public class MovesAndJumps {
 
     for (PositionXY currentPosition : tokens.keySet()) {
 
-      PlayerToken currentToken = tokens.get(currentPosition);
+      Token currentToken = tokens.get(currentPosition);
 
       if (currentToken.getPlayerOwner() == Players.CURRENT_PLAYER) {
 
-        HashMap<PositionXY, HorizontalDirection> possibleMoves =
+        Map<PositionXY, HorizontalDirection> possibleMoves =
             currentToken.getPossibleMoves(currentPosition);
 
         for (PositionXY possibleMovePosition : possibleMoves.keySet()) {

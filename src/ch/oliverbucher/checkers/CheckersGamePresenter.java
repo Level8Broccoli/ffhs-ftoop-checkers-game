@@ -12,6 +12,7 @@ import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import ch.oliverbucher.checkers.model.token.PlayerToken;
+import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import ch.oliverbucher.checkers.view.game.GameViewController;
 import ch.oliverbucher.checkers.view.launch.LaunchViewController;
@@ -143,7 +144,7 @@ public class CheckersGamePresenter extends Application {
         stackPane.getChildren().add(btnBackground);
 
         // draw token layer
-        final PlayerToken currentPlayerToken = tokenLayer.getTokenAt(currentPosition);
+        final Token currentPlayerToken = tokenLayer.getTokenAt(currentPosition);
         if (currentPlayerToken != null) {
           Button btnToken = new Button();
           btnToken.setId(currentPlayerToken.getName());

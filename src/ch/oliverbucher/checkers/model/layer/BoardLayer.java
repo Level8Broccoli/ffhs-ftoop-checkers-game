@@ -21,16 +21,13 @@ public class BoardLayer {
         PositionXY currentPosition = Positions.getPosition(x, y);
 
         BoardColor currentBoardColor;
-        Boolean isAllowed;
         if ((x + y) % 2 == 0) {
           currentBoardColor = BoardColor.LIGHT;
-          isAllowed = false;
         } else {
           currentBoardColor = BoardColor.DARK;
-          isAllowed = true;
         }
 
-        BoardSpace field = new BoardSpace(currentBoardColor, isAllowed);
+        BoardSpace field = new BoardSpace(currentBoardColor);
         boardLayer.put(currentPosition, field);
       }
     }

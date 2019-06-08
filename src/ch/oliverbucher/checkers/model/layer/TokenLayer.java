@@ -15,7 +15,7 @@ public class TokenLayer {
 
   private Map<PositionXY, PlayerToken> tokens;
 
-  public void generateTokenLayer(BoardLayer boardLayer) {
+  public final void generateTokenLayer(BoardLayer boardLayer) {
 
     tokens = new HashMap<>();
 
@@ -43,17 +43,17 @@ public class TokenLayer {
     }
   }
 
-  public AllowedMovesAndJumps getAllAllowedMovesAndJumps() {
+  public final AllowedMovesAndJumps getAllAllowedMovesAndJumps() {
 
     return MovesAndJumps.getAllAllowedMovesAndJumps(tokens);
   }
 
-  public PlayerToken getTokenAt(PositionXY positionXY) {
+  public final PlayerToken getTokenAt(PositionXY positionXY) {
 
     return tokens.get(positionXY);
   }
 
-  public void executeMove(AllowedMoveOrJump currentMove) {
+  public final void executeMove(AllowedMoveOrJump currentMove) {
 
     PositionXY startPosition = currentMove.getStartPosition();
     PositionXY endPosition = currentMove.getEndPosition();

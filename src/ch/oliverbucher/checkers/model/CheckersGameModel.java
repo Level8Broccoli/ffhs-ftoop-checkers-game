@@ -28,12 +28,12 @@ public class CheckersGameModel {
     this.markLayer = markLayer;
   }
 
-  public void setOpponent(PlayerType playerType) {
+  public final void setOpponent(PlayerType playerType) {
 
     Players.getPlayer(1).setPlayerType(playerType);
   }
 
-  public void clickEvent(int x, int y) {
+  public final void clickEvent(int x, int y) {
 
     final PositionXY currentClick = Positions.getPosition(x, y);
 
@@ -70,7 +70,7 @@ public class CheckersGameModel {
     }
   }
 
-  private void tryClickToMove(
+  private final void tryClickToMove(
       PositionXY currentClick, List<AllowedMoveOrJump> allAllowedMovesAndJumps) {
     final Map<PositionXY, AllowedMoveOrJump> possibleMovesEndingAt =
         MovesAndJumps.getEndPositionsFor(allAllowedMovesAndJumps, activeToken);
@@ -92,7 +92,7 @@ public class CheckersGameModel {
     clickToMove(currentClick, possibleMovesEndingAt);
   }
 
-  private void clickToMove(
+  private final void clickToMove(
       PositionXY currentClick, Map<PositionXY, AllowedMoveOrJump> possibleMovesEndingAt) {
     AllowedMoveOrJump currentMove = possibleMovesEndingAt.get(currentClick);
 

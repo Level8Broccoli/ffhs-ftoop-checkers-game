@@ -5,12 +5,13 @@ import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Token {
 
-  final Player playerOwner;
+  public final Player playerOwner;
 
-  Token(Player playerOwner) {
+  public Token(Player playerOwner) {
     this.playerOwner = playerOwner;
   }
 
@@ -18,7 +19,7 @@ public abstract class Token {
     return playerOwner.getPlayerColor().name();
   }
 
-  public abstract HashMap<PositionXY, HorizontalDirection> getPossibleMoves(
+  public abstract Map<PositionXY, HorizontalDirection> getPossibleMoves(
       PositionXY currentPosition);
 
   public Player getPlayerOwner() {
