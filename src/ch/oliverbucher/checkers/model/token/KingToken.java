@@ -18,8 +18,10 @@ public class KingToken extends Token {
     Map<PositionXY, Direction> possibleMoves = new HashMap<>();
 
     for (Direction direction : Direction.values()) {
+
+      PositionXY nextPosition = currentPosition;
       while (true) {
-        final PositionXY nextPosition = getNextPositionInDirection(currentPosition, direction);
+        nextPosition = getNextPositionInDirection(nextPosition, direction);
         if (nextPosition == null) {
           break;
         }

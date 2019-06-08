@@ -7,6 +7,7 @@ import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
+import ch.oliverbucher.checkers.model.token.KingToken;
 import ch.oliverbucher.checkers.model.token.StandardToken;
 import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
@@ -31,7 +32,7 @@ public class TokenLayer {
 
           if (boardLayer.get(currentPosition).isAllowed()) {
 
-            tokens.put(currentPosition, new StandardToken(players.players[1]));
+            tokens.put(currentPosition, new KingToken(players.players[1]));
           }
 
         } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
