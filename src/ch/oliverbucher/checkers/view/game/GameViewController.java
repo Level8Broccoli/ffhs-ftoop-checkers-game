@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 public class GameViewController implements Initializable {
 
     @FXML
-    private Button btnNewGame;
+    private Button btnRestartGame;
 
     @FXML
     private Button btnRules;
@@ -27,7 +27,7 @@ public class GameViewController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        btnNewGame.setOnAction(this::onClickNewGame);
+        btnRestartGame.setOnAction(this::onClickNewGame);
         btnRules.setOnAction(this::onClickShowRules);
     }
 
@@ -45,7 +45,7 @@ public class GameViewController implements Initializable {
 
     private void onClickNewGame(ActionEvent event) {
 
-        presenter.newGame();
+        presenter.restartGame();
     }
 
     public void setPresenter(CheckersGamePresenter presenter) {

@@ -44,6 +44,7 @@ public class CheckersGamePresenter extends Application {
     public void start(Stage primaryStage) throws Exception {
 
 //        TODO
+
         model = new CheckersGameModel();
 
         stage = primaryStage;
@@ -93,7 +94,7 @@ public class CheckersGamePresenter extends Application {
         drawBoard();
     }
 
-    public void newGame() {
+    public void restartGame() {
         model = new CheckersGameModel();
         stage.setScene(launchScene);
     }
