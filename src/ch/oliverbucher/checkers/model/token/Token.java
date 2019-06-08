@@ -17,16 +17,14 @@ public abstract class Token {
     return playerOwner.getPlayerColor().name();
   }
 
-  public abstract Map<PositionXY, Direction> getPossibleMoves(
-      PositionXY currentPosition);
+  public abstract Map<PositionXY, Direction> getPossibleMoves(PositionXY currentPosition);
 
   public Player getPlayerOwner() {
 
     return playerOwner;
   }
 
-  public PositionXY getNextPositionInDirection(
-      PositionXY currentPosition, Direction direction) {
+  public PositionXY getNextPositionInDirection(PositionXY currentPosition, Direction direction) {
 
     int targetPositionX = currentPosition.positionX;
     int targetPositionY = currentPosition.positionY;

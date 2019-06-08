@@ -36,7 +36,9 @@ public class PositionXY {
 
   public boolean isNotOutsideTheBoard() {
 
-    return positionX >= 0 && positionY >= 0 && positionX < Config.BOARD_WIDTH && positionY < Config.BOARD_HEIGHT;
-
+    return positionX >= 0
+        && positionY >= 0
+        && positionX < Config.BOARD_WIDTH
+        && positionY < Config.BOARD_HEIGHT;
   }
 }

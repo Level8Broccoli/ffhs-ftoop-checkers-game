@@ -17,8 +17,7 @@ public class TokenLayer {
 
   private Map<PositionXY, Token> tokens;
 
-  public final void generateTokenLayer(
-      BoardLayer boardLayer, Players players) {
+  public final void generateTokenLayer(BoardLayer boardLayer, Players players) {
 
     tokens = new HashMap<>();
 
@@ -46,8 +45,7 @@ public class TokenLayer {
     }
   }
 
-  public final AllowedMovesAndJumps getAllAllowedMovesAndJumps(
-      Player currentPlayer) {
+  public final AllowedMovesAndJumps getAllAllowedMovesAndJumps(Player currentPlayer) {
     return MovesAndJumps.getAllAllowedMovesAndJumps(tokens, currentPlayer);
   }
 

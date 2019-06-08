@@ -20,8 +20,7 @@ public class MovesAndJumps {
 
       if (currentToken.getPlayerOwner() == currentPlayer) {
 
-        Map<PositionXY, Direction> possibleMoves =
-            currentToken.getPossibleMoves(currentPosition);
+        Map<PositionXY, Direction> possibleMoves = currentToken.getPossibleMoves(currentPosition);
 
         for (PositionXY possibleMovePosition : possibleMoves.keySet()) {
 

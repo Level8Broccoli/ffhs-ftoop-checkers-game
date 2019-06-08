@@ -82,10 +82,7 @@ public class CheckersGamePresenter extends Application {
 
     tokenLayer.generateTokenLayer(boardLayer, players);
     markLayer.showAllowedTokens(
-        null,
-        tokenLayer
-            .getAllAllowedMovesAndJumps(players.currentPlayer)
-            .getMoreImportantMoves());
+        null, tokenLayer.getAllAllowedMovesAndJumps(players.currentPlayer).getMoreImportantMoves());
   }
 
   private void setUpLaunchScreen() throws Exception {
@@ -127,7 +124,8 @@ public class CheckersGamePresenter extends Application {
 
     Label lblMessage = (Label) gameScene.lookup("#lblMessage");
     if (model.whoIsTheWinner() != null) {
-      lblMessage.setText(Config.MSG_LOSER_IS + " " + model.whoIsTheWinner().getPlayerColor().name());
+      lblMessage.setText(
+          Config.MSG_LOSER_IS + " " + model.whoIsTheWinner().getPlayerColor().name());
     } else {
       lblMessage.setText("");
     }
