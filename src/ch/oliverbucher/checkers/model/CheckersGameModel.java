@@ -4,6 +4,7 @@ import ch.oliverbucher.checkers.model.layer.BoardLayer;
 import ch.oliverbucher.checkers.model.layer.MarkLayer;
 import ch.oliverbucher.checkers.model.layer.TokenLayer;
 import ch.oliverbucher.checkers.model.movesandjumps.AllowedMoveOrJump;
+import ch.oliverbucher.checkers.model.movesandjumps.AllowedMovesAndJumps;
 import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.players.Players;
@@ -13,6 +14,7 @@ import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class CheckersGameModel {
 
@@ -22,6 +24,7 @@ public class CheckersGameModel {
   private final Players players;
   private final Positions positions;
   private PositionXY activeToken;
+  private PositionXY currentClick;
   private boolean isSubsequentMove = false;
   private Player loser = null;
 
@@ -40,7 +43,7 @@ public class CheckersGameModel {
 
   public final void clickEvent(int x, int y) {
 
-    final PositionXY currentClick = positions.getPosition(x, y);
+    currentClick = positions.getPosition(x, y);
 
     // possibilities no matter what came before
     final String reason = getReasonWhyItIsNotGameChanging(currentClick);
@@ -58,10 +61,10 @@ public class CheckersGameModel {
       }
     }
 
-    updateUi(currentClick);
+    updateUi();
   }
 
-  private void updateUi(PositionXY currentClick) {
+  private void updateUi() {
     final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
         tokenLayer
             .getAllAllowedMovesAndJumps(players.currentPlayer, positions)
@@ -136,8 +139,38 @@ public class CheckersGameModel {
 
   private void endOfTurn() {
     activeToken = null;
-    players.nextPlayer();
     isSubsequentMove = false;
+
+    players.nextPlayer();
+
+    if (players.currentPlayer.isComputerPlayer()) {
+      updateUi();
+      computerMakeRandomMove();
+    }
+  }
+
+  private void computerMakeRandomMove() {
+    List<AllowedMoveOrJump> allowedMovesOrJumps = tokenLayer
+            .getAllAllowedMovesAndJumps(players.currentPlayer, positions).getMoreImportantMoves();
+
+    if (allowedMovesOrJumps.size() == 0) {
+      return;
+    }
+
+    final Random randomGenerator = new Random();
+    final int randomMoveNumber = randomGenerator.nextInt(allowedMovesOrJumps.size());
+    final AllowedMoveOrJump randomSelectedMove = allowedMovesOrJumps.get(randomMoveNumber);
+
+    final PositionXY startPosition = randomSelectedMove.getStartPosition();
+    final PositionXY endPosition = randomSelectedMove.getEndPosition();
+
+    clickEvent(startPosition.positionX, startPosition.positionY);
+    clickEvent(endPosition.positionX, endPosition.positionY);
+
+    if (players.currentPlayer.isComputerPlayer()) {
+      updateUi();
+      computerMakeRandomMove();
+    }
   }
 
   private void tryClickToActivateToken(

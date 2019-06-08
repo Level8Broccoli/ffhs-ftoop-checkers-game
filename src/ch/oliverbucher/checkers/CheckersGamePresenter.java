@@ -128,10 +128,11 @@ public class CheckersGamePresenter extends Application {
 
   private void drawBoard() {
 
+    Label lblMessage = (Label) gameScene.lookup("#lblMessage");
     if (model.whoIsTheWinner() != null) {
-      Label lblMessage = (Label) gameScene.lookup("#lblMessage");
-
       lblMessage.setText(Config.MSG_LOSER_IS + model.whoIsTheWinner().getPlayerColor().name());
+    } else {
+      lblMessage.setText("");
     }
 
     GridPane gridContainer = (GridPane) gameScene.lookup("#boardContainer");

@@ -24,7 +24,10 @@ public class Player {
   }
 
   public boolean isDirectionOfPlayUp() {
-
     return playerColor == PlayerColor.WHITE;
+  }
+
+  public boolean isComputerPlayer() {
+    return playerType == PlayerType.COMPUTER;
   }
 }
