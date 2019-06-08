@@ -8,7 +8,7 @@ import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
-import ch.oliverbucher.checkers.model.token.PlayerToken;
+import ch.oliverbucher.checkers.model.token.Token;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +56,7 @@ public class CheckersGameModel {
     final List<AllowedMoveOrJump> allAllowedMovesAndJumps =
         tokenLayer.getAllAllowedMovesAndJumps(currentPlayer).getMoreImportantMoves();
     if (activeToken == null) {
-      PlayerToken tokenAtClick = tokenLayer.getTokenAt(currentClick);
+      Token tokenAtClick = tokenLayer.getTokenAt(currentClick);
       if (tokenAtClick == null) {
         markLayer.showAllowedTokens(currentClick, allAllowedMovesAndJumps);
       } else {
@@ -124,7 +124,7 @@ public class CheckersGameModel {
   }
 
   private String getReasonWhyItIsNotGameChanging(PositionXY currentClick) {
-    PlayerToken currentToken = tokenLayer.getTokenAt(currentClick);
+    Token currentToken = tokenLayer.getTokenAt(currentClick);
     if (!boardLayer.get(currentClick).isAllowed()) {
       return "SPACE_IS_NOT_BEING_USED_FOR_THIS_GAME";
     } else if (currentToken != null && currentToken.getPlayerOwner() != currentPlayer) {

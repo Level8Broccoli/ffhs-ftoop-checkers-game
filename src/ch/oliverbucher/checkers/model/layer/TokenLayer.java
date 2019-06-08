@@ -6,14 +6,15 @@ import ch.oliverbucher.checkers.model.movesandjumps.MovesAndJumps;
 import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import ch.oliverbucher.checkers.model.position.Positions;
-import ch.oliverbucher.checkers.model.token.PlayerToken;
+import ch.oliverbucher.checkers.model.token.StandardToken;
+import ch.oliverbucher.checkers.model.token.Token;
 import ch.oliverbucher.checkers.resources.Config;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TokenLayer {
 
-  private Map<PositionXY, PlayerToken> tokens;
+  private Map<PositionXY, Token> tokens;
 
   public final void generateTokenLayer(BoardLayer boardLayer, Player[] player) {
 
@@ -29,14 +30,14 @@ public class TokenLayer {
 
           if (boardLayer.get(currentPosition).isAllowed()) {
 
-            tokens.put(currentPosition, new PlayerToken(player[1]));
+            tokens.put(currentPosition, new StandardToken(player[1]));
           }
 
         } else if (y >= Config.BOARD_HEIGHT - Config.START_ROWS) {
 
           if (boardLayer.get(currentPosition).isAllowed()) {
 
-            tokens.put(currentPosition, new PlayerToken(player[0]));
+            tokens.put(currentPosition, new StandardToken(player[0]));
           }
         }
       }
@@ -48,7 +49,7 @@ public class TokenLayer {
     return MovesAndJumps.getAllAllowedMovesAndJumps(tokens, currentPlayer);
   }
 
-  public final PlayerToken getTokenAt(PositionXY positionXY) {
+  public final Token getTokenAt(PositionXY positionXY) {
 
     return tokens.get(positionXY);
   }
@@ -63,7 +64,7 @@ public class TokenLayer {
       tokens.remove(opponentToken);
     }
 
-    PlayerToken currentToken = tokens.get(startPosition);
+    Token currentToken = tokens.get(startPosition);
     tokens.remove(startPosition);
     tokens.put(endPosition, currentToken);
   }

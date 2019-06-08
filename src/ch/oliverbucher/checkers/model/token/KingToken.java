@@ -5,14 +5,15 @@ import ch.oliverbucher.checkers.model.players.Player;
 import ch.oliverbucher.checkers.model.position.PositionXY;
 import java.util.Map;
 
-public class KingPlayerToken extends Token {
+public class KingToken extends Token {
 
-  KingPlayerToken(Player playerOwner) {
+  public KingToken(Player playerOwner) {
     super(playerOwner);
   }
 
   @Override
   public Map<PositionXY, HorizontalDirection> getPossibleMoves(PositionXY currentPosition) {
+
     return null;
   }
 }

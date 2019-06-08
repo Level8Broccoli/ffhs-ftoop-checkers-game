@@ -7,9 +7,9 @@ import ch.oliverbucher.checkers.model.position.Positions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PlayerToken extends Token {
+public class StandardToken extends Token {
 
-  public PlayerToken(Player playerOwner) {
+  public StandardToken(Player playerOwner) {
     super(playerOwner);
   }
 
