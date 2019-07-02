@@ -1,0 +1,121 @@
+#root {
+  -fx-padding: 20px;
+}
+
+#header {
+  -fx-alignment: center;
+  -fx-font-size: 50px;
+  -fx-font-weight: bold;
+}
+
+#main {
+  -fx-alignment: center;
+}
+
+#main * {
+  -fx-padding: 15px;
+}
+
+#main ToggleButton {
+  -fx-padding: 15px 30px;
+}
+
+Button {
+  -fx-padding: 15px 30px;
+}
+
+#footer {
+  -fx-alignment: bottom-right;
+}
+
+#boardContainer {
+  -fx-alignment: center;
+  -fx-border-width: 5px;
+  -fx-border-color: #333333;
+  -fx-max-width: 410px;
+  -fx-padding: 0;
+}
+
+#boardContainer * {
+  -fx-padding: 0;
+  -fx-background-radius: 0;
+  -fx-pref-width: 100px;
+  -fx-pref-height: 100px;
+}
+
+#boardContainer #token {
+  -fx-opacity: 0.3;
+}
+
+#boardContainer #WHITE {
+  -fx-background-radius: 50%;
+  -fx-background-insets: 10px;
+  -fx-background-color: #fff5ee;
+}
+
+#boardContainer #BLACK {
+  -fx-background-radius: 50%;
+  -fx-background-insets: 10px;
+  -fx-background-color: #333333;
+}
+
+#boardContainer #WHITE_KING {
+  -fx-background-radius: 50%;
+  -fx-background-insets: 10px;
+  -fx-background-color: #fff5ee;
+  -fx-border-width: 3px;
+  -fx-border-color: #fff5ee;
+  -fx-border-radius: 50%;
+  -fx-border-insets: 3px;
+}
+
+#boardContainer #BLACK_KING {
+  -fx-background-radius: 50%;
+  -fx-background-insets: 10px;
+  -fx-background-color: #333333;
+  -fx-border-width: 3px;
+  -fx-border-color: #333333;
+  -fx-border-radius: 50%;
+  -fx-border-insets: 3px;
+}
+
+#boardContainer #CURRENT_CLICK {
+  -fx-border-color: #f4a460;
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-radius: 3px;
+  -fx-border-width: 3px;
+}
+
+#boardContainer #POSSIBLE_MOVE {
+  -fx-background-color: #6b996b;
+}
+
+#boardContainer #TOKEN_COULD_MOVE_OR_JUMP {
+  -fx-border-color: #228B22;
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-radius: 3px;
+  -fx-border-width: 3px;
+}
+
+#boardContainer #TOKEN_MOVED {
+  -fx-border-color: #807166;
+  -fx-background-color: rgba(0, 0, 0, 0);
+  -fx-border-radius: 3px;
+  -fx-border-width: 3px;
+}
+
+#boardContainer #btnInteraction {
+  -fx-opacity: 0.1;
+}
+
+#boardContainer #LIGHT {
+  -fx-background-color: #fffaf0;
+}
+
+#boardContainer #DARK {
+  -fx-background-color: #808080;
+}
+
+#lblMessage {
+  -fx-text-fill: #b22222;
+}
